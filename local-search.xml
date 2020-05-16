@@ -4,13 +4,263 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2020/05/16/hello-world/"/>
-    <url>/2020/05/16/hello-world/</url>
+    <title>使用Sqoop导Mysql数据到Hbase报错</title>
+    <link href="/2020/04/15/sqoop1/"/>
+    <url>/2020/04/15/sqoop1/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="报错日志"><a href="#报错日志" class="headerlink" title="报错日志"></a>报错日志</h1><pre><code class="hljs xml">20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: Could not find HBase table hbase_company20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: This job may fail. Either explicitly create the table,20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: or re-run with --hbase-create-table.20/04/14 16:40:45 INFO zookeeper.ZooKeeper: Session: 0x36db06bc9c32fb9 closed20/04/14 16:40:45 INFO zookeeper.ClientCnxn: EventThread shut down</code></pre><h1 id="失败原因"><a href="#失败原因" class="headerlink" title="失败原因"></a>失败原因</h1><ul><li><p>使用sqoop导mysql数据到HDFS，不用在hive里面建表，在跑mr任务时候自动创建hive表</p></li><li><p>在用sqoop导mysql数据到HDFS，没有在Hbase建表</p></li><li><p>查询官方文档：sqoop1.4.7只支持HBase1.0.1之前的版本的自动创建HBase表的功能</p></li></ul><h1 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h1><ul><li><p>sqoop 版本1.4.7 </p></li><li><p>Hbase 版本2.1.1</p></li></ul><h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1、在hbase里面建表"><a href="#1、在hbase里面建表" class="headerlink" title="1、在hbase里面建表"></a>1、在hbase里面建表</h2><pre><code class="hljs bash">create <span class="hljs-string">'hbase_company'</span>,<span class="hljs-string">'info'</span>scan <span class="hljs-string">'hbase_company'</span></code></pre><h2 id="2、脚本添加参数"><a href="#2、脚本添加参数" class="headerlink" title="2、脚本添加参数"></a>2、脚本添加参数</h2><pre><code class="hljs bash">--hbase-create-table</code></pre><h1 id="附：导数据脚本"><a href="#附：导数据脚本" class="headerlink" title="附：导数据脚本"></a>附：导数据脚本</h1><pre><code class="hljs bash">bin/sqoop import \--connect jdbc:mysql://ip:3306/company \--username root \--password 000000 \--table company \--columns <span class="hljs-string">"id,name,sex"</span> \--column-family <span class="hljs-string">"info"</span> \--hbase-create-table \--hbase-row-key <span class="hljs-string">"id"</span> \--hbase-table <span class="hljs-string">"hbase_company"</span> \--num-mappers 1 \--split-by id</code></pre>]]></content>
     
     
+    <categories>
+      
+      <category>sqoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>sqoop</tag>
+      
+      <tag>解决问题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>GitHub is free for teams -终于等到你</title>
+    <link href="/2020/04/14/git1/"/>
+    <url>/2020/04/14/git1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="喜大普奔"><a href="#喜大普奔" class="headerlink" title="喜大普奔"></a>喜大普奔</h1><p>早上日常起来翻看GitHub，GitHub is free for teams！微软牛皮。<br><img src="http://q7jwslv80.bkt.clouddn.com/git1.png" srcset="/img/loading.gif" alt="GitHub"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>git</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+      <tag>github</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>博客导航</title>
+    <link href="/2020/03/28/%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA/"/>
+    <url>/2020/03/28/%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ClickHouse之深圳MeetUp</title>
+    <link href="/2019/10/25/clickhouse1-1/"/>
+    <url>/2019/10/25/clickhouse1-1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>俄罗斯小哥很帅</p><h1 id="纪要"><a href="#纪要" class="headerlink" title="纪要"></a>纪要</h1><h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><ul><li>Yandex团队clickhouse的新特性以及在机器学习方面的研究</li><li>腾讯</li><li>朱凯老师MergerTree</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>ClickHouse</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>clickhouse</tag>
+      
+      <tag>meetup</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hive50道sql必练题</title>
+    <link href="/2017/07/22/hive1-2/"/>
+    <url>/2017/07/22/hive1-2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>50道Hive之sql必练题，做完50道题会对HiveSql有一个比较深的认识，且附上答案以及验证结果。</p><h1 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h1><pre><code class="hljs sql"><span class="hljs-comment">-- 学生表</span><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student(s_id <span class="hljs-keyword">string</span>,s_name <span class="hljs-keyword">string</span>,s_birth <span class="hljs-keyword">string</span>,s_sex <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;<span class="hljs-comment">-- 课堂表</span><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> course(c_id <span class="hljs-keyword">string</span>,c_name <span class="hljs-keyword">string</span>,t_id <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;<span class="hljs-comment">-- 教师表</span><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> teacher(t_id <span class="hljs-keyword">string</span>,t_name <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;<span class="hljs-comment">-- 分数表</span><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> score(s_id <span class="hljs-keyword">string</span>,c_id <span class="hljs-keyword">string</span>,s_score <span class="hljs-built_in">int</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;</code></pre><h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><pre><code class="hljs bash">-- vim /opt/module/data/student.csv01,赵雷,1990-01-01,男02,钱电,1990-12-21,男03,孙风,1990-05-20,男04,李云,1990-08-06,男05,周梅,1991-12-01,女06,吴兰,1992-03-01,女07,郑竹,1989-07-01,女08,王菊,1990-01-20,女-- vim /opt/module/datas/course.csv01,语文,0202,数学,0103,英语,03-- vim /opt/module/datas/teacher.csv01,张三02,李四03,王五-- vim /opt/module/datas/score.csv01,01,8001,02,9001,03,9902,01,7002,02,6002,03,8003,01,8003,02,8003,03,8004,01,5004,02,3004,03,2005,01,7605,02,8706,01,3106,03,3407,02,8907,03,98</code></pre><h1 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h1><pre><code class="hljs sql"><span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/student.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> student;<span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/course.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> course;<span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/teacher.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> teacher;<span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/score.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> score;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hive</tag>
+      
+      <tag>sql</tag>
+      
+      <tag>练习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Ambari+HDP安装的Hive出现中文乱码解决</title>
+    <link href="/2017/07/21/hive1-1/"/>
+    <url>/2017/07/21/hive1-1/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>公司决定使用Ambari+HDP这一套大数据运维加部署框架去替代CDH，遇到一些问题会及时记录下来</p><h3 id="Hive注释comment出现乱码"><a href="#Hive注释comment出现乱码" class="headerlink" title="Hive注释comment出现乱码"></a>Hive注释comment出现乱码</h3><h5 id="Hive建表语句"><a href="#Hive建表语句" class="headerlink" title="Hive建表语句"></a>Hive建表语句</h5><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span>  test.mytest_tm1(              <span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> <span class="hljs-keyword">comment</span><span class="hljs-string">'编号'</span>,              <span class="hljs-keyword">name</span> <span class="hljs-keyword">string</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">'名字'</span>              )<span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\u0001'</span><span class="hljs-keyword">lines</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\n'</span><span class="hljs-keyword">stored</span> <span class="hljs-keyword">as</span> textfile;</code></pre><h5 id="Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码"><a href="#Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码" class="headerlink" title="Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码"></a>Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码</h5><p><img src="http://q7jwslv80.bkt.clouddn.com/ambari_1.png" srcset="/img/loading.gif" alt=""></p><h3 id="修改Mysql字符集-latin1-改成-utf-8"><a href="#修改Mysql字符集-latin1-改成-utf-8" class="headerlink" title="修改Mysql字符集 latin1 改成 utf-8"></a>修改Mysql字符集 latin1 改成 utf-8</h3><p>在hive库里面修改表、分区、视图</p><h5 id="修改表字段注解和表注解"><a href="#修改表字段注解和表注解" class="headerlink" title="修改表字段注解和表注解"></a>修改表字段注解和表注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">use</span> hive；<span class="hljs-comment"># mysql元数据库</span><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> COLUMNS_V2 <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> <span class="hljs-keyword">COMMENT</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8；<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> TABLE_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8；</code></pre><h5 id="修改分区字段注解"><a href="#修改分区字段注解" class="headerlink" title="修改分区字段注解"></a>修改分区字段注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> PARTITION_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8 ;<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> PARTITION_KEYS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PKEY_COMMENT <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8;</code></pre><h5 id="修改索引注解"><a href="#修改索引注解" class="headerlink" title="修改索引注解"></a>修改索引注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> INDEX_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8;</code></pre><h3 id="在ambari的UI页面修改-metastore-的连接-URL"><a href="#在ambari的UI页面修改-metastore-的连接-URL" class="headerlink" title="在ambari的UI页面修改 metastore 的连接 URL"></a>在ambari的UI页面修改 metastore 的连接 URL</h3><p>  注意修改完成后要重启Hive</p><pre><code class="hljs crystal"><span class="hljs-symbol">jdbc:</span><span class="hljs-symbol">mysql:</span>/<span class="hljs-regexp">/ip:3306/database</span>?createDatabaseIfNotExist=<span class="hljs-literal">true</span>&amp;amp;useUnicode=<span class="hljs-literal">true</span>&amp;characterEncoding=UTF-<span class="hljs-number">8</span></code></pre><p><img src="http://q7jwslv80.bkt.clouddn.com/ambari_2.png" srcset="/img/loading.gif" alt=""></p><h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><p>  注意：必须是新建hive表，就得表字符集已经不可改变。<br><img src="http://q7jwslv80.bkt.clouddn.com/ambari_3.png" srcset="/img/loading.gif" alt=""></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ambari</tag>
+      
+      <tag>hdp</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>数仓工具hive(二)：Hive安装部署</title>
+    <link href="/2017/05/29/hive2/"/>
+    <url>/2017/05/29/hive2/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>数仓工具Hive(一)：起源</title>
+    <link href="/2017/05/28/hive1/"/>
+    <url>/2017/05/28/hive1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="what-is-hive"><a href="#what-is-hive" class="headerlink" title="what is hive"></a>what is hive</h1><ul><li><p>官方文档</p><p>The Apache Hive ™ data warehouse software facilitates reading, writing, and managing large datasets residing in distributed storage using SQL. Structure can be projected onto data already in storage. A command line tool and JDBC driver are provided to connect users to Hive</p></li><li><p>释义</p><p>Apache Hive™数据仓库软件通过使用SQL读、写以及管理在分布式存储中的大型数据集。 可以将结构映射到已经存储的数据上。 提供了命令行工具和JDBC驱动程序将用户连接到Hive</p></li><li><p>起源</p><p>由Facebook开源用于解决海量结构化日志的数据统计，是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张表，并提供类SQL查询功能，而本质上是将HQL转化为MapReduce</p></li><li><p>HQL实现</p><ul><li>Hive处理的数据存储在HDFS</li><li>Hive分析数据底层实现为MapReduce</li><li>执行程序运行在Yarn上</li></ul></li></ul><h1 id="why-is-Hive"><a href="#why-is-Hive" class="headerlink" title="why is Hive"></a>why is Hive</h1><ul><li><p>优点</p><ul><li>操作接口采用类SQL语法，提供快速开发的能力（简单、容易上手）</li><li>避免了去写MapReduce，减少开发人员的学习成本</li><li>Hive的执行延迟比较高，因此Hive常用于数据分析，对实时性要求不高的场合。</li><li>Hive优势在于处理大数据，对于处理小数据没有优势，因为Hive的执行延迟比较高</li><li>Hive支持用户自定义函数，用户可以根据自己的需求来实现自己的函数</li></ul></li><li><p>缺点</p><ul><li>Hive的HQL表达能力有限，迭代式算法无法表达，数据挖掘方面不擅长</li><li>Hive的效率比较低，Hive自动生成的MapReduce作业，通常情况下不够智能化，Hive调优比较困难，粒度较粗</li></ul></li></ul><h1 id="Hive架构原理"><a href="#Hive架构原理" class="headerlink" title="Hive架构原理"></a>Hive架构原理</h1><p><img src="http://q7jwslv80.bkt.clouddn.com/hive1-1.jpg" srcset="/img/loading.gif" alt="Hive架构原理"></p><ul><li><p>用户接口</p><p>CLI（hive shell）、JDBC/ODBC(java访问hive)、WEBUI（浏览器访问hive）</p></li><li><p>元数据:Metastore</p><p>元数据包括：表名、表所属的数据库（默认是default）、表的拥有者、列/分区字段、表的类型（是否是外部表）、表的数据所在目录等</p></li><li><p>Hadoop</p><p>使用HDFS进行存储，使用MapReduce进行计算</p></li><li><p>驱动器Driver</p><ul><li>解析器（SQL Parser）：将SQL字符串转换成抽象语法树AST，这一步一般都用第三方工具库完成，比如antlr；对AST进行语法分析，比如表是否存在、字段是否存在、SQL语义是否有误</li><li>编译器（Physical Plan）：将AST编译生成逻辑执行计划</li><li>优化器（Query Optimizer）：对逻辑执行计划进行优化。</li><li>执行器（Execution）：把逻辑执行计划转换成可以运行的物理计划。对于Hive来说，就是MR/Spark</li></ul></li></ul><h1 id="Hive和数据库比较"><a href="#Hive和数据库比较" class="headerlink" title="Hive和数据库比较"></a>Hive和数据库比较</h1><p>  由于 Hive 采用了类似SQL 的查询语言 HQL(Hive Query Language)，因此很容易将 Hive 理解为数据库。其实从结构上来看，Hive 和数据库除了拥有类似的查询语言，再无类似之处。本文将从多个方面来阐述 Hive 和数据库的差异。数据库可以用在 Online 的应用中，但是Hive 是为数据仓库而设计的，清楚这一点，有助于从应用角度理解 Hive 的特性。</p><ul><li><p>查询语言</p><p>  由于SQL被广泛的应用在数据仓库中，因此，专门针对Hive的特性设计了类SQL的查询语言HQL。熟悉SQL开发的开发者可以很方便的使用Hive进行开发</p></li><li><p>Hive 是建立在 Hadoop 之上的，所有 Hive 的数据都是存储在 HDFS 中的。而数据库则可以将数据保存在块设备或者本地文件系统中</p></li><li><p>由于Hive是针对数据仓库应用设计的，而数据仓库的内容是读多写少的。因此，Hive中不建议对数据的改写，所有的数据都是在加载的时候确定好的。而数据库中的数据通常是需要经常进行修改的，因此可以使用 INSERT INTO … VALUES 添加数据，使用 UPDATE … SET修改数据</p></li><li><p>Hive在加载数据的过程中不会对数据进行任何处理，甚至不会对数据进行扫描，因此也没有对数据中的某些Key建立索引。Hive要访问数据中满足条件的特定值时，需要暴力扫描整个数据，因此访问延迟较高。由于 MapReduce 的引入， Hive 可以并行访问数据，因此即使没有索引，对于大数据量的访问，Hive 仍然可以体现出优势。数据库中，通常会针对一个或者几个列建立索引，因此对于少量的特定条件的数据的访问，数据库可以有很高的效率，较低的延迟。由于数据的访问延迟较高，决定了 Hive 不适合在线数据查询</p></li><li><p>Hive中大多数查询的执行是通过 Hadoop 提供的 MapReduce 来实现的。而数据库通常有自己的执行引擎</p></li><li><p>Hive 在查询数据的时候，由于没有索引，需要扫描整个表，因此延迟较高。另外一个导致 Hive 执行延迟高的因素是 MapReduce框架。由于MapReduce 本身具有较高的延迟，因此在利用MapReduce 执行Hive查询时，也会有较高的延迟。相对的，数据库的执行延迟较低。当然，这个低是有条件的，即数据规模较小，当数据规模大到超过数据库的处理能力的时候，Hive的并行计算显然能体现出优势</p></li><li><p>由于Hive是建立在Hadoop之上的，因此Hive的可扩展性是和Hadoop的可扩展性是一致的（世界上最大的Hadoop 集群在 Yahoo!，2009年的规模在4000 台节点左右）。而数据库由于 ACID 语义的严格限制，扩展行非常有限。目前最先进的并行数据库 Oracle 在理论上的扩展能力也只有100台左右</p></li><li><p>由于Hive建立在集群上并可以利用MapReduce进行并行计算，因此可以支持很大规模的数据；对应的，数据库可以支持的数据规模较小</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大数据生态Hadoop(三)：实现官方自带wordcount案例</title>
+    <link href="/2017/05/08/hadoop3/"/>
+    <url>/2017/05/08/hadoop3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Hadoop官方wordcount示例"><a href="#Hadoop官方wordcount示例" class="headerlink" title="Hadoop官方wordcount示例"></a>Hadoop官方wordcount示例</h1><p>前面的安装准备工作准备好之后，当然要实现下大数据之入门wordcount案例<br>提供版本JDK1.8+Hadoop2.7.2</p><h4 id="在hadoop-2-7-2文件下面创建一个input文件夹"><a href="#在hadoop-2-7-2文件下面创建一个input文件夹" class="headerlink" title="在hadoop-2.7.2文件下面创建一个input文件夹"></a>在hadoop-2.7.2文件下面创建一个input文件夹</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-variable">$mkdir</span> input</code></pre><h4 id="在wcinput文件下创建一个wc-input文件"><a href="#在wcinput文件下创建一个wc-input文件" class="headerlink" title="在wcinput文件下创建一个wc.input文件"></a>在wcinput文件下创建一个wc.input文件</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-built_in">cd</span> input[root@hadoop101 input]touch wc.input</code></pre><h4 id="编辑wc-input文件"><a href="#编辑wc-input文件" class="headerlink" title="编辑wc.input文件"></a>编辑wc.input文件</h4><pre><code class="hljs bash">[root@hadoop01 input]vim wc.input<span class="hljs-comment"># 文件内容</span>hadoopmapreduceyarnyarn</code></pre><h4 id="wc-input文件加载到hdfs"><a href="#wc-input文件加载到hdfs" class="headerlink" title="wc.input文件加载到hdfs"></a>wc.input文件加载到hdfs</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -put input/ /tmp/</code></pre><h4 id="运行官方jar包"><a href="#运行官方jar包" class="headerlink" title="运行官方jar包"></a>运行官方jar包</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /tmp/input/  /tmp/output/</code></pre><h4 id="查看wordcount统计词频"><a href="#查看wordcount统计词频" class="headerlink" title="查看wordcount统计词频"></a>查看wordcount统计词频</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -cat /tmp/output//part-r-00000<span class="hljs-comment"># 统计内容</span>hadoop1mapreduce1yarn2</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hadoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>study 实践</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大数据生态Hadoop(二)：hadoop安装部署</title>
+    <link href="/2017/05/07/hadoop2/"/>
+    <url>/2017/05/07/hadoop2/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Hadoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>study</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>大数据生态Hadoop(一)：起源</title>
+    <link href="/2017/05/05/hadoop1/"/>
+    <url>/2017/05/05/hadoop1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="What-is-Hadoop"><a href="#What-is-Hadoop" class="headerlink" title="What is Hadoop"></a>What is Hadoop</h1><ul><li>官方文档<br>The Apache™ Hadoop® project develops open-source software for reliable, scalable, distributed computing.</li><li>释义<br>Apache™Hadoop®项目开发用于可靠、可伸缩的分布式计算的开源软件。</li><li>广义<br>广义上来说，Hadoop通常是指一个更广泛的概念——Hadoop生态圈。</li></ul><h1 id="Hadoop起源"><a href="#Hadoop起源" class="headerlink" title="Hadoop起源"></a>Hadoop起源</h1><ul><li>Lucene框架是Doug Cutting开创的开源软件，用Java书写代码，实现与Google类似的全文搜索功能，它提供了全文检索引擎的架构，包括完整的查询引擎和索引引擎。</li><li>2001年年底Lucene成为Apache基金会的一个子项目。</li><li>对于海量数据的场景，Lucene面对与Google同样的困难，存储数据困难，检索速度慢。</li><li>可以说Google是Hadoop的思想之源(Google在大数据方面的三篇论文)<pre><code class="hljs applescript"><span class="hljs-comment"># Google三篇论文</span>GFS <span class="hljs-comment">---&gt;HDFS</span>Map-Reduce <span class="hljs-comment">---&gt;MR</span>BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li><li>2003-2004年，Google公开了部分GFS和MapReduce思想的细节，以此为基础Doug Cutting等人用了2年业余时间实现了DFS和MapReduce机制，使Nutch性能飙升。</li><li>2005 年Hadoop 作为 Lucene的子项目 Nutch的一部分正式引入Apache基金会。</li><li>2006 年 3 月份，Map-Reduce和Nutch Distributed File System (NDFS) 分别被纳入到 Hadoop 项目中，Hadoop就此正式诞生，标志着大数据时代来临，而名字来源于Doug Cutting儿子的玩具大象。</li></ul><h1 id="Hadoop三大发行版本"><a href="#Hadoop三大发行版本" class="headerlink" title="Hadoop三大发行版本"></a>Hadoop三大发行版本</h1><ul><li><a href="http://hadoop.apache.org/releases.html" target="_blank" rel="noopener">Apache Hadoop</a><br>版本最原始（最基础）的版本，对于入门学习最好。</li><li><a href="https://www.cloudera.com/downloads/cdh/5-10-0.html" target="_blank" rel="noopener">Cloudera Hadoop</a><br>在大型互联网企业中用的较多。</li><li><a href="https://hortonworks.com/products/data-center/hdp/" target="_blank" rel="noopener">Hortonworks Hadoop</a><br>文档完善、已经被CDH收购</li></ul><h1 id="Hadoop优势"><a href="#Hadoop优势" class="headerlink" title="Hadoop优势"></a>Hadoop优势</h1><ul><li>高可靠性<br>Hadoop底层维护多个数据副本，所以即使Hadoop某个计算元素或存储出现故障，也不会导致数据的丢失。</li><li>高扩展性<br>在集群间分配任务数据，可方便的扩展数以千计的节点。</li><li>高效性<br>在MapReduce的思想下，Hadoop是并行工作的，以加快任务处理速度。</li><li>高容错性<br>能够自动将失败的任务重新分配。</li></ul><h1 id="Hadoop组成"><a href="#Hadoop组成" class="headerlink" title="Hadoop组成"></a>Hadoop组成</h1><ul><li>HDFS<br>Hadoop分布式文件系统(HDFS)是指被设计成适合运行在通用硬件(commodity hardware)上的分布式文件系统（Distributed File System）</li><li>MapRedurce<br>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。概念”Map（映射）”和”Reduce（归约）”，是它们的主要思想，都是从函数式编程语言里借来的，还有从矢量编程语言里借来的特性。</li><li>Yarn<br>Apache Hadoop YARN （Yet Another Resource Negotiator，另一种资源协调者）是一种新的 Hadoop 资源管理器，它是一个通用资源管理系统，可为上层应用提供统一的资源管理和调度，它的引入为集群在利用率、资源统一管理和数据共享等方面带来了巨大好处。</li></ul><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul><li>商品广告推荐</li><li>保险</li><li>物流</li><li>旅游</li><li>…</li></ul><h1 id="Hadoop生态架构图"><a href="#Hadoop生态架构图" class="headerlink" title="Hadoop生态架构图"></a>Hadoop生态架构图</h1><p><img src="http://q7jwslv80.bkt.clouddn.com/hadoop_1_1.png" srcset="/img/loading.gif" alt="hadoop生态架构图"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hadoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>study</tag>
+      
+    </tags>
     
   </entry>
   

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>详解JPS命令</title>
+    <link href="/2070/05/17/java1/"/>
+    <url>/2070/05/17/java1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</p><h1 id="unix的ps命令"><a href="#unix的ps命令" class="headerlink" title="unix的ps命令"></a>unix的ps命令</h1><ul><li>用过unix系统里的ps命令，这个命令主要是用来显示当前系统的进程情况，有哪些进程，及其 id。 </li><li>jps也是一样，它的作用是显示当前系统的java进程情况，及其id号。我们可以通过它来查看我们到底启动了几个java进程，因为每一个java程序都会独占一个java虚拟机实例，和他们的进程号，并可通过opt来查看这些进程的详细启动参数。</li></ul><h1 id="JPS使用方法"><a href="#JPS使用方法" class="headerlink" title="JPS使用方法"></a>JPS使用方法</h1><h4 id="使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境"><a href="#使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境" class="headerlink" title="使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境."></a>使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境.</h4><p>命令：<code>jps</code></p><pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>AmbariServer<span class="hljs-symbol">29041 </span>TimelineReaderServer<span class="hljs-symbol">4082 </span>ServiceMaster<span class="hljs-symbol">32275 </span>Jps</code></pre><h1 id="常用的参数"><a href="#常用的参数" class="headerlink" title="常用的参数"></a>常用的参数</h1><h5 id="q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数"><a href="#q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数" class="headerlink" title="-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数"></a>-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数</h5><p>命令：<code>jpq -q</code></p><pre><code class="hljs angelscript"><span class="hljs-number">26177</span><span class="hljs-number">29041</span><span class="hljs-number">4082</span><span class="hljs-number">32741</span></code></pre><h4 id="m-输出传递给main-方法的参数，在嵌入式jvm上可能是null"><a href="#m-输出传递给main-方法的参数，在嵌入式jvm上可能是null" class="headerlink" title="-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null"></a>-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null</h4><p>命令：<code>jps -m</code></p><pre><code class="hljs basic"><span class="hljs-symbol">6177 </span>AmbariServer<span class="hljs-symbol">29041 </span>TimelineReaderServer<span class="hljs-symbol">32741 </span>RunJar /<span class="hljs-keyword">usr</span>/hdp/<span class="hljs-number">3.1.0.0</span>-<span class="hljs-number">78</span>/hive/lib/hive-metastore-<span class="hljs-number">3.1.0.3.1.0.0</span>-<span class="hljs-number">78.</span>jar org.apache.hadoop.hive.metastore.HiveMetaStore</code></pre><h4 id="l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名"><a href="#l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名" class="headerlink" title="-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名"></a>-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</h4><p>命令：<code>jps -l</code></p><pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>org.apache.ambari.server.controller.AmbariServer<span class="hljs-symbol">29041 </span>org.apache.hadoop.yarn.server.timelineservice.reader.TimelineReaderServer<span class="hljs-symbol">4082 </span>org.apache.hadoop.yarn.service.ServiceMaster</code></pre><h4 id="v-输出传递给JVM的参数"><a href="#v-输出传递给JVM的参数" class="headerlink" title="-v 输出传递给JVM的参数"></a>-v 输出传递给JVM的参数</h4><p>命令：<code>jps -v</code></p><pre><code class="hljs routeros">6177 AmbariServer -XX:<span class="hljs-attribute">NewRatio</span>=3 -XX:+UseConcMarkSweepGC -XX:-UseGCOverheadLimit -XX:<span class="hljs-attribute">CMSInitiatingOccupancyFraction</span>=60 -XX:+CMSClassUnloadingEnabled -Dsun.zip.<span class="hljs-attribute">disableMemoryMapping</span>=<span class="hljs-literal">true</span> -Xms512m -Xmx2048m -XX:<span class="hljs-attribute">MaxPermSize</span>=128m -Djava.security.auth.login.<span class="hljs-attribute">config</span>=/etc/ambari-server/conf/krb5JAASLogin.conf -Djava.security.krb5.<span class="hljs-attribute">conf</span>=/etc/krb5.conf -Djavax.security.auth.<span class="hljs-attribute">useSubjectCredsOnly</span>=<span class="hljs-literal">false</span> -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">protocol</span>=plain ssl -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">maxsize</span>=20 -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">timeout</span>=30000029041 TimelineReaderServer -Dproc_timelinereader -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Djava.net.<span class="hljs-attribute">preferIPv4Stack</span>=<span class="hljs-literal">true</span> -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Dyarn.id.str= -Dyarn.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Djava.io.<span class="hljs-attribute">tmpdir</span>=/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir -Dyarn.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dyarn.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dyarn.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop-yarn -Dyarn.root.<span class="hljs-attribute">logger</span>=INFO,console -Djava.library.<span class="hljs-attribute">path</span>=:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir:/usr/hdp/3.1.0.0-78/hadoop/lib/native -Xmx1024m -Dhadoop.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dhadoop.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dhadoop.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop -Dhadoop.id.<span class="hljs-attribute">str</span>=yarn -Dhadoop.root.<span class="hljs-attribute">logger</span>=INFO,RFA -Dhadoop.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Dhadoop.security.<span class="hljs-attribute">logger</span>=INFO,NullAppender</code></pre><h4 id="附详JPS细文档"><a href="#附详JPS细文档" class="headerlink" title="附详JPS细文档"></a><a href="https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jps.html" target="_blank" rel="noopener">附详JPS细文档</a></h4>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>工具</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2020年5月日记</title>
     <link href="/2020/05/01/202005/"/>
     <url>/2020/05/01/202005/</url>

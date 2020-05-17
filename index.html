@@ -344,8 +344,6 @@ Yandex团队clickhouse的新特性以及在机器学习方面的研究
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/clickhouse/">clickhouse</a>
-            
               <a href="/tags/meetup/">meetup</a>
             
           </div>
@@ -453,6 +451,45 @@ row</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2017/06/04/hive4/">数仓工具hive(四)：Hive文件存储格式以及优缺点</a>
+
+      <a href="/2017/06/04/hive4/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。
+行与列存储的特点行存储的特点查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。
+列存储的特点因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2017-06-04
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/hive%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5/">hive存储策略</a>
+            
+              <a href="/tags/categories/">categories</a>
+            
+              <a href="/tags/Hive/">Hive</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2017/05/29/hive2/">数仓工具hive(二)：Hive安装部署</a>
 
       <a href="/2017/05/29/hive2/" class="index-excerpt">
@@ -516,54 +553,6 @@ The Apache Hive ™ data warehouse software facilitates reading, writing, and ma
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%B5%B7%E6%BA%90/">起源</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2017/05/08/hadoop3/" target="_self">
-          <img src="https://i.loli.net/2020/05/16/SbDEKusTPltNL5z.jpg" srcset="/img/loading.gif" alt="大数据生态Hadoop(三)：实现官方自带wordcount案例">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2017/05/08/hadoop3/">大数据生态Hadoop(三)：实现官方自带wordcount案例</a>
-
-      <a href="/2017/05/08/hadoop3/" class="index-excerpt">
-        
-        
-          
-        
-        <div>Hadoop官方wordcount示例前面的安装准备工作准备好之后，当然要实现下大数据之入门wordcount案例提供版本JDK1.8+Hadoop2.7.2
-在hadoop-2.7.2文件下面创建一个input文件夹[root@hadoop101 hadoop-2.7.2]$mkdir input
-在wcinput文件下创建一个wc.input文件[root@hadoop101 hadoop-2</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-05-08
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AE%9E%E8%B7%B5/">实践</a>
             
           </div>
         

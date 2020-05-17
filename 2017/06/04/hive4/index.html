@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
-  <title>Ambari+HDP安装的Hive出现中文乱码解决 - 曾俊峰的技术博客</title>
+  <title>数仓工具hive(四)：Hive文件存储格式以及优缺点 - 曾俊峰的技术博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2017-07-21 23:56">
-                    2017年7月21日 晚上
+                  <time datetime="2017-06-04 18:52">
+                    2017年6月4日 晚上
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    271 字
+                    954 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    3
+                    10
                      分钟
                   </span>
                 
@@ -182,44 +182,54 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>公司决定使用Ambari+HDP这一套大数据运维加部署框架去替代CDH，遇到一些问题会及时记录下来</p>
-<h3 id="Hive注释comment出现乱码"><a href="#Hive注释comment出现乱码" class="headerlink" title="Hive注释comment出现乱码"></a>Hive注释comment出现乱码</h3><h5 id="Hive建表语句"><a href="#Hive建表语句" class="headerlink" title="Hive建表语句"></a>Hive建表语句</h5><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span>  test.mytest_tm1(
-              <span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span> <span class="hljs-keyword">comment</span><span class="hljs-string">'编号'</span>,
-              <span class="hljs-keyword">name</span> <span class="hljs-keyword">string</span> <span class="hljs-keyword">comment</span> <span class="hljs-string">'名字'</span>
-              )
-<span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\u0001'</span>
-<span class="hljs-keyword">lines</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\n'</span>
-<span class="hljs-keyword">stored</span> <span class="hljs-keyword">as</span> textfile;</code></pre>
-<h5 id="Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码"><a href="#Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码" class="headerlink" title="Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码"></a>Hive的元数据存在Mysql中，而Mysql字符集的默认Latin1，则会出现乱码</h5><p><img src="https://i.loli.net/2020/05/17/jTSHORqgXmnyAb4.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="修改Mysql字符集-latin1-改成-utf-8"><a href="#修改Mysql字符集-latin1-改成-utf-8" class="headerlink" title="修改Mysql字符集 latin1 改成 utf-8"></a>修改Mysql字符集 latin1 改成 utf-8</h3><p>在hive库里面修改表、分区、视图</p>
-<h5 id="修改表字段注解和表注解"><a href="#修改表字段注解和表注解" class="headerlink" title="修改表字段注解和表注解"></a>修改表字段注解和表注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">use</span> hive；<span class="hljs-comment"># mysql元数据库</span>
-<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> COLUMNS_V2 <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> <span class="hljs-keyword">COMMENT</span> <span class="hljs-built_in">varchar</span>(<span class="hljs-number">256</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8；
-<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> TABLE_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8；</code></pre>
-<h5 id="修改分区字段注解"><a href="#修改分区字段注解" class="headerlink" title="修改分区字段注解"></a>修改分区字段注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> PARTITION_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8 ;
-<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> PARTITION_KEYS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PKEY_COMMENT <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8;</code></pre>
-<h5 id="修改索引注解"><a href="#修改索引注解" class="headerlink" title="修改索引注解"></a>修改索引注解</h5><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> INDEX_PARAMS <span class="hljs-keyword">modify</span> <span class="hljs-keyword">column</span> PARAM_VALUE <span class="hljs-built_in">varchar</span>(<span class="hljs-number">4000</span>) <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8;</code></pre>
-<h3 id="在ambari的UI页面修改-metastore-的连接-URL"><a href="#在ambari的UI页面修改-metastore-的连接-URL" class="headerlink" title="在ambari的UI页面修改 metastore 的连接 URL"></a>在ambari的UI页面修改 metastore 的连接 URL</h3><p>  注意修改完成后要重启Hive</p>
-<pre><code class="hljs crystal"><span class="hljs-symbol">jdbc:</span><span class="hljs-symbol">mysql:</span>/<span class="hljs-regexp">/ip:3306/database</span>?createDatabaseIfNotExist=<span class="hljs-literal">true</span>&amp;amp;useUnicode=<span class="hljs-literal">true</span>&amp;characterEncoding=UTF-<span class="hljs-number">8</span></code></pre>
-<p><img src="https://i.loli.net/2020/05/17/Zrbyo62eTQPnhRd.png" srcset="/img/loading.gif" alt=""></p>
-<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><p>  注意：必须是新建hive表，就得表字符集已经不可改变。<br><img src="https://i.loli.net/2020/05/17/NIz4uMsr3KvJOCy.png" srcset="/img/loading.gif" alt=""></p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p>
+<h1 id="行与列存储的特点"><a href="#行与列存储的特点" class="headerlink" title="行与列存储的特点"></a>行与列存储的特点</h1><h2 id="行存储的特点"><a href="#行存储的特点" class="headerlink" title="行存储的特点"></a>行存储的特点</h2><p>查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p>
+<h2 id="列存储的特点"><a href="#列存储的特点" class="headerlink" title="列存储的特点"></a>列存储的特点</h2><p>因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p>
+<h1 id="Hive文件存储格式以及优缺点"><a href="#Hive文件存储格式以及优缺点" class="headerlink" title="Hive文件存储格式以及优缺点"></a>Hive文件存储格式以及优缺点</h1><h2 id="textfile"><a href="#textfile" class="headerlink" title="textfile"></a>textfile</h2><ul>
+<li>默认的文件格式，行存储。建表时不指定存储格式即为textfile，导入数据时把数据文件拷贝至hdfs不进行处理</li>
+<li>优点：最简单的数据格式，便于和其他工具（Pig, grep, sed, awk）共享数据，便于查看和编辑；加载较快</li>
+<li>缺点：耗费存储空间，I/O性能较低；Hive不进行数据切分合并，不能进行并行操作，查询效率低</li>
+<li>场景：适用于小型查询，查看具体数据内容的测试操作</li>
+</ul>
+<h2 id="sequencefile"><a href="#sequencefile" class="headerlink" title="sequencefile"></a>sequencefile</h2><ul>
+<li>含有键值对的二进制文件，行存储</li>
+<li>优点：可压缩、可分割，优化磁盘利用率和I/O；可并行操作数据，查询效率高</li>
+<li>缺点：存储空间消耗最大；对于Hadoop生态系统之外的工具不适用，需要通过text文件转化加载</li>
+<li>场景：适用于数据量较小、大部分列的查询</li>
+</ul>
+<h2 id="rcfile"><a href="#rcfile" class="headerlink" title="rcfile"></a>rcfile</h2><ul>
+<li>存储模式：按列存储，采用行组模式对数据进行存储(数据按行分块,每块按照列存储)</li>
+<li>存储结构：包括(16字节的HDFS同步块信息以及元数据的头部信息主要包括该行组内的存储的行数、列的字段信息)</li>
+<li>存储空间：采用游程编码</li>
+<li>优点：可压缩，高效的列存取；查询效率较高</li>
+<li>缺点：加载时性能消耗较大，需要通过text文件转化加载；读取全量数据性能低</li>
+<li>场景：多数用于存储需要“长期留存”的数据文件</li>
+</ul>
+<h2 id="orcfile"><a href="#orcfile" class="headerlink" title="orcfile"></a>orcfile</h2><ul>
+<li>存储模式：按列存储，所有列存在一个文件中，</li>
+<li>每个ORC文件首先会被横向切分成多个Stripe，而每个Stripe内部以列存储，所有的列存储在一个文件中，而且每个stripe默认的大小是250MB，相对于RCFile默认的行组大小是4MB，所以比RCFile更高效。Postscripts中存储该表的行数，压缩参数，压缩大小，列等信息；Stripe Footer中包含该stripe的统计结果，包括Max，Min，count等信息；FileFooter中包含该表的统计结果，以及各个Stripe的位置信息；IndexData中保存了该stripe上数据的位置信息，总行数等信息；RowData以stream的形式保存了数据的具体信息</li>
+<li>除了游程编码，引入了字典编码和Bit编码</li>
+<li>场景：适用于Hive中大型的存储、查询</li>
+</ul>
+<h2 id="parquet"><a href="#parquet" class="headerlink" title="parquet"></a>parquet</h2><ul>
+<li>存储模式：按列存储，Parquet文件是以二进制方式存储的，不可以直接读取和修改的，文件是自解析的，文件中包括该文件的数据和元数据</li>
+<li>存储结构：行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，在一个HDFS文件中至少存储一个行组，Parquet读写的时候会将整个行组缓存在内存中，所以如果每一个行组的大小是由内存大的小决定的</li>
+</ul>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Hive/">Hive</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/ambari/">ambari</a>
+                      <a class="hover-with-bg" href="/tags/hive%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5/">hive存储策略</a>
+                    
+                      <a class="hover-with-bg" href="/tags/categories/">categories</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Hive/">Hive</a>
                     
                   </div>
                 
@@ -232,9 +242,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2017/07/22/hive1-2/">
+                      <a href="/2017/07/21/hive1-1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hive50道sql必练题</span>
+                        <span class="hidden-mobile">Ambari+HDP安装的Hive出现中文乱码解决</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -242,8 +252,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2017/06/04/hive4/">
-                        <span class="hidden-mobile">数仓工具hive(四)：Hive文件存储格式以及优缺点</span>
+                      <a href="/2017/05/29/hive2/">
+                        <span class="hidden-mobile">数仓工具hive(二)：Hive安装部署</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -383,7 +393,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Ambari+HDP安装的Hive出现中文乱码解决&nbsp;",
+        "数仓工具hive(四)：Hive文件存储格式以及优缺点&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

@@ -108,8 +108,6 @@
     
     <tags>
       
-      <tag>clickhouse</tag>
-      
       <tag>meetup</tag>
       
     </tags>
@@ -161,6 +159,29 @@
     <tags>
       
       <tag>ambari</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>数仓工具hive(四)：Hive文件存储格式以及优缺点</title>
+    <link href="/2017/06/04/hive4/"/>
+    <url>/2017/06/04/hive4/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。</p><h1 id="行与列存储的特点"><a href="#行与列存储的特点" class="headerlink" title="行与列存储的特点"></a>行与列存储的特点</h1><h2 id="行存储的特点"><a href="#行存储的特点" class="headerlink" title="行存储的特点"></a>行存储的特点</h2><p>查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。</p><h2 id="列存储的特点"><a href="#列存储的特点" class="headerlink" title="列存储的特点"></a>列存储的特点</h2><p>因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每个字段的数据类型一定是相同的，列式存储可以针对性的设计更好的设计压缩算法。</p><h1 id="Hive文件存储格式以及优缺点"><a href="#Hive文件存储格式以及优缺点" class="headerlink" title="Hive文件存储格式以及优缺点"></a>Hive文件存储格式以及优缺点</h1><h2 id="textfile"><a href="#textfile" class="headerlink" title="textfile"></a>textfile</h2><ul><li>默认的文件格式，行存储。建表时不指定存储格式即为textfile，导入数据时把数据文件拷贝至hdfs不进行处理</li><li>优点：最简单的数据格式，便于和其他工具（Pig, grep, sed, awk）共享数据，便于查看和编辑；加载较快</li><li>缺点：耗费存储空间，I/O性能较低；Hive不进行数据切分合并，不能进行并行操作，查询效率低</li><li>场景：适用于小型查询，查看具体数据内容的测试操作</li></ul><h2 id="sequencefile"><a href="#sequencefile" class="headerlink" title="sequencefile"></a>sequencefile</h2><ul><li>含有键值对的二进制文件，行存储</li><li>优点：可压缩、可分割，优化磁盘利用率和I/O；可并行操作数据，查询效率高</li><li>缺点：存储空间消耗最大；对于Hadoop生态系统之外的工具不适用，需要通过text文件转化加载</li><li>场景：适用于数据量较小、大部分列的查询</li></ul><h2 id="rcfile"><a href="#rcfile" class="headerlink" title="rcfile"></a>rcfile</h2><ul><li>存储模式：按列存储，采用行组模式对数据进行存储(数据按行分块,每块按照列存储)</li><li>存储结构：包括(16字节的HDFS同步块信息以及元数据的头部信息主要包括该行组内的存储的行数、列的字段信息)</li><li>存储空间：采用游程编码</li><li>优点：可压缩，高效的列存取；查询效率较高</li><li>缺点：加载时性能消耗较大，需要通过text文件转化加载；读取全量数据性能低</li><li>场景：多数用于存储需要“长期留存”的数据文件</li></ul><h2 id="orcfile"><a href="#orcfile" class="headerlink" title="orcfile"></a>orcfile</h2><ul><li>存储模式：按列存储，所有列存在一个文件中，</li><li>每个ORC文件首先会被横向切分成多个Stripe，而每个Stripe内部以列存储，所有的列存储在一个文件中，而且每个stripe默认的大小是250MB，相对于RCFile默认的行组大小是4MB，所以比RCFile更高效。Postscripts中存储该表的行数，压缩参数，压缩大小，列等信息；Stripe Footer中包含该stripe的统计结果，包括Max，Min，count等信息；FileFooter中包含该表的统计结果，以及各个Stripe的位置信息；IndexData中保存了该stripe上数据的位置信息，总行数等信息；RowData以stream的形式保存了数据的具体信息</li><li>除了游程编码，引入了字典编码和Bit编码</li><li>场景：适用于Hive中大型的存储、查询</li></ul><h2 id="parquet"><a href="#parquet" class="headerlink" title="parquet"></a>parquet</h2><ul><li>存储模式：按列存储，Parquet文件是以二进制方式存储的，不可以直接读取和修改的，文件是自解析的，文件中包括该文件的数据和元数据</li><li>存储结构：行组(Row Group)：按照行将数据物理上划分为多个单元，每一个行组包含一定的行数，在一个HDFS文件中至少存储一个行组，Parquet读写的时候会将整个行组缓存在内存中，所以如果每一个行组的大小是由内存大的小决定的</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>hive存储策略</tag>
+      
+      <tag>categories</tag>
+      
+      <tag>Hive</tag>
       
     </tags>
     

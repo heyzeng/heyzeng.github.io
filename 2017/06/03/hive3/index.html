@@ -289,8 +289,8 @@
     <span class="hljs-attr">"children"</span>: &#123;                      <span class="hljs-comment">//键值Map,</span>
         <span class="hljs-attr">"xiao song"</span>: <span class="hljs-number">18</span> ,
         <span class="hljs-attr">"xiaoxiao song"</span>: <span class="hljs-number">19</span>
-    &#125;
-    <span class="hljs-string">"address"</span>: &#123;                      <span class="hljs-comment">//结构Struct,</span>
+    &#125;,
+    <span class="hljs-attr">"address"</span>: &#123;                      <span class="hljs-comment">//结构Struct,</span>
         <span class="hljs-attr">"street"</span>: <span class="hljs-string">"hui long guan"</span> ,
         <span class="hljs-attr">"city"</span>: <span class="hljs-string">"beijing"</span> 
     &#125;
@@ -344,7 +344,11 @@ OK
 _c0     _c1     city
 lili    <span class="hljs-number">18</span>      beijing
 <span class="hljs-type">Time</span> taken: <span class="hljs-number">0.076</span> seconds, Fetched: <span class="hljs-number">1</span> <span class="hljs-keyword">row</span>(s)</code></pre>
-<h1 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h1>Hive的原子数据类型是可以进行隐式转换的，类似于Java的类型转换，例如某表达式使用INT类型，TINYINT会自动转换为INT类型，但是Hive不会进行反向转化，例如，某表达式使用TINYINT类型，INT不会自动转换为TINYINT类型，它会返回错误，除非使用CAST操作.<h2 id="隐式类型转换规则如下"><a href="#隐式类型转换规则如下" class="headerlink" title="隐式类型转换规则如下"></a>隐式类型转换规则如下</h2></li>
+
+</li>
+</ul>
+<h1 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h1><p>Hive的原子数据类型是可以进行隐式转换的，类似于Java的类型转换，例如某表达式使用INT类型，TINYINT会自动转换为INT类型，但是Hive不会进行反向转化，例如，某表达式使用TINYINT类型，INT不会自动转换为TINYINT类型，它会返回错误，除非使用CAST操作.</p>
+<h2 id="隐式类型转换规则如下"><a href="#隐式类型转换规则如下" class="headerlink" title="隐式类型转换规则如下"></a>隐式类型转换规则如下</h2><ul>
 <li>任何整数类型都可以隐式地转换为一个范围更广的类型，如TINYINT可以转换成INT，INT可以转换成BIGINT。</li>
 <li>所有整数类型、FLOAT和STRING类型都可以隐式地转换成DOUBLE</li>
 <li>TINYINT、SMALLINT、INT都可以转换为FLOAT</li>

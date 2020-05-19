@@ -344,9 +344,9 @@ OK
 _c0     _c1     city
 lili    <span class="hljs-number">18</span>      beijing
 <span class="hljs-type">Time</span> taken: <span class="hljs-number">0.076</span> seconds, Fetched: <span class="hljs-number">1</span> <span class="hljs-keyword">row</span>(s)</code></pre>
-
 </li>
 </ul>
+<hr>
 <h1 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h1><p>Hive的原子数据类型是可以进行隐式转换的，类似于Java的类型转换，例如某表达式使用INT类型，TINYINT会自动转换为INT类型，但是Hive不会进行反向转化，例如，某表达式使用TINYINT类型，INT不会自动转换为TINYINT类型，它会返回错误，除非使用CAST操作.</p>
 <h2 id="隐式类型转换规则如下"><a href="#隐式类型转换规则如下" class="headerlink" title="隐式类型转换规则如下"></a>隐式类型转换规则如下</h2><ul>
 <li>任何整数类型都可以隐式地转换为一个范围更广的类型，如TINYINT可以转换成INT，INT可以转换成BIGINT。</li>

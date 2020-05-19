@@ -252,7 +252,10 @@
 <td></td>
 </tr>
 </tbody></table>
-<h3 id="对于Hive的String类型相当于数据库的varchar类型，该类型是一个可变的字符串，不过它不能声明其中最多能存储多少个字符，理论上它可以存储2GB的字符数。"><a href="#对于Hive的String类型相当于数据库的varchar类型，该类型是一个可变的字符串，不过它不能声明其中最多能存储多少个字符，理论上它可以存储2GB的字符数。" class="headerlink" title="对于Hive的String类型相当于数据库的varchar类型，该类型是一个可变的字符串，不过它不能声明其中最多能存储多少个字符，理论上它可以存储2GB的字符数。"></a>对于Hive的String类型相当于数据库的varchar类型，该类型是一个可变的字符串，不过它不能声明其中最多能存储多少个字符，理论上它可以存储2GB的字符数。</h3><h1 id="集合数据类型"><a href="#集合数据类型" class="headerlink" title="集合数据类型"></a>集合数据类型</h1><table>
+<ul>
+<li>对于Hive的String类型相当于数据库的varchar类型，该类型是一个可变的字符串，不过它不能声明其中最多能存储多少个字符，理论上它可以存储2GB的字符数。</li>
+</ul>
+<h1 id="集合数据类型"><a href="#集合数据类型" class="headerlink" title="集合数据类型"></a>集合数据类型</h1><table>
 <thead>
 <tr>
 <th>数据类型</th>
@@ -275,12 +278,10 @@
 <td>数组是一组具有相同类型和名称的变量的集合。这些变量称为数组的元素，每个数组元素都有一个编号，编号从零开始。例如，数组值为[‘John’, ‘Doe’]，那么第2个元素可以通过数组名[1]进行引用。</td>
 <td>Array()</td>
 </tr>
-<tr>
-<td>### Hive有三种复杂数据类型ARRAY、MAP和STRUCT。ARRAY和MAP与Java中的Array和Map类似，而STRUCT与C语言中的Struct类似，它封装了一个命名字段集合，复杂数据类型允许任意层次的嵌套。</td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<ul>
+<li>Hive有三种复杂数据类型ARRAY、MAP和STRUCT。ARRAY和MAP与Java中的Array和Map类似，而STRUCT与C语言中的Struct类似，它封装了一个命名字段集合，复杂数据类型允许任意层次的嵌套。</li>
+</ul>
 <h2 id="案例实操"><a href="#案例实操" class="headerlink" title="案例实操"></a>案例实操</h2><ul>
 <li>假设某表有如下一行，我们用JSON格式来表示其数据结构。在Hive下访问的格式为<pre><code class="hljs json">&#123;
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"songsong"</span>,

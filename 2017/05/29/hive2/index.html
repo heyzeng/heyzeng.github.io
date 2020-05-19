@@ -221,9 +221,9 @@ hive&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">creat
 <li>向表中插入数据<pre><code class="hljs n1ql">hive&gt; <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student <span class="hljs-keyword">values</span>(<span class="hljs-number">1000</span>,<span class="hljs-string">"ss"</span>);</code></pre></li>
 <li>查询表中数据<pre><code class="hljs n1ql">hive&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> student;</code></pre></li>
 <li>退出hive<pre><code class="hljs abnf">hive&gt; quit<span class="hljs-comment">;</span></code></pre>
-
 </li>
 </ul>
+<hr>
 <h1 id="将本地文件导入Hive案例"><a href="#将本地文件导入Hive案例" class="headerlink" title="将本地文件导入Hive案例"></a>将本地文件导入Hive案例</h1><ul>
 <li>需求 </li>
 </ul>
@@ -276,11 +276,11 @@ hive&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">creat
         <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.metadata</span><span class="hljs-selector-class">.Hive</span><span class="hljs-selector-class">.getMSC</span>(<span class="hljs-selector-tag">Hive</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:3024)</span>
         <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.session</span><span class="hljs-selector-class">.SessionState</span><span class="hljs-selector-class">.start</span>(<span class="hljs-selector-tag">SessionState</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:503)</span>
 ... 8 <span class="hljs-selector-tag">more</span></code></pre>
-
 </li>
 </ul>
 </li>
 </ul>
+<hr>
 <h1 id="Hive元数据配置到MySQL"><a href="#Hive元数据配置到MySQL" class="headerlink" title="Hive元数据配置到MySQL"></a>Hive元数据配置到MySQL</h1><h2 id="驱动拷贝"><a href="#驱动拷贝" class="headerlink" title="驱动拷贝"></a>驱动拷贝</h2><ul>
 <li>拷贝/opt/software/mysql-libs/mysql-connector-java-5.1.27目录下的mysql-connector-java-5.1.27-bin.jar到/opt/module/hive/lib/<pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 mysql-connector-java<span class="hljs-number">-5.1</span><span class="hljs-number">.27</span>]# cp mysql-connector-java<span class="hljs-number">-5.1</span><span class="hljs-number">.27</span>-bin.jar
  /opt/module/hive/lib/</code></pre>

@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
-  <title>详解JPS命令 - 曾俊峰的技术博客</title>
+  <title>Linux(二)：VI和VIM编辑器 - 曾俊峰的技术博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2015-05-17 19:22">
-                    2015年5月17日 晚上
+                  <time datetime="2015-02-23 12:34">
+                    2015年2月23日 下午
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    646 字
+                    680 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    10
+                    7
                      分钟
                   </span>
                 
@@ -182,33 +182,161 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</p>
-<h1 id="unix的ps命令"><a href="#unix的ps命令" class="headerlink" title="unix的ps命令"></a>unix的ps命令</h1><ul>
-<li>用过unix系统里的ps命令，这个命令主要是用来显示当前系统的进程情况，有哪些进程，及其 id。 </li>
-<li>jps也是一样，它的作用是显示当前系统的java进程情况，及其id号。我们可以通过它来查看我们到底启动了几个java进程，因为每一个java程序都会独占一个java虚拟机实例，和他们的进程号，并可通过opt来查看这些进程的详细启动参数。</li>
-</ul>
-<h1 id="JPS使用方法"><a href="#JPS使用方法" class="headerlink" title="JPS使用方法"></a>JPS使用方法</h1><h4 id="使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境"><a href="#使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境" class="headerlink" title="使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境."></a>使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境.</h4><p>命令：<code>jps</code></p>
-<pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>AmbariServer
-<span class="hljs-symbol">29041 </span>TimelineReaderServer
-<span class="hljs-symbol">4082 </span>ServiceMaster
-<span class="hljs-symbol">32275 </span>Jps</code></pre>
-<h1 id="常用的参数"><a href="#常用的参数" class="headerlink" title="常用的参数"></a>常用的参数</h1><h5 id="q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数"><a href="#q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数" class="headerlink" title="-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数"></a>-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数</h5><p>命令：<code>jpq -q</code></p>
-<pre><code class="hljs angelscript"><span class="hljs-number">26177</span>
-<span class="hljs-number">29041</span>
-<span class="hljs-number">4082</span>
-<span class="hljs-number">32741</span></code></pre>
-<h4 id="m-输出传递给main-方法的参数，在嵌入式jvm上可能是null"><a href="#m-输出传递给main-方法的参数，在嵌入式jvm上可能是null" class="headerlink" title="-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null"></a>-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null</h4><p>命令：<code>jps -m</code></p>
-<pre><code class="hljs basic"><span class="hljs-symbol">6177 </span>AmbariServer
-<span class="hljs-symbol">29041 </span>TimelineReaderServer
-<span class="hljs-symbol">32741 </span>RunJar /<span class="hljs-keyword">usr</span>/hdp/<span class="hljs-number">3.1.0.0</span>-<span class="hljs-number">78</span>/hive/lib/hive-metastore-<span class="hljs-number">3.1.0.3.1.0.0</span>-<span class="hljs-number">78.</span>jar org.apache.hadoop.hive.metastore.HiveMetaStore</code></pre>
-<h4 id="l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名"><a href="#l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名" class="headerlink" title="-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名"></a>-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</h4><p>命令：<code>jps -l</code></p>
-<pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>org.apache.ambari.server.controller.AmbariServer
-<span class="hljs-symbol">29041 </span>org.apache.hadoop.yarn.server.timelineservice.reader.TimelineReaderServer
-<span class="hljs-symbol">4082 </span>org.apache.hadoop.yarn.service.ServiceMaster</code></pre>
-<h4 id="v-输出传递给JVM的参数"><a href="#v-输出传递给JVM的参数" class="headerlink" title="-v 输出传递给JVM的参数"></a>-v 输出传递给JVM的参数</h4><p>命令：<code>jps -v</code></p>
-<pre><code class="hljs routeros">6177 AmbariServer -XX:<span class="hljs-attribute">NewRatio</span>=3 -XX:+UseConcMarkSweepGC -XX:-UseGCOverheadLimit -XX:<span class="hljs-attribute">CMSInitiatingOccupancyFraction</span>=60 -XX:+CMSClassUnloadingEnabled -Dsun.zip.<span class="hljs-attribute">disableMemoryMapping</span>=<span class="hljs-literal">true</span> -Xms512m -Xmx2048m -XX:<span class="hljs-attribute">MaxPermSize</span>=128m -Djava.security.auth.login.<span class="hljs-attribute">config</span>=/etc/ambari-server/conf/krb5JAASLogin.conf -Djava.security.krb5.<span class="hljs-attribute">conf</span>=/etc/krb5.conf -Djavax.security.auth.<span class="hljs-attribute">useSubjectCredsOnly</span>=<span class="hljs-literal">false</span> -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">protocol</span>=plain ssl -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">maxsize</span>=20 -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">timeout</span>=300000
-29041 TimelineReaderServer -Dproc_timelinereader -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Djava.net.<span class="hljs-attribute">preferIPv4Stack</span>=<span class="hljs-literal">true</span> -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Dyarn.id.str= -Dyarn.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Djava.io.<span class="hljs-attribute">tmpdir</span>=/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir -Dyarn.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dyarn.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dyarn.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop-yarn -Dyarn.root.<span class="hljs-attribute">logger</span>=INFO,console -Djava.library.<span class="hljs-attribute">path</span>=:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir:/usr/hdp/3.1.0.0-78/hadoop/lib/native -Xmx1024m -Dhadoop.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dhadoop.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dhadoop.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop -Dhadoop.id.<span class="hljs-attribute">str</span>=yarn -Dhadoop.root.<span class="hljs-attribute">logger</span>=INFO,RFA -Dhadoop.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Dhadoop.security.<span class="hljs-attribute">logger</span>=INFO,NullAppender</code></pre>
-<h4 id="附详JPS细文档"><a href="#附详JPS细文档" class="headerlink" title="附详JPS细文档"></a><a href="https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jps.html" target="_blank" rel="noopener">附详JPS细文档</a></h4>
+              <h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><blockquote>
+<p>VI是Unix操作系统和类Unix操作系统中最通用的文本编辑器。<br>VIM编辑器是从VI发展出来的一个性能更强大的文本编辑器。可以主动的以字体颜色辨别语法的正确性，方便程序设计。VIM与VI编辑器完全兼容</p>
+</blockquote>
+<h1 id="一般模式"><a href="#一般模式" class="headerlink" title="一般模式"></a>一般模式</h1><blockquote>
+<p>以vi打开一个档案就直接进入一般模式了（这是默认的模式）。在这个模式中， 你可以使用『上下左右』按键来移动光标，你可以使用『删除字符』或『删除整行』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件数据。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yy</td>
+<td>复制光标当前一行</td>
+</tr>
+<tr>
+<td>y数字y</td>
+<td>复制一段（从第几行到第几行）</td>
+</tr>
+<tr>
+<td>p</td>
+<td>箭头移动到目的行粘贴</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销上一步</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>删除光标当前行</td>
+</tr>
+<tr>
+<td>d数字d</td>
+<td>删除光标（含）后多少行</td>
+</tr>
+<tr>
+<td>x</td>
+<td>删除一个字母，相当于del</td>
+</tr>
+<tr>
+<td>X</td>
+<td>删除一个字母，相当于Backspace</td>
+</tr>
+<tr>
+<td>yw</td>
+<td>复制一个词</td>
+</tr>
+<tr>
+<td>dw</td>
+<td>删除一个词</td>
+</tr>
+<tr>
+<td>shift+^</td>
+<td>移动到行头</td>
+</tr>
+<tr>
+<td>shift+$</td>
+<td>移动到行尾</td>
+</tr>
+<tr>
+<td>1+shift+g</td>
+<td>移动到页头，数字</td>
+</tr>
+<tr>
+<td>shift+g</td>
+<td>移动到页尾</td>
+</tr>
+<tr>
+<td>数字N+shift+g</td>
+<td>移动到目标行</td>
+</tr>
+</tbody></table>
+<h1 id="编辑模式"><a href="#编辑模式" class="headerlink" title="编辑模式"></a>编辑模式</h1><blockquote>
+<p>在一般模式中可以进行删除、复制、粘贴等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A, r, R』等任何一个字母之后才会进入编辑模式。<br>注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或 REPLACE』的字样，此时才可以进行编辑。而如果要回到一般模式时， 则必须要按下『Esc』这个按键即可退出编辑模式。</p>
+</blockquote>
+<h2 id="进入编辑模式"><a href="#进入编辑模式" class="headerlink" title="进入编辑模式"></a>进入编辑模式</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>i</td>
+<td>当前光标前</td>
+</tr>
+<tr>
+<td>a</td>
+<td>当前光标后</td>
+</tr>
+<tr>
+<td>o</td>
+<td>当前光标行的下一行</td>
+</tr>
+<tr>
+<td>I</td>
+<td>光标所在行最前</td>
+</tr>
+<tr>
+<td>A</td>
+<td>光标所在行最后</td>
+</tr>
+<tr>
+<td>O</td>
+<td>当前光标行的上一行</td>
+</tr>
+</tbody></table>
+<h2 id="退出编辑模式"><a href="#退出编辑模式" class="headerlink" title="退出编辑模式"></a>退出编辑模式</h2><blockquote>
+<p>按『Esc』键</p>
+</blockquote>
+<h1 id="指令模式"><a href="#指令模式" class="headerlink" title="指令模式"></a>指令模式</h1><blockquote>
+<p>在一般模式当中，输入『 : / ?』3个中的任何一个按钮，就可以将光标移动到最底下那一行。<br>在这个模式当中， 可以提供你『搜寻资料』的动作，而读取、存盘、大量取代字符、离开 vi 、显示行号等动作是在此模式中达成的！</p>
+</blockquote>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>:!</td>
+<td>强制执行</td>
+</tr>
+<tr>
+<td>/要查找的词</td>
+<td>n 查找下一个，N 往上查找</td>
+</tr>
+<tr>
+<td>? 要查找的词</td>
+<td>n是查找上一个，shift+n是往下查找</td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>关闭行号</td>
+</tr>
+</tbody></table>
+<h2 id="案例实操"><a href="#案例实操" class="headerlink" title="案例实操"></a>案例实操</h2><blockquote>
+<p>强制保存退出:wq!    </p>
+</blockquote>
+
             </article>
             <hr>
             <div>
@@ -217,7 +345,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
                     
                   </div>
                 
@@ -225,7 +353,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/">编辑器</a>
                     
                   </div>
                 
@@ -238,9 +366,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2017/05/05/hadoop1/">
+                      <a href="/2015/05/17/java1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大数据生态Hadoop(一)：起源</span>
+                        <span class="hidden-mobile">详解JPS命令</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -248,8 +376,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2015/02/23/linux2/">
-                        <span class="hidden-mobile">Linux(二)：VI和VIM编辑器</span>
+                      <a href="/2015/02/02/mysql1/">
+                        <span class="hidden-mobile">MySQL基础知识</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -389,7 +517,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "详解JPS命令&nbsp;",
+        "Linux(二)：VI和VIM编辑器&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

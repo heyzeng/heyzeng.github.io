@@ -367,6 +367,31 @@
   
   
   <entry>
+    <title>Linux(三)：系统常用命令</title>
+    <link href="/2015/05/24/linux3/"/>
+    <url>/2015/05/24/linux3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="配置网络ip地址"><a href="#配置网络ip地址" class="headerlink" title="配置网络ip地址"></a>配置网络ip地址</h1><ul><li><code>ifconfig</code> 配置网络接口</li><li><code>ping</code>测试主机之间网络连通性</li><li>修改IP地址:<code>vim /etc/sysconfig/network-scripts/ifcfg-eth0</code><pre><code class="hljs bash">EVICE=eth0                <span class="hljs-comment">#接口名（设备,网卡）</span>HWADDR=00:0C:2x:6x:0x:xx   <span class="hljs-comment">#MAC地址 </span>TYPE=Ethernet               <span class="hljs-comment">#网络类型（通常是Ethemet）</span>UUID=926a57ba-92c6-4231-bacb-f27e5e6a9f44  <span class="hljs-comment">#随机id</span><span class="hljs-comment">#系统启动的时候网络接口是否有效（yes/no）</span>ONBOOT=yes                <span class="hljs-comment"># IP的配置方法[none|static|bootp|dhcp]（引导时不使用协议|静态分配IP|BOOTP协议|DHCP协议）</span>BOOTPROTO=static      <span class="hljs-comment">#IP地址</span>IPADDR=192.168.1.101   <span class="hljs-comment">#网关  </span>GATEWAY=192.168.1.2      <span class="hljs-comment">#域名解析器</span>DNS1=192.168.1.2</code></pre><h1 id="配置主机名"><a href="#配置主机名" class="headerlink" title="配置主机名"></a>配置主机名</h1></li><li>hostname 显示和设置系统的主机名称</li><li>修改主机名称:<code>vi /etc/sysconfig/network</code>,注意：主机名称不要有“_”下划线</li></ul><h1 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h1><h2 id="service-后台服务管理"><a href="#service-后台服务管理" class="headerlink" title="service 后台服务管理"></a>service 后台服务管理</h2><ul><li>基本语法<pre><code class="hljs routeros">service  服务名 start（功能描述：开启服务）service  服务名 stop（功能描述：关闭服务）service  服务名 restart（功能描述：重新启动服务）service  服务名 status（功能描述：查看服务状态</code></pre></li><li>经验技巧:查看服务的方法：<code>/etc/init.d/</code>服务名</li><li>案例实操<pre><code class="hljs routeros">service<span class="hljs-built_in"> network </span>statusservice<span class="hljs-built_in"> network </span>stopservice<span class="hljs-built_in"> network </span>startservice<span class="hljs-built_in"> network </span>restartservice --status-all #查看系统中所有的后台服务</code></pre></li></ul><h2 id="chkconfig-设置后台服务的自启配置"><a href="#chkconfig-设置后台服务的自启配置" class="headerlink" title="chkconfig 设置后台服务的自启配置"></a>chkconfig 设置后台服务的自启配置</h2><ul><li><p>基本语法</p><pre><code class="hljs properties"><span class="hljs-attr">chkconfig</span>    <span class="hljs-string">（功能描述：查看所有服务器自启配置）</span><span class="hljs-attr">chkconfig</span>  <span class="hljs-string">服务名 off   （功能描述：关掉指定服务的自动启动）</span><span class="hljs-attr">chkconfig</span>  <span class="hljs-string">服务名 on   （功能描述：开启指定服务的自动启动）</span><span class="hljs-attr">chkconfig</span>  <span class="hljs-string">服务名 --list（功能描述：查看服务开机启动状态）</span></code></pre></li><li><p>案例实操</p><pre><code class="hljs nginx"><span class="hljs-attribute">chkconfig</span> iptables <span class="hljs-literal">off</span> <span class="hljs-comment"># 关闭iptables服务的自动启动</span>chkconfig iptables <span class="hljs-literal">on</span>  <span class="hljs-comment"># 开启iptables服务的自动启动</span></code></pre></li></ul><h2 id="进程运行级别"><a href="#进程运行级别" class="headerlink" title="进程运行级别"></a>进程运行级别</h2><p><img src="https://i.loli.net/2020/05/24/dm7rgZQjGvlitpA.png" srcset="/img/loading.gif" alt="Linux进程运行级别"></p><h2 id="关闭防火墙-1"><a href="#关闭防火墙-1" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><ul><li>临时关闭防火墙<pre><code class="hljs routeros">service iptables statusservice iptables stop # 临时关闭防火墙</code></pre></li><li>开机启动时关闭防火墙<pre><code class="hljs cmake">chkconfig iptables --<span class="hljs-keyword">list</span> <span class="hljs-comment">#查看防火墙开机启动状态</span>chkconfig iptables <span class="hljs-keyword">off</span> <span class="hljs-comment"># 设置开机时关闭防火墙</span></code></pre><h1 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h1><blockquote><p>在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。<br>正确的关机流程为：<code>sync &gt; shutdown &gt; reboot &gt; halt</code></p></blockquote></li><li>基本语法<pre><code class="hljs mipsasm"><span class="hljs-keyword">sync </span> （功能描述：将数据由内存同步到硬盘中）halt （功能描述：关闭系统，等同于<span class="hljs-keyword">shutdown </span>-h now 和 poweroff）reboot （功能描述：就是重启，等同于 <span class="hljs-keyword">shutdown </span>-r now）<span class="hljs-keyword">shutdown </span>           [选项] 时间</code></pre></li></ul><table><thead><tr><th>选项</th><th>功能</th></tr></thead><tbody><tr><td>-h</td><td>-h=halt关机</td></tr><tr><td>-r</td><td>-r=reboot重启</td></tr></tbody></table><table><thead><tr><th>参数</th><th>功能</th></tr></thead><tbody><tr><td>now</td><td>立刻关机</td></tr><tr><td>时间</td><td>等待多久后关机（时间单位是分钟）。</td></tr></tbody></table><ul><li>经验技巧<blockquote><p>Linux系统中为了提高磁盘的读写效率，对磁盘采取了 “预读迟写”操作方式。当用户保存文件时，Linux核心并不一定立即将保存数据写入物理磁盘中，而是将数据保存在缓冲区中，等缓冲区满时再写入磁盘，这种方式可以极大的提高磁盘写入数据的效率。但是，也带来了安全隐患，如果数据还未写入磁盘时，系统掉电或者其他严重问题出现，则将导致数据丢失。使用sync指令可以立即将缓冲区的数据写入磁盘</p></blockquote></li><li>案例实操<pre><code class="hljs autoit">syncreboothalt<span class="hljs-built_in">shutdown</span> -h <span class="hljs-number">1</span> <span class="hljs-string">'This server will shutdown after 1 mins'</span><span class="hljs-built_in">shutdown</span> -h now <span class="hljs-meta"># 立马关机（等同于 halt）</span><span class="hljs-built_in">shutdown</span> -r now <span class="hljs-meta"># 系统立马重启（等同于 reboot）</span></code></pre></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>命令</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>详解JPS命令</title>
     <link href="/2015/05/17/java1/"/>
     <url>/2015/05/17/java1/</url>

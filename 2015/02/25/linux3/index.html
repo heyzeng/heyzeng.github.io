@@ -240,10 +240,13 @@ chkconfig iptables <span class="hljs-literal">on</span>  <span class="hljs-comme
 service iptables stop # 临时关闭防火墙</code></pre></li>
 <li>开机启动时关闭防火墙<pre><code class="hljs cmake">chkconfig iptables --<span class="hljs-keyword">list</span> <span class="hljs-comment">#查看防火墙开机启动状态</span>
 chkconfig iptables <span class="hljs-keyword">off</span> <span class="hljs-comment"># 设置开机时关闭防火墙</span></code></pre>
+
+</li>
+</ul>
 <h1 id="关机重启命令"><a href="#关机重启命令" class="headerlink" title="关机重启命令"></a>关机重启命令</h1><blockquote>
 <p>在linux领域内大多用在服务器上，很少遇到关机的操作。毕竟服务器上跑一个服务是永无止境的，除非特殊情况下，不得已才会关机。<br>正确的关机流程为：<code>sync &gt; shutdown &gt; reboot &gt; halt</code></p>
 </blockquote>
-</li>
+<ul>
 <li>基本语法<pre><code class="hljs mipsasm"><span class="hljs-keyword">sync </span> 			（功能描述：将数据由内存同步到硬盘中）
 halt 			（功能描述：关闭系统，等同于<span class="hljs-keyword">shutdown </span>-h now 和 poweroff）
 reboot 			（功能描述：就是重启，等同于 <span class="hljs-keyword">shutdown </span>-r now）

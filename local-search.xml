@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Leetcode118：杨辉三角</title>
+    <link href="/2020/05/31/leetcode118/"/>
+    <url>/2020/05/31/leetcode118/</url>
+    
+    <content type="html"><![CDATA[<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h4 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a><a href="https://leetcode-cn.com/problems/pascals-triangle/" target="_blank" rel="noopener">杨辉三角</a></h4><blockquote><p>给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。</p></blockquote><p><strong>示例</strong></p><pre><code class="hljs angelscript">输入: <span class="hljs-number">5</span>输出:[     [<span class="hljs-number">1</span>],    [<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],   [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>],  [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>]]</code></pre><h1 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>Leetcode</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>esay</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCode：两数之和</title>
     <link href="/2020/05/28/leetcode01/"/>
     <url>/2020/05/28/leetcode01/</url>

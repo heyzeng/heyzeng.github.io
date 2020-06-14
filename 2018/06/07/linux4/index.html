@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    4.6k 字
+                    5.8k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    56
+                    72
                      分钟
                   </span>
                 
@@ -1193,10 +1193,9 @@ jude   <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</sp
 </blockquote>
 <blockquote>
 <p>[ w ]代表可写(write): 可以修改，但是不代表可以删除该文件，删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件.</p>
+<p>[ x ]代表可执行(execute):可以被系统执行</p>
 </blockquote>
-<pre><code>&gt;[ x ]代表可执行(execute):可以被系统执行
-&gt;
-&gt;</code></pre><ul>
+<ul>
 <li><p>（2）作用到目录：</p>
 <blockquote>
 <p>[ r ]代表可读(read): 可以读取，ls查看目录内容</p>
@@ -1235,6 +1234,295 @@ jude   <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</sp
 [root@hadoop101 ~]# chmod 777 houge.txt
 <span class="hljs-meta">#</span><span class="bash">（5）修改整个文件夹里面的所有文件的所有者、所属组、其他用户都具有可读可写可执行权限。</span>
 [root@hadoop101 ~]# chmod -R 777 xiyou/</code></pre>
+
+<h2 id="3-chown-改变所有者"><a href="#3-chown-改变所有者" class="headerlink" title="3 chown 改变所有者"></a>3 chown 改变所有者</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>chown [选项] [最终用户] [文件或目录]       （功能描述：改变文件或者目录的所有者）</p>
+</blockquote>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-R</td>
+<td>递归操作</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs angelscript">#（<span class="hljs-number">1</span>）修改文件所有者
+[<span class="hljs-symbol">root@</span>hadoop101 ~]# chown xiaoming houge.txt 
+[<span class="hljs-symbol">root@</span>hadoop101 ~]# ls -al
+-rwxrwxrwx. <span class="hljs-number">1</span> xiaoming root <span class="hljs-number">551</span> <span class="hljs-number">5</span>月  <span class="hljs-number">23</span> <span class="hljs-number">13</span>:<span class="hljs-number">02</span> houge.txt
+（<span class="hljs-number">2</span>）递归改变文件所有者和所有组
+[<span class="hljs-symbol">root@</span>hadoop101 xiyou]# ll
+drwxrwxrwx. <span class="hljs-number">2</span> root root <span class="hljs-number">4096</span> <span class="hljs-number">9</span>月   <span class="hljs-number">3</span> <span class="hljs-number">21</span>:<span class="hljs-number">20</span> xiyou
+[<span class="hljs-symbol">root@</span>hadoop101 xiyou]# chown -R xiao:xiao xiyou/
+[<span class="hljs-symbol">root@</span>hadoop101 xiyou]# ll
+drwxrwxrwx. <span class="hljs-number">2</span> xiao xiao <span class="hljs-number">4096</span> <span class="hljs-number">9</span>月   <span class="hljs-number">3</span> <span class="hljs-number">21</span>:<span class="hljs-number">20</span> xiyou</code></pre>
+
+<h2 id="4-chgrp-改变所属组"><a href="#4-chgrp-改变所属组" class="headerlink" title="4 chgrp 改变所属组"></a>4 chgrp 改变所属组</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>chgrp [最终用户组] [文件或目录]    （功能描述：改变文件或者目录的所属组）</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs angelscript"><span class="hljs-number">1</span>）修改文件的所属组
+[<span class="hljs-symbol">root@</span>hadoop101 ~]# chgrp root houge.txt
+[<span class="hljs-symbol">root@</span>hadoop101 ~]# ls -al
+-rwxrwxrwx. <span class="hljs-number">1</span> xiaoxiao root <span class="hljs-number">551</span> <span class="hljs-number">5</span>月  <span class="hljs-number">23</span> <span class="hljs-number">13</span>:<span class="hljs-number">02</span> houge.txt</code></pre>
+
+<h1 id="搜索查找类"><a href="#搜索查找类" class="headerlink" title="搜索查找类"></a>搜索查找类</h1><h2 id="1-find-查找文件或者目录"><a href="#1-find-查找文件或者目录" class="headerlink" title="1 find 查找文件或者目录"></a>1 find 查找文件或者目录</h2><blockquote>
+<p>find指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件显示在终端。</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>find [搜索范围] [选项]</p>
+</blockquote>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-name&lt;查询方式&gt;</td>
+<td>按照指定的文件名查找模式查找文件</td>
+</tr>
+<tr>
+<td>-user&lt;用户名&gt;</td>
+<td>查找属于指定用户名所有文件</td>
+</tr>
+<tr>
+<td>-size&lt;文件大小&gt;</td>
+<td>按照指定的文件大小查找文件。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs golo"><span class="hljs-comment">#（1）按文件名：根据名称查找/目录下的filename.txt文件。</span>
+[root<span class="hljs-meta">@hadoop</span>101 ~]<span class="hljs-comment"># find xiyou/ -name *.txt</span>
+<span class="hljs-comment">#（2）按拥有者：查找/opt目录下，用户名称为-user的文件</span>
+[root<span class="hljs-meta">@hadoop</span>101 ~]<span class="hljs-comment"># find xiyou/ -user xiaoming</span>
+<span class="hljs-comment">#	（3）按文件大小：在/home目录下查找大于200m的文件（+n 大于  -n小于   n等于）</span>
+[root<span class="hljs-meta">@hadoop</span>101 ~]<span class="hljs-keyword">find</span> /home -size +<span class="hljs-number">204800</span></code></pre>
+
+<h2 id="2-locate快速定位文件路径"><a href="#2-locate快速定位文件路径" class="headerlink" title="2 locate快速定位文件路径"></a>2 locate快速定位文件路径</h2><blockquote>
+<p>locate指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。Locate指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新locate时刻。</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>locate 搜索文件</p>
+</blockquote>
+<ul>
+<li>经验技巧</li>
+</ul>
+<blockquote>
+<p>由于locate指令基于数据库进行查询，所以第一次运行前，必须使用updatedb指令创建locate数据库。</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs （1）查询文件夹">[root@hadoop101 ~]# updatedb
+[root@hadoop101 ~]#locate tmp</code></pre>
+
+<h2 id="3-grep-过滤查找及”-”管道符"><a href="#3-grep-过滤查找及”-”管道符" class="headerlink" title="3 grep 过滤查找及”|”管道符"></a>3 grep 过滤查找及”|”管道符</h2><blockquote>
+<p>管道符，“|”，表示将前一个命令的处理结果输出传递给后面的命令处理</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>grep 选项 查找内容 源文件</p>
+</blockquote>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n</td>
+<td>显示匹配行及行号。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs angelscript">（<span class="hljs-number">1</span>）查找某文件在第几行
+[<span class="hljs-symbol">root@</span>hadoop101 ~]# ls | grep -n test</code></pre>
+
+<h1 id="压缩和解压类"><a href="#压缩和解压类" class="headerlink" title="压缩和解压类"></a>压缩和解压类</h1><h2 id="1-gzip-gunzip-压缩"><a href="#1-gzip-gunzip-压缩" class="headerlink" title="1 gzip/gunzip 压缩"></a>1 gzip/gunzip 压缩</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>gzip 文件       （功能描述：压缩文件，只能将文件压缩为*.gz文件）</p>
+<p>gunzip 文件.gz   （功能描述：解压缩文件命令）</p>
+</blockquote>
+<ul>
+<li>经验技巧</li>
+</ul>
+<blockquote>
+<p>（1）只能压缩文件不能压缩目录</p>
+<p>（2）不保留原来的文件</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs autoit"><span class="hljs-meta">#（1）gzip压缩</span>
+[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># ls</span>
+test.java
+[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># gzip houge.txt</span>
+[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># ls</span>
+houge.txt.gz
+<span class="hljs-meta">#（2）gunzip解压缩文件</span>
+[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># gunzip houge.txt.gz </span>
+[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># ls</span>
+houge.txt</code></pre>
+
+<h2 id="2-zip-unzip-压缩"><a href="#2-zip-unzip-压缩" class="headerlink" title="2 zip/unzip 压缩"></a>2 zip/unzip 压缩</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>zip [选项] XXX.zip 将要压缩的内容      （功能描述：压缩文件和目录的命令）</p>
+<p>unzip [选项] XXX.zip                   （功能描述：解压缩文件）</p>
+</blockquote>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>zip选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-r</td>
+<td>压缩目录</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>unzip选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d&lt;目录&gt;</td>
+<td>指定解压后文件的存放目录</td>
+</tr>
+</tbody></table>
+<ul>
+<li>经验技巧</li>
+</ul>
+<blockquote>
+<p>zip 压缩命令在window/linux都通用，可以压缩目录且保留源文件。</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">（1）压缩 1.txt 和2.txt，压缩后的名称为mypackage.zip </span>
+[root@hadoop101 opt]# touch bailongma.txt
+[root@hadoop101 ~]# zip houma.zip houge.txt bailongma.txt 
+  adding: houge.txt (stored 0%)
+  adding: bailongma.txt (stored 0%)
+[root@hadoop101 opt]# ls
+houge.txt	bailongma.txt	houma.zip 
+<span class="hljs-meta">#</span><span class="bash">（2）解压 mypackage.zip</span>
+[root@hadoop101 ~]# unzip houma.zip 
+Archive:  houma.zip
+ extracting: houge.txt               
+ extracting: bailongma.txt       
+[root@hadoop101 ~]# ls
+houge.txt	bailongma.txt	houma.zip 
+<span class="hljs-meta">#</span><span class="bash">（3）解压mypackage.zip到指定目录-d</span>
+[root@hadoop101 ~]# unzip houma.zip -d /opt
+[root@hadoop101 ~]# ls /opt/</code></pre>
+
+<h2 id="3-tar-打包"><a href="#3-tar-打包" class="headerlink" title="3 tar 打包"></a>3 tar 打包</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>tar [选项] XXX.tar.gz 将要打包进去的内容       （功能描述：打包目录，压缩后的文件格式.tar.gz）</p>
+</blockquote>
+<ul>
+<li>选项说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-c</td>
+<td>产生.tar打包文件</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示详细信息</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定压缩后的文件名</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>打包同时压缩</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>解包.tar文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">（1）压缩多个文件</span>
+[root@hadoop101 opt]# tar -zcvf houma.tar.gz houge.txt bailongma.txt 
+houge.txt
+bailongma.txt
+[root@hadoop101 opt]# ls
+houma.tar.gz houge.txt bailongma.txt 
+<span class="hljs-meta">#</span><span class="bash">（2）压缩目录</span>
+[root@hadoop101 ~]# tar -zcvf xiyou.tar.gz xiyou/
+xiyou/
+xiyou/mingjie/
+xiyou/dssz/
+xiyou/dssz/houge.txt
+<span class="hljs-meta">#</span><span class="bash">（3）解压到当前目录</span>
+[root@hadoop101 ~]# tar -zxvf houma.tar.gz
+<span class="hljs-meta">#</span><span class="bash">（4）解压到指定目录</span>
+[root@hadoop101 ~]# tar -zxvf xiyou.tar.gz -C /opt
+[root@hadoop101 ~]# ll /opt/</code></pre>
 
 
             </article>

@@ -493,6 +493,54 @@ SEE ALSO
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/03/15/hadoop1-1-balancer/">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</a>
+
+      <a href="/2018/03/15/hadoop1-1-balancer/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言
+用Hadoop集群一点时间时，HDFS节点间的数据不平衡，尤其在新增和下架节点、或者人为干预副本数量的时候，多的达到70%，少的40%。出现这种状况，我们一般采用HDFS自带的balancer工具来解决，保证每个节点的数据分布均衡。
+
+balancer命令
+balancer
+
+# start：
+     start-balancer.sh    #用默认的10%的阈值启动balancer
+ </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-03-15
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/troubleshooting/">troubleshooting</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2018/03/10/mysql2/">MySQL面试题(一)</a>
 
       <a href="/2018/03/10/mysql2/" class="index-excerpt">
@@ -603,50 +651,6 @@ weekofyear：当前时间是一</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%80%BB%E7%BB%93/">总结</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2017/07/22/hive1-2/">Hive50道sql必练题</a>
-
-      <a href="/2017/07/22/hive1-2/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言50道Hive之sql必练题，做完50道题会对HiveSql有一个比较深的认识，且附上答案以及验证结果。
-建表-- 学生表
-create table student(s_id string,s_name string,s_birth string,s_sex string) row format delimited fields terminated by '\,';
--- 课堂表
-creat</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-07-22
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hive/">Hive</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BB%83%E4%B9%A0/">练习</a>
             
           </div>
         

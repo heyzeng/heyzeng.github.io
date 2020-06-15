@@ -161,6 +161,31 @@
   
   
   <entry>
+    <title>HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</title>
+    <link href="/2018/03/15/hadoop1-1-balancer/"/>
+    <url>/2018/03/15/hadoop1-1-balancer/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote><p>用Hadoop集群一点时间时，HDFS节点间的数据不平衡，尤其在新增和下架节点、或者人为干预副本数量的时候，多的达到70%，少的40%。出现这种状况，我们一般采用HDFS自带的balancer工具来解决，保证每个节点的数据分布均衡。</p></blockquote><h1 id="balancer命令"><a href="#balancer命令" class="headerlink" title="balancer命令"></a>balancer命令</h1><ul><li>balancer</li></ul><pre><code class="hljs mipsasm"><span class="hljs-comment"># start：</span>     start-<span class="hljs-keyword">balancer.sh </span>   <span class="hljs-comment">#用默认的10%的阈值启动balancer</span>     hdfs <span class="hljs-keyword">balancer </span>-threshold <span class="hljs-number">10</span>     start-<span class="hljs-keyword">balancer.sh </span>-threshold <span class="hljs-number">10</span>    <span class="hljs-comment">#指定10%的阈值启动balancer</span><span class="hljs-comment"># stop：</span>     stop-<span class="hljs-keyword">balancer.sh </span> <span class="hljs-comment"># 关闭平衡</span></code></pre><ul><li>balancer参数配置</li></ul><pre><code class="hljs armasm"><span class="hljs-symbol">hdfs</span> --config /hadoop-client/conf <span class="hljs-keyword">balancer</span><span class="hljs-keyword">-threshold </span> <span class="hljs-number">10</span>                    \\集群平衡的条件，datanode间磁盘使用率相差阈值，区间选择：<span class="hljs-number">0</span>~<span class="hljs-number">100</span>                                  \\Threshold参数为集群是否处于均衡状态设置了一个目标-policy datanode                  \\默认为datanode，datanode级别的平衡策略-exclude  -f  /tmp/ip1.txt        \\默认为空，指定该部分<span class="hljs-built_in">ip</span>不参与<span class="hljs-keyword">balance， </span>-f：指定输入为文件-<span class="hljs-meta">include</span>  -f  /tmp/ip2.txt        \\默认为空，只允许该部分<span class="hljs-built_in">ip</span>参与<span class="hljs-keyword">balance，-f：指定输入为文件</span><span class="hljs-keyword">-idleiterations </span> <span class="hljs-number">5</span>               \\迭代次数，默认为 <span class="hljs-number">5</span></code></pre><h1 id="命令报错"><a href="#命令报错" class="headerlink" title="命令报错"></a>命令报错</h1><pre><code class="hljs actionscript">threads quota <span class="hljs-keyword">is</span> exceeded</code></pre><h1 id="troubleshooting"><a href="#troubleshooting" class="headerlink" title="troubleshooting"></a>troubleshooting</h1><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.balance.max.concurrent.moves<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>60<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">调大dfs.datanode.balance.max.concurrent.moves的值，例如改成60</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.balance.bandwidthPerSec<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>52428800<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">修改dfs.datanode.balance.bandwidthPerSec的值，例如改成52428800，即50M，如果带宽允许,可调高到100M，这个参数是设置balancer进程可用的网络带宽。如果不设置这个参数值那么这个balancer会很慢，因为默认不允许balancer占用很大的网络带宽。</span>/&gt;</span></code></pre><h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><blockquote><p>执行balancer的建议：尽量不要在NameNode上执行balancer，而是找一台比较空闲的机器去运行</p><p>上传数据到hdfs集群的建议：若从某个dataNode上传数据到集群，会导致上传的数据优先写满该dataNode的磁盘，不利于运行分布式作业；但是从非dataNode上传,比如从nameNode上传数据，也不好，因为会增加namenode负担，同时造成namenode上面的文件杂乱。所以建议搞一个客户端节点，把hadoop的安装目录复制一份到此节点，不在此节点启动任何有关Hadoop的进程，只作为上传数据到hdfs集群的用途。</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hadoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>troubleshooting</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL面试题(一)</title>
     <link href="/2018/03/10/mysql2/"/>
     <url>/2018/03/10/mysql2/</url>

@@ -161,31 +161,6 @@
   
   
   <entry>
-    <title>MySQL面试题(一)</title>
-    <link href="/2018/03/10/mysql2/"/>
-    <url>/2018/03/10/mysql2/</url>
-    
-    <content type="html"><![CDATA[<h1 id="MyISAM与InnoDB的区别"><a href="#MyISAM与InnoDB的区别" class="headerlink" title="MyISAM与InnoDB的区别"></a>MyISAM与InnoDB的区别</h1><table><thead><tr><th>对比项</th><th>MyISAM</th><th>InnoDB</th></tr></thead><tbody><tr><td>外键</td><td>不支持</td><td>支持</td></tr><tr><td>事务</td><td>不支持</td><td>支持</td></tr><tr><td>行表锁</td><td>表锁，即使操作一条记录也会锁住整个表，不适合高并发的操作</td><td>行锁,操作时只锁某一行，不对其它行有影响，适合高并发的操作</td></tr><tr><td>缓存</td><td>只缓存索引，不缓存真实数据</td><td>不仅缓存索引还要缓存真实数据，对内存要求较高，而且内存大小对性能有决定性的影响</td></tr></tbody></table><h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><ul><li>数据结构：<code>B+Tree</code></li></ul><blockquote><p>一般来说能够达到range就可以算是优化了 idx name_deptId</p></blockquote><ul><li>口诀（两个法则加6种索引失效的情况）</li></ul><blockquote><p>值匹配我最爱，最左前缀要遵守；</br><br>带头大哥不能死，中间兄弟不能断；</br><br>索引列上少计算，范围之后全失效；</br><br>LIKE百分写最右，覆盖索引不写*；</br><br>不等空值还有OR，索引影响要注意；</br><br>VAR引号不可丢，SQL优化有诀窍。</br></p></blockquote><ul><li><code>b-tree</code>和<code>b+tree</code>的区别<ul><li>B-树的关键字、索引和记录是放在一起的， B+树的非叶子节点中只有关键字和指向下一个节点的索引，记录只放在叶子节点中。</li><li>在B-树中，越靠近根节点的记录查找时间越快，只要找到关键字即可确定记录的存在；而B+树中每个记录的查找时间基本是一样的，都需要从根节点走到叶子节点，而且在叶子节点中还要再比较关键字</li></ul></li></ul><h1 id="MySQL的事务"><a href="#MySQL的事务" class="headerlink" title="MySQL的事务"></a>MySQL的事务</h1><h2 id="事务的基本要素（ACID）"><a href="#事务的基本要素（ACID）" class="headerlink" title="事务的基本要素（ACID）"></a>事务的基本要素（ACID）</h2><ul><li>原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位</li><li>一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到</li><li>隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</li><li>持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</li></ul><h2 id="事务的并发问题"><a href="#事务的并发问题" class="headerlink" title="事务的并发问题"></a>事务的并发问题</h2><ul><li><strong>脏读</strong>：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</li><li><strong>不可重复读</strong>：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致</li><li><strong>幻读</strong>：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。<blockquote><p>小结：不可重复读的和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增或删除。解决不可重复读的问题只需锁住满足条件的行，解决幻读需要<strong>锁表</strong></p></blockquote></li></ul><h2 id="MySQL事务隔离级别"><a href="#MySQL事务隔离级别" class="headerlink" title="MySQL事务隔离级别"></a>MySQL事务隔离级别</h2><table><thead><tr><th>事务隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读</th></tr></thead><tbody><tr><td>读未提交（read-uncommitted）</td><td>是</td><td>是</td><td>是</td></tr><tr><td>不可重复读（read-committed）</td><td>否</td><td>是</td><td>是</td></tr><tr><td>可重复读（repeatable-read）</td><td>否</td><td>否</td><td>是</td></tr><tr><td>串行化（serializable）</td><td>否</td><td>否</td><td>否</td></tr></tbody></table>]]></content>
-    
-    
-    <categories>
-      
-      <category>MySQL</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>面试题</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>数仓工具hive(六)：Hive中常用函数汇总</title>
     <link href="/2017/08/18/hive6/"/>
     <url>/2017/08/18/hive6/</url>
@@ -453,6 +428,31 @@
     <tags>
       
       <tag>起源</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>MySQL面试题(一)</title>
+    <link href="/2016/03/10/mysql2/"/>
+    <url>/2016/03/10/mysql2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="MyISAM与InnoDB的区别"><a href="#MyISAM与InnoDB的区别" class="headerlink" title="MyISAM与InnoDB的区别"></a>MyISAM与InnoDB的区别</h1><table><thead><tr><th>对比项</th><th>MyISAM</th><th>InnoDB</th></tr></thead><tbody><tr><td>外键</td><td>不支持</td><td>支持</td></tr><tr><td>事务</td><td>不支持</td><td>支持</td></tr><tr><td>行表锁</td><td>表锁，即使操作一条记录也会锁住整个表，不适合高并发的操作</td><td>行锁,操作时只锁某一行，不对其它行有影响，适合高并发的操作</td></tr><tr><td>缓存</td><td>只缓存索引，不缓存真实数据</td><td>不仅缓存索引还要缓存真实数据，对内存要求较高，而且内存大小对性能有决定性的影响</td></tr></tbody></table><h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><ul><li>数据结构：<code>B+Tree</code></li></ul><blockquote><p>一般来说能够达到range就可以算是优化了 idx name_deptId</p></blockquote><ul><li>口诀（两个法则加6种索引失效的情况）</li></ul><blockquote><p>值匹配我最爱，最左前缀要遵守；</br><br>带头大哥不能死，中间兄弟不能断；</br><br>索引列上少计算，范围之后全失效；</br><br>LIKE百分写最右，覆盖索引不写*；</br><br>不等空值还有OR，索引影响要注意；</br><br>VAR引号不可丢，SQL优化有诀窍。</br></p></blockquote><ul><li><code>b-tree</code>和<code>b+tree</code>的区别<ul><li>B-树的关键字、索引和记录是放在一起的， B+树的非叶子节点中只有关键字和指向下一个节点的索引，记录只放在叶子节点中。</li><li>在B-树中，越靠近根节点的记录查找时间越快，只要找到关键字即可确定记录的存在；而B+树中每个记录的查找时间基本是一样的，都需要从根节点走到叶子节点，而且在叶子节点中还要再比较关键字</li></ul></li></ul><h1 id="MySQL的事务"><a href="#MySQL的事务" class="headerlink" title="MySQL的事务"></a>MySQL的事务</h1><h2 id="事务的基本要素（ACID）"><a href="#事务的基本要素（ACID）" class="headerlink" title="事务的基本要素（ACID）"></a>事务的基本要素（ACID）</h2><ul><li>原子性（Atomicity）：事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位</li><li>一致性（Consistency）：事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到</li><li>隔离性（Isolation）：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</li><li>持久性（Durability）：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</li></ul><h2 id="事务的并发问题"><a href="#事务的并发问题" class="headerlink" title="事务的并发问题"></a>事务的并发问题</h2><ul><li><strong>脏读</strong>：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</li><li><strong>不可重复读</strong>：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致</li><li><strong>幻读</strong>：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。<blockquote><p>小结：不可重复读的和幻读很容易混淆，不可重复读侧重于修改，幻读侧重于新增或删除。解决不可重复读的问题只需锁住满足条件的行，解决幻读需要<strong>锁表</strong></p></blockquote></li></ul><h2 id="MySQL事务隔离级别"><a href="#MySQL事务隔离级别" class="headerlink" title="MySQL事务隔离级别"></a>MySQL事务隔离级别</h2><table><thead><tr><th>事务隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读</th></tr></thead><tbody><tr><td>读未提交（read-uncommitted）</td><td>是</td><td>是</td><td>是</td></tr><tr><td>不可重复读（read-committed）</td><td>否</td><td>是</td><td>是</td></tr><tr><td>可重复读（repeatable-read）</td><td>否</td><td>否</td><td>是</td></tr><tr><td>串行化（serializable）</td><td>否</td><td>否</td><td>否</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>MySQL</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>面试题</tag>
       
     </tags>
     

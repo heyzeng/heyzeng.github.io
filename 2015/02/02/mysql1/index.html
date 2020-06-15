@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    33
+                    32
                      分钟
                   </span>
                 
@@ -304,13 +304,41 @@ mysql.<span class="hljs-keyword">server</span> restart</code></pre>
 
 </li>
 </ul>
-<h2 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h2><p>调用语法：select 函数名(实参列表);</br></p>
+<h2 id="分组函数"><a href="#分组函数" class="headerlink" title="分组函数"></a>分组函数</h2><p>调用语法：select 函数名(实参列表);</p>
 <p><strong>分组函数和单行函数的区别：</strong></p>
 <ul>
 <li>单行函数：将一个数据进行处理，返回一个值</li>
 <li>分组函数：将虚拟表看做一个组，处理一组数据，返回一个值</li>
 </ul>
-<p><strong>常见的分组函数：</strong><br>字段|含义<br>-|-<br>sum(字段)|求该字段的所有值的和</br><br>avg(字段) |求该字段的平均值</br><br>max(字段) |求最大值</br><br>min(字段) |求最小值</br><br>count(字段) |计算该字段中非空的值的个数</br></p>
+<p><strong>常见的分组函数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sum(字段)</td>
+<td>求该字段的所有值的和</td>
+</tr>
+<tr>
+<td>avg(字段)</td>
+<td>求该字段的平均值</td>
+</tr>
+<tr>
+<td>max(字段)</td>
+<td>求最大值</td>
+</tr>
+<tr>
+<td>min(字段)</td>
+<td>求最小值</td>
+</tr>
+<tr>
+<td>count(字段)</td>
+<td>计算该字段中非空的值的个数</td>
+</tr>
+</tbody></table>
 <p><strong>特点</strong></p>
 <ul>
 <li>分组函数可以搭配筛选条件使用</li>
@@ -320,10 +348,15 @@ mysql.<span class="hljs-keyword">server</span> restart</code></pre>
 <li>count的使用<br>count(*)或count(常量值) ：统计结果集中的行数<br>count(distinct 字段)：实现去重后的统计</li>
 <li>和分组函数一同查询的字段不能是任意字段，可以是group by后面的字段！</li>
 </ul>
-<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><p><strong>语法：</strong></br></p>
-<p>select 分组函数,分组的字段 – ⑤</br><br>from 表名 –   ①</br><br>where 分组前的筛选条件– ②</br><br>group by 分组的字段,…  – ③</br><br>having 分组后的筛选条件 – ④</br><br>order by 排序列表 –⑥</br></p>
+<h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><p><strong>语法：</strong></p>
+<blockquote>
+<p>select 分组函数,分组的字段 – ⑤<br>from 表名 –   ①<br>where 分组前的筛选条件– ②<br>group by 分组的字段,…  – ③<br>having 分组后的筛选条件 – ④<br>order by 排序列表 –⑥</p>
+</blockquote>
 <p><strong>特点：</strong></p>
 <p><strong>筛选可以分为分组前筛选和分组后筛选</strong></p>
+<blockquote>
+<p>分组函数做条件放在having后面！</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -344,12 +377,6 @@ mysql.<span class="hljs-keyword">server</span> restart</code></pre>
 <td>分组后的结果集</td>
 <td>having</td>
 <td>group by后面</td>
-</tr>
-<tr>
-<td>&gt;分组函数做条件放在having后面！</td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody></table>
 <h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>查询的字段或条件来自于多张表，这个时候则需要使用多表连接查询，简称连接查询</br><br>笛卡尔乘积的现象：</p>
@@ -435,22 +462,13 @@ FLOAT(5,3) :-99.999~99.999</code></pre></li>
 <tr>
 <td>VARCHAR(n)</td>
 <td>能保存的字符的最大个数，必写</td>
-<td>可变长度的字符    较低</td>
-<td></td>
-</tr>
-<tr>
-<td>- 日期型        DATETIME/DATE/TIME/TIMESTAMP时间戳</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>TATE:只有日期，TIME：只有时间</td>
-<td></td>
-<td></td>
-<td></td>
+<td>可变长度的字符</td>
+<td>较低</td>
 </tr>
 </tbody></table>
+<ul>
+<li>日期型        DATETIME/DATE/TIME/TIMESTAMP时间戳<br>TATE:只有日期，TIME：只有时间</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -472,63 +490,21 @@ FLOAT(5,3) :-99.999~99.999</code></pre></li>
 <td>1970-1-1~2038-12-31</td>
 <td>受</td>
 </tr>
-<tr>
-<td>## 常见约束</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 说明：用于额外限定表中的字段值，为了保证数据的完整性（准确性和可靠性）</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- 常见的六大约束：</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- NOT NULL非空：该字段的值为必填项</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- UNIQUE 唯一：该字段的值不能重复，可以为空，一个表中可以有多个</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- PRIMARY KEY 主键：该字段的值不能重复，不能为空，一个表中只能有一个，一般来讲，一个表最好有一个主键</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- DEFAULT 默认：该字段的值如果不手动插入，也有默认值</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- CHECK 检查【mysql不支持】：用于检测该字段的值是否满足某个条件</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>- FOREIGN KEY 外键：用于限定两个表的关系，从表的某列值要来自于主表的某列值</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<h2 id="常见约束"><a href="#常见约束" class="headerlink" title="常见约束"></a>常见约束</h2><ul>
+<li>说明：用于额外限定表中的字段值，为了保证数据的完整性（准确性和可靠性）</li>
+<li>常见的六大约束：<ul>
+<li>NOT NULL非空：该字段的值为必填项</li>
+<li>UNIQUE 唯一：该字段的值不能重复，可以为空，一个表中可以有多个</li>
+<li>PRIMARY KEY 主键：该字段的值不能重复，不能为空，一个表中只能有一个，一般来讲，一个表最好有一个主键</li>
+<li>DEFAULT 默认：该字段的值如果不手动插入，也有默认值</li>
+<li>CHECK 检查【mysql不支持】：用于检测该字段的值是否满足某个条件</li>
+<li>FOREIGN KEY 外键：用于限定两个表的关系，从表的某列值要来自于主表的某列值</li>
+</ul>
+</li>
+</ul>
 <h2 id="分类-1"><a href="#分类-1" class="headerlink" title="分类"></a>分类</h2><blockquote>
-<p>表级约束：只有外键、主键、唯一</br><br>列级约束：只有非空、默认、主键、唯一</p>
+<p>表级约束：只有外键、主键、唯一<br>列级约束：只有非空、默认、主键、唯一</p>
 </blockquote>
 <h1 id="DDL语言-1"><a href="#DDL语言-1" class="headerlink" title="DDL语言"></a>DDL语言</h1><h2 id="insert-插入"><a href="#insert-插入" class="headerlink" title="insert 插入"></a>insert 插入</h2><ul>
 <li>插入单行：<br>  insert into 表名(列名1，列名2,…) values(值1,值2,…);</li>

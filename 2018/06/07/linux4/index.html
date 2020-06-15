@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    5.8k 字
+                    9.2k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    72
+                    113
                      分钟
                   </span>
                 
@@ -1523,6 +1523,741 @@ xiyou/dssz/houge.txt
 <span class="hljs-meta">#</span><span class="bash">（4）解压到指定目录</span>
 [root@hadoop101 ~]# tar -zxvf xiyou.tar.gz -C /opt
 [root@hadoop101 ~]# ll /opt/</code></pre>
+
+<h1 id="磁盘分区类"><a href="#磁盘分区类" class="headerlink" title="磁盘分区类"></a>磁盘分区类</h1><h2 id="1-df-查看磁盘空间使用情况"><a href="#1-df-查看磁盘空间使用情况" class="headerlink" title="1 df 查看磁盘空间使用情况"></a>1 df 查看磁盘空间使用情况</h2><blockquote>
+<p>df: disk free 空余硬盘</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop101 ~]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        <span class="hljs-number">15</span>G  <span class="hljs-number">3.5</span>G   <span class="hljs-number">11</span>G  <span class="hljs-number">26</span>% /
+tmpfs           <span class="hljs-number">939</span>M  <span class="hljs-number">224</span>K  <span class="hljs-number">939</span>M   <span class="hljs-number">1</span>% /dev/shm
+/dev/sda1       <span class="hljs-number">190</span>M   <span class="hljs-number">39</span>M  <span class="hljs-number">142</span>M  <span class="hljs-number">22</span>% /boot</code></pre>
+
+<h2 id="2-fdisk-查看分区"><a href="#2-fdisk-查看分区" class="headerlink" title="2 fdisk 查看分区"></a>2 fdisk 查看分区</h2><blockquote>
+<p>fdisk -l         （功能描述：查看磁盘分区详情）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-l</td>
+<td>显示所有硬盘的分区列表</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>该命令必须在root用户下才能使用</p>
+</blockquote>
+<ul>
+<li>功能说明</li>
+</ul>
+<blockquote>
+<p>Linux分区</p>
+<p>Device：分区序列</p>
+<p>Boot：引导</p>
+<p>Start：从X磁柱开始</p>
+<p>End：到Y磁柱结束</p>
+<p>Blocks：容量</p>
+<p>Id：分区类型ID</p>
+<p>System：分区类型</p>
+</blockquote>
+<h2 id="3-mount-umount-挂载-卸载"><a href="#3-mount-umount-挂载-卸载" class="headerlink" title="3 mount/umount 挂载/卸载"></a>3 mount/umount 挂载/卸载</h2><blockquote>
+<p>对于Linux用户来讲，不论有几个分区，分别分给哪一个目录使用，它总归就是一个根目录、一个独立且唯一的文件结构。</p>
+<p>Linux中每个分区都是用来组成整个文件系统的一部分，它在用一种叫做“挂载”的处理方法，它整个文件系统中包含了一整套的文件和目录，并将一个分区和一个目录联系起来，要载入的那个分区将使它的存储空间在这个目录下获得。</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>mount [-t vfstype] [-o options] device dir   （功能描述：挂载设备）</p>
+<p>umount 设备文件名或挂载点          （功能描述：卸载设备）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-t vfstype</td>
+<td>指定文件系统的类型，通常不必指定。mount 会自动选择正确的类型。常用类型有：  光盘或光盘镜像：iso9660  DOS fat16文件系统：msdos  <a href="http://blog.csdn.net/hancunai0017/article/details/6995284" target="_blank" rel="noopener">Windows</a> 9x fat32文件系统：vfat  Windows NT ntfs文件系统：ntfs  Mount Windows文件<a href="http://blog.csdn.net/hancunai0017/article/details/6995284" target="_blank" rel="noopener">网络</a>共享：smbfs  <a href="http://blog.csdn.net/hancunai0017/article/details/6995284" target="_blank" rel="noopener">UNIX</a>(LINUX) 文件网络共享：nfs</td>
+</tr>
+<tr>
+<td>-o options</td>
+<td>主要用来描述设备或档案的挂接方式。常用的参数有：  loop：用来把一个文件当成硬盘分区挂接上系统  ro：采用只读方式挂接设备  rw：采用读写方式挂接设备  　 iocharset：指定访问文件系统所用字符集</td>
+</tr>
+<tr>
+<td>device</td>
+<td>要挂接(mount)的设备</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>设备在系统上的挂接点(mount point)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">（1）挂载光盘镜像文件</span>
+[root@hadoop101 ~]# mkdir /mnt/cdrom/						建立挂载点
+[root@hadoop101 ~]# mount -t iso9660 /dev/cdrom /mnt/cdrom/	设备/dev/cdrom挂载到 挂载点 ：  /mnt/cdrom中
+[root@hadoop101 ~]# ll /mnt/cdrom/
+<span class="hljs-meta">#</span><span class="bash">（2）卸载光盘镜像文件</span>
+[root@hadoop101 ~]# umount /mnt/cdrom</code></pre>
+
+<ul>
+<li>设置开机自动挂载</li>
+</ul>
+<pre><code class="hljs autoit">root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># vi /etc/fstab</span></code></pre>
+
+<h1 id="进程线程类"><a href="#进程线程类" class="headerlink" title="进程线程类"></a>进程线程类</h1><blockquote>
+<p>进程是正在执行的一个程序或命令，每一个进程都是一个运行的实体，都有自己的地址空间，并占用一定的系统资源</p>
+</blockquote>
+<h2 id="1-ps-查看当前系统进程状态"><a href="#1-ps-查看当前系统进程状态" class="headerlink" title="1 ps 查看当前系统进程状态"></a>1 ps 查看当前系统进程状态</h2><blockquote>
+<p>ps:process status 进程状态</p>
+</blockquote>
+<ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>ps aux | grep xxx      （功能描述：查看系统中所有进程）</p>
+<p>ps -ef | grep xxx      （功能描述：可以查看子父进程之间的关系）</p>
+</blockquote>
+<ul>
+<li>参数说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>选择所有进程</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示所有用户的所有进程</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>显示没有终端的进程</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>功能说明</p>
+<p><strong>ps aux显示信息说明</strong></p>
+</li>
+</ul>
+<blockquote>
+<p> USER：该进程是由哪个用户产生的</p>
+<p> PID：进程的ID号</p>
+<p>%CPU：该进程占用CPU资源的百分比，占用越高，进程越耗费资源；</p>
+<p>%MEM：该进程占用物理内存的百分比，占用越高，进程越耗费资源；</p>
+<p>VSZ：该进程占用虚拟内存的大小，单位KB；</p>
+<p>RSS：该进程占用实际物理内存的大小，单位KB；</p>
+<p>TTY：该进程是在哪个终端中运行的。其中tty1-tty7代表本地控制台终端，tty1-tty6是本地的字符界面终端，tty7是图形终端。pts/0-255代表虚拟终端。</p>
+<p>STAT：进程状态。常见的状态有：R：运行、S：睡眠、T：停止状态、s：包含子进程、+：位于后台</p>
+<p>START：该进程的启动时间</p>
+<p>TIME：该进程占用CPU的运算时间，注意不是系统时间</p>
+<p>COMMAND：产生此进程的命令名</p>
+</blockquote>
+<p>  <strong>ps -ef显示信息说明</strong></p>
+<blockquote>
+<p>UID：用户ID </p>
+<p>PID：进程ID </p>
+<p>PPID：父进程ID </p>
+<p>C：CPU用于计算执行优先级的因子。数值越大，表明进程是CPU密集型运算，执行优先级会降低；数值越小，表明进程是I/O密集型运算，执行优先级会提高 </p>
+<p>STIME：进程启动的时间</p>
+<p>TTY：完整的终端名称</p>
+<p>TIME：CPU时间 </p>
+<p>CMD：启动进程所用的命令和参数</p>
+</blockquote>
+<ul>
+<li>经验技巧</li>
+</ul>
+<blockquote>
+<p>如果想查看进程的CPU占用率和内存占用率，可以使用aux;</p>
+<p>如果想查看进程的父进程ID可以使用ef;</p>
+</blockquote>
+<h2 id="2-kill-终止进程"><a href="#2-kill-终止进程" class="headerlink" title="2 kill 终止进程"></a>2 kill 终止进程</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>kill [选项] 进程号      （功能描述：通过进程号杀死进程）</p>
+<p>killall 进程名称         （功能描述：通过进程名称杀死进程，也支持通配符，这在系统因负载过大而变得很慢时很有用）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-9</td>
+<td>表示强迫进程立即停止</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs angelscript">#（<span class="hljs-number">1</span>）杀死浏览器进程
+[<span class="hljs-symbol">root@</span>hadoop101 桌面]# kill <span class="hljs-number">-9</span> <span class="hljs-number">5102</span>
+#	（<span class="hljs-number">2</span>）通过进程名称杀死进程
+[<span class="hljs-symbol">root@</span>hadoop101 桌面]# killall firefox</code></pre>
+
+<h2 id="3-pstree-查看进程树"><a href="#3-pstree-查看进程树" class="headerlink" title="3 pstree 查看进程树"></a>3 pstree 查看进程树</h2><blockquote>
+<p>pstree [选项]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-p</td>
+<td>显示进程的PID</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示进程的所属用户</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs autoit"><span class="hljs-meta">#（1）显示进程pid</span>
+[root<span class="hljs-symbol">@hadoop101</span> datas]<span class="hljs-meta"># pstree -p</span>
+<span class="hljs-meta">#（2）显示进程所属用户</span>
+[root<span class="hljs-symbol">@hadoop101</span> datas]<span class="hljs-meta"># pstree -u</span></code></pre>
+
+<h2 id="4-top-查看系统健康状态"><a href="#4-top-查看系统健康状态" class="headerlink" title="4 top 查看系统健康状态"></a>4 top 查看系统健康状态</h2><blockquote>
+<p>top [选项]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d 秒数</td>
+<td>指定top命令每隔几秒更新。默认是3秒在top命令的交互模式当中可以执行的命令：</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>使top不显示任何闲置或者僵死进程。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>通过指定监控进程ID来仅仅监控某个进程的状态。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>操作说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td>以CPU使用率排序，默认就是此项</td>
+</tr>
+<tr>
+<td>M</td>
+<td>以内存的使用率排序</td>
+</tr>
+<tr>
+<td>N</td>
+<td>以PID排序</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出top</td>
+</tr>
+</tbody></table>
+<ul>
+<li>查询结果字段解释</li>
+</ul>
+<p><code>第一行信息为任务队列信息</code></p>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12:26:46</td>
+<td>系统当前时间</td>
+</tr>
+<tr>
+<td>up 1 day, 13:32</td>
+<td>系统的运行时间，本机已经运行1天  13小时32分钟</td>
+</tr>
+<tr>
+<td>2 users</td>
+<td>当前登录了两个用户</td>
+</tr>
+<tr>
+<td>load average:   0.00, 0.00, 0.00</td>
+<td>系统在之前1分钟，5分钟，15分钟的平均负载。一般认为小于1时，负载较小。如果大于1，系统已经超出负荷。</td>
+</tr>
+</tbody></table>
+<p><code>第二行为进程信息</code></p>
+<table>
+<thead>
+<tr>
+<th>Tasks: 95 total</th>
+<th>系统中的进程总数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1 running</td>
+<td>正在运行的进程数</td>
+</tr>
+<tr>
+<td>94 sleeping</td>
+<td>睡眠的进程</td>
+</tr>
+<tr>
+<td>0 stopped</td>
+<td>正在停止的进程</td>
+</tr>
+<tr>
+<td>0 zombie</td>
+<td>僵尸进程。如果不是0，需要手工检查僵尸进程</td>
+</tr>
+</tbody></table>
+<p><code>第三行为CPU信息</code></p>
+<table>
+<thead>
+<tr>
+<th>Cpu(s): 0.1%us</th>
+<th>用户模式占用的CPU百分比</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.1%sy</td>
+<td>系统模式占用的CPU百分比</td>
+</tr>
+<tr>
+<td>0.0%ni</td>
+<td>改变过优先级的用户进程占用的CPU百分比</td>
+</tr>
+<tr>
+<td>99.7%id</td>
+<td>空闲CPU的CPU百分比</td>
+</tr>
+<tr>
+<td>0.1%wa</td>
+<td>等待输入/输出的进程的占用CPU百分比</td>
+</tr>
+<tr>
+<td>0.0%hi</td>
+<td>硬中断请求服务占用的CPU百分比</td>
+</tr>
+<tr>
+<td>0.1%si</td>
+<td>软中断请求服务占用的CPU百分比</td>
+</tr>
+<tr>
+<td>0.0%st</td>
+<td>st（Steal time）虚拟时间百分比。就是当有虚拟机时，虚拟CPU等待实际CPU的时间百分比。</td>
+</tr>
+</tbody></table>
+<p><code>第四行为物理内存信息</code></p>
+<table>
+<thead>
+<tr>
+<th>Mem:  625344k total</th>
+<th>物理内存的总量，单位KB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>571504k used</td>
+<td>已经使用的物理内存数量</td>
+</tr>
+<tr>
+<td>53840k free</td>
+<td>空闲的物理内存数量，我们使用的是虚拟机，总共只分配了628MB内存，所以只有53MB的空闲内存了</td>
+</tr>
+<tr>
+<td>65800k buffers</td>
+<td>作为缓冲的内存数量</td>
+</tr>
+</tbody></table>
+<p><code>第五行为交换分区（swap）信息</code></p>
+<table>
+<thead>
+<tr>
+<th>Swap:  524280k total</th>
+<th>交换分区（虚拟内存）的总大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0k used</td>
+<td>已经使用的交互分区的大小</td>
+</tr>
+<tr>
+<td>524280k free</td>
+<td>空闲交换分区的大小</td>
+</tr>
+<tr>
+<td>409280k cached</td>
+<td>作为缓存的交互分区的大小</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs applescript">[root@hadoop101 <span class="hljs-keyword">at</span>]<span class="hljs-comment"># top -d 1</span>
+[root@hadoop101 <span class="hljs-keyword">at</span>]<span class="hljs-comment"># top -i</span>
+[root@hadoop101 <span class="hljs-keyword">at</span><span class="hljs-comment"># top -p 2575</span></code></pre>
+
+<h2 id="5-netstat-显示网络统计信息和端口占用情况"><a href="#5-netstat-显示网络统计信息和端口占用情况" class="headerlink" title="5 netstat 显示网络统计信息和端口占用情况"></a>5 netstat 显示网络统计信息和端口占用情况</h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>netstat -anp |grep 进程号   （功能描述：查看该进程网络信息）</p>
+<p> netstat -nlp   | grep 端口号 （功能描述：查看网络端口号占用情况）</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>-n</th>
+<th>拒绝显示别名，能显示数字的全部转化成数字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-l</td>
+<td>仅列出有在listen（监听）的服务状态</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>表示显示哪个进程在调用</td>
+</tr>
+</tbody></table>
+<h1 id="crond-系统定时任务"><a href="#crond-系统定时任务" class="headerlink" title="crond 系统定时任务"></a>crond 系统定时任务</h1><h2 id="1-crond-服务管理"><a href="#1-crond-服务管理" class="headerlink" title="1 crond 服务管理"></a>1 crond 服务管理</h2><pre><code class="hljs routeros"><span class="hljs-comment"># 重新启动crond服务</span>
+[root@hadoop101 ~]#<span class="hljs-built_in"> service </span>crond restart</code></pre>
+
+<h2 id="2-crontab-定时任务设置"><a href="#2-crontab-定时任务设置" class="headerlink" title="2 crontab 定时任务设置"></a>2 crontab 定时任务设置</h2><blockquote>
+<p>crontab [选项]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-e</td>
+<td>编辑crontab定时任务</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>查询crontab任务</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>删除当前用户所有的crontab任务</td>
+</tr>
+</tbody></table>
+<ul>
+<li>参数说明</li>
+</ul>
+<pre><code class="hljs autoit">[root<span class="hljs-symbol">@hadoop101</span> ~]<span class="hljs-meta"># crontab -e</span></code></pre>
+
+<blockquote>
+<p>进入crontab编辑界面。会打开vim编辑你的工作。</p>
+<p>* * * * * 执行的任务</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>含义</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个“*”</td>
+<td>一小时当中的第几分钟</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>第二个“*”</td>
+<td>一天当中的第几小时</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>第三个“*”</td>
+<td>一个月当中的第几天</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>第四个“*”</td>
+<td>一年当中的第几月</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>第五个“*”</td>
+<td>一周当中的星期几</td>
+<td>0-7（0和7都代表星期日）</td>
+</tr>
+</tbody></table>
+<p><code>特殊符号</code></p>
+<table>
+<thead>
+<tr>
+<th>特殊符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>代表任何时间。比如第一个“*”就代表一小时中每分钟都执行一次的意思。</td>
+</tr>
+<tr>
+<td>，</td>
+<td>代表不连续的时间。比如“0 8,12,16 * * * 命令”，就代表在每天的8点0分，12点0分，16点0分都执行一次命令</td>
+</tr>
+<tr>
+<td>-</td>
+<td>代表连续的时间范围。比如“0 5  *   * 1-6命令”，代表在周一到周六的凌晨5点0分执行命令</td>
+</tr>
+<tr>
+<td>*/n</td>
+<td>代表每隔多久执行一次。比如“*/10 *   * * * 命令”，代表每隔10分钟就执行一遍命令</td>
+</tr>
+</tbody></table>
+<p><code>特定时间执行命令</code></p>
+<table>
+<thead>
+<tr>
+<th>45 22 * * * 命令</th>
+<th>在22点45分执行命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 17 * * 1 命令</td>
+<td>每周1 的17点0分执行命令</td>
+</tr>
+<tr>
+<td>0 5 1,15 * * 命令</td>
+<td>每月1号和15号的凌晨5点0分执行命令</td>
+</tr>
+<tr>
+<td>40 4 * * 1-5 命令</td>
+<td>每周一到周五的凌晨4点40分执行命令</td>
+</tr>
+<tr>
+<td>*/10 4 * * * 命令</td>
+<td>每天的凌晨4点，每隔10分钟执行一次命令</td>
+</tr>
+<tr>
+<td>0 0 1,15 * 1 命令</td>
+<td>每月1号和15号，每周1的0点0分都会执行命令。注意：星期几和几号最好不要同时出现，因为他们定义的都是天。非常容易让管理员混乱。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>案例实操</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">（1）每隔1分钟，向/root/bailongma.txt文件中添加一个11的数字</span>
+*/1 * * * * /bin/echo ”11” &gt;&gt; /root/bailongma.txt</code></pre>
+
+<h1 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h1><h2 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h2><h3 id="1-RPM概述"><a href="#1-RPM概述" class="headerlink" title="1 RPM概述"></a>1 RPM概述</h3><blockquote>
+<p>RPM（RedHat Package Manager），RedHat软件包管理工具，类似windows里面的setup.exe</p>
+<p> 是Linux这系列操作系统里面的打包安装工具，它虽然是RedHat的标志，但理念是通用的。</p>
+</blockquote>
+<blockquote>
+<p>RPM包的名称格式: Apache-1.3.23-11.i386.rpm</p>
+<p>-    “apache” 软件名称</p>
+<p>-    “1.3.23-11”软件的版本号，主版本和此版本</p>
+<p>-    “i386”是软件所运行的硬件平台，Intel 32位微处理器的统称</p>
+<p>-    “rpm”文件扩展名，代表RPM包</p>
+</blockquote>
+<h3 id="2-RPM查询命令（rpm-qa）"><a href="#2-RPM查询命令（rpm-qa）" class="headerlink" title="2 RPM查询命令（rpm -qa）"></a>2 RPM查询命令（rpm -qa）</h3><blockquote>
+<p>rpm -qa            （功能描述：查询所安装的所有rpm软件包）</p>
+</blockquote>
+<ul>
+<li>经验技巧</li>
+</ul>
+<blockquote>
+<p>由于软件包比较多，一般都会采取过滤。rpm -qa | grep rpm软件包</p>
+</blockquote>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查询firefox软件安装情况</span>
+[root@hadoop101 Packages]# rpm -qa |grep firefox 
+firefox-45.0.1-1.el6.centos.x86_64</code></pre>
+
+<h3 id="3-RPM卸载命令（rpm-e）"><a href="#3-RPM卸载命令（rpm-e）" class="headerlink" title="3 RPM卸载命令（rpm -e）"></a>3 RPM卸载命令（rpm -e）</h3><blockquote>
+<p>（1）rpm -e RPM软件包  </p>
+<p>（2） rpm -e –nodeps 软件包 </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-e</td>
+<td>卸载软件包</td>
+</tr>
+<tr>
+<td>–nodeps</td>
+<td>卸载软件时，不检查依赖。这样的话，那些使用该软件包的软件在此之后可能就不能正常工作了。</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs shell">卸载firefox软件
+[root@hadoop101 Packages]# rpm -e firefox</code></pre>
+
+<h3 id="4-RPM安装命令（rpm-ivh）"><a href="#4-RPM安装命令（rpm-ivh）" class="headerlink" title="4 RPM安装命令（rpm -ivh）"></a>4 RPM安装命令（rpm -ivh）</h3><blockquote>
+<p>rpm -ivh RPM包全名</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-i</td>
+<td>-i=install，安装</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>-v=verbose，显示详细信息</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>-h=hash，进度条</td>
+</tr>
+<tr>
+<td>–nodeps</td>
+<td>–nodeps，不检测依赖进度</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs clean">安装firefox软件
+[root@hadoop101 Packages]# pwd
+/media/CentOS_6<span class="hljs-number">.8</span>_Final/Packages
+[root@hadoop101 Packages]# rpm -ivh firefox<span class="hljs-number">-45.0</span><span class="hljs-number">.1</span><span class="hljs-number">-1.</span>el6.centos.x86_64.rpm 
+warning: firefox<span class="hljs-number">-45.0</span><span class="hljs-number">.1</span><span class="hljs-number">-1.</span>el6.centos.x86_64.rpm: Header V3 RSA/SHA1 Signature, key ID c105b9de: NOKEY
+Preparing...                ########################################### [<span class="hljs-number">100</span>%]
+   <span class="hljs-number">1</span>:firefox                ########################################### [<span class="hljs-number">100</span>%]</code></pre>
+
+<h2 id="YUM仓库配置"><a href="#YUM仓库配置" class="headerlink" title="YUM仓库配置"></a>YUM仓库配置</h2><h3 id="1-YUM概述"><a href="#1-YUM概述" class="headerlink" title="1 YUM概述"></a>1 YUM概述</h3><blockquote>
+<p>YUM（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及CentOS中的Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装</p>
+</blockquote>
+<h3 id="2-YUM的常用命令"><a href="#2-YUM的常用命令" class="headerlink" title="2 YUM的常用命令"></a>2 YUM的常用命令</h3><blockquote>
+<p>yum [选项] [参数]</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-y</td>
+<td>对所有提问都回答“yes”</td>
+</tr>
+</tbody></table>
+<ul>
+<li>参数说明</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>install</td>
+<td>安装rpm软件包</td>
+</tr>
+<tr>
+<td>update</td>
+<td>更新rpm软件包</td>
+</tr>
+<tr>
+<td>check-update</td>
+<td>检查是否有可用的更新rpm软件包</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>删除指定的rpm软件包</td>
+</tr>
+<tr>
+<td>list</td>
+<td>显示软件包信息</td>
+</tr>
+<tr>
+<td>clean</td>
+<td>清理yum过期的缓存</td>
+</tr>
+<tr>
+<td>deplist</td>
+<td>显示yum软件包的所有依赖关系</td>
+</tr>
+</tbody></table>
+<pre><code class="hljs css">采用<span class="hljs-selector-tag">yum</span>方式安装<span class="hljs-selector-tag">firefox</span>
+<span class="hljs-selector-attr">[root@hadoop101 ~]</span><span class="hljs-selector-id">#yum</span> <span class="hljs-selector-tag">-y</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">firefox</span><span class="hljs-selector-class">.x86_64</span></code></pre>
+
+<h3 id="3-修改网络YUM源"><a href="#3-修改网络YUM源" class="headerlink" title="3 修改网络YUM源"></a>3 修改网络YUM源</h3><blockquote>
+<p>默认的系统YUM源，需要连接国外apache网站，网速比较慢，可以修改关联的网络YUM源为国内镜像的网站，比如网易163</p>
+</blockquote>
+<ul>
+<li>前期文件准备</li>
+</ul>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">（1）把下载的文件移动到/etc/yum.repos.d/目录</span>
+[root@hadoop101 下载]# mv CentOS6-Base-163.repo /etc/yum.repos.d/	
+<span class="hljs-meta">#</span><span class="bash">	（2）进入到/etc/yum.repos.d/目录</span>
+[root@hadoop101 yum.repos.d]# pwd
+/etc/yum.repos.d
+<span class="hljs-meta">#</span><span class="bash">	（3）用CentOS6-Base-163.repo替换CentOS-Base.repo</span>
+[root@hadoop101 yum.repos.d]# mv CentOS6-Base-163.repo  CentOS-Base.repo
+3．安装命令
+（1）[root@hadoop101 yum.repos.d]#yum clean all
+（2）[root@hadoop101 yum.repos.d]#yum makecache
+yum makecache就是把服务器的包信息下载到本地电脑缓存起来
+4．测试
+[root@hadoop101 yum.repos.d]#yum list | grep firefox
+[root@hadoop101 ~]#yum -y install firefox.x86_64</code></pre>
 
 
             </article>

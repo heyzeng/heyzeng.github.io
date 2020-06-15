@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
-  <title>大数据生态Hadoop(一)：起源 - 曾俊峰的技术博客</title>
+  <title>详解JPS命令 - 曾俊峰的技术博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2017-05-05 23:55">
-                    2017年5月5日 晚上
+                  <time datetime="2017-05-17 19:22">
+                    2017年5月17日 晚上
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    723 字
+                    646 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    8
+                    10
                      分钟
                   </span>
                 
@@ -182,48 +182,33 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="What-is-Hadoop"><a href="#What-is-Hadoop" class="headerlink" title="What is Hadoop"></a>What is Hadoop</h1><ul>
-<li>官方文档<br>The Apache™ Hadoop® project develops open-source software for reliable, scalable, distributed computing.</li>
-<li>释义<br>Apache™Hadoop®项目开发用于可靠、可伸缩的分布式计算的开源软件。</li>
-<li>广义<br>广义上来说，Hadoop通常是指一个更广泛的概念——Hadoop生态圈。</li>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux/unix平台上简单察看当前java进程的一些简单情况。</p>
+<h1 id="unix的ps命令"><a href="#unix的ps命令" class="headerlink" title="unix的ps命令"></a>unix的ps命令</h1><ul>
+<li>用过unix系统里的ps命令，这个命令主要是用来显示当前系统的进程情况，有哪些进程，及其 id。 </li>
+<li>jps也是一样，它的作用是显示当前系统的java进程情况，及其id号。我们可以通过它来查看我们到底启动了几个java进程，因为每一个java程序都会独占一个java虚拟机实例，和他们的进程号，并可通过opt来查看这些进程的详细启动参数。</li>
 </ul>
-<h1 id="Hadoop起源"><a href="#Hadoop起源" class="headerlink" title="Hadoop起源"></a>Hadoop起源</h1><ul>
-<li>Lucene框架是Doug Cutting开创的开源软件，用Java书写代码，实现与Google类似的全文搜索功能，它提供了全文检索引擎的架构，包括完整的查询引擎和索引引擎。</li>
-<li>2001年年底Lucene成为Apache基金会的一个子项目。</li>
-<li>对于海量数据的场景，Lucene面对与Google同样的困难，存储数据困难，检索速度慢。</li>
-<li>可以说Google是Hadoop的思想之源(Google在大数据方面的三篇论文)<pre><code class="hljs applescript"><span class="hljs-comment"># Google三篇论文</span>
-GFS <span class="hljs-comment">---&gt;HDFS</span>
-Map-Reduce <span class="hljs-comment">---&gt;MR</span>
-BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
-<li>2003-2004年，Google公开了部分GFS和MapReduce思想的细节，以此为基础Doug Cutting等人用了2年业余时间实现了DFS和MapReduce机制，使Nutch性能飙升。</li>
-<li>2005 年Hadoop 作为 Lucene的子项目 Nutch的一部分正式引入Apache基金会。</li>
-<li>2006 年 3 月份，Map-Reduce和Nutch Distributed File System (NDFS) 分别被纳入到 Hadoop 项目中，Hadoop就此正式诞生，标志着大数据时代来临，而名字来源于Doug Cutting儿子的玩具大象。</li>
-</ul>
-<h1 id="Hadoop三大发行版本"><a href="#Hadoop三大发行版本" class="headerlink" title="Hadoop三大发行版本"></a>Hadoop三大发行版本</h1><ul>
-<li><a href="http://hadoop.apache.org/releases.html" target="_blank" rel="noopener">Apache Hadoop</a><br>版本最原始（最基础）的版本，对于入门学习最好。</li>
-<li><a href="https://www.cloudera.com/downloads/cdh/5-10-0.html" target="_blank" rel="noopener">Cloudera Hadoop</a><br>在大型互联网企业中用的较多。</li>
-<li><a href="https://hortonworks.com/products/data-center/hdp/" target="_blank" rel="noopener">Hortonworks Hadoop</a><br>文档完善、已经被CDH收购</li>
-</ul>
-<h1 id="Hadoop优势"><a href="#Hadoop优势" class="headerlink" title="Hadoop优势"></a>Hadoop优势</h1><ul>
-<li>高可靠性<br>Hadoop底层维护多个数据副本，所以即使Hadoop某个计算元素或存储出现故障，也不会导致数据的丢失。</li>
-<li>高扩展性<br>在集群间分配任务数据，可方便的扩展数以千计的节点。</li>
-<li>高效性<br>在MapReduce的思想下，Hadoop是并行工作的，以加快任务处理速度。</li>
-<li>高容错性<br>能够自动将失败的任务重新分配。</li>
-</ul>
-<h1 id="Hadoop组成"><a href="#Hadoop组成" class="headerlink" title="Hadoop组成"></a>Hadoop组成</h1><ul>
-<li>HDFS<br>Hadoop分布式文件系统(HDFS)是指被设计成适合运行在通用硬件(commodity hardware)上的分布式文件系统（Distributed File System）</li>
-<li>MapRedurce<br>MapReduce是一种编程模型，用于大规模数据集（大于1TB）的并行运算。概念”Map（映射）”和”Reduce（归约）”，是它们的主要思想，都是从函数式编程语言里借来的，还有从矢量编程语言里借来的特性。</li>
-<li>Yarn<br>Apache Hadoop YARN （Yet Another Resource Negotiator，另一种资源协调者）是一种新的 Hadoop 资源管理器，它是一个通用资源管理系统，可为上层应用提供统一的资源管理和调度，它的引入为集群在利用率、资源统一管理和数据共享等方面带来了巨大好处。</li>
-</ul>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>商品广告推荐</li>
-<li>保险</li>
-<li>物流</li>
-<li>旅游</li>
-<li>…</li>
-</ul>
-<h1 id="Hadoop生态架构图"><a href="#Hadoop生态架构图" class="headerlink" title="Hadoop生态架构图"></a>Hadoop生态架构图</h1><p><img src="http://q7jwslv80.bkt.clouddn.com/hadoop_1_1.png" srcset="/img/loading.gif" alt="hadoop生态架构图"></p>
-
+<h1 id="JPS使用方法"><a href="#JPS使用方法" class="headerlink" title="JPS使用方法"></a>JPS使用方法</h1><h4 id="使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境"><a href="#使用方法：在当前命令行下打-jps-系统要配置需要JAVA-HOME环境" class="headerlink" title="使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境."></a>使用方法：在当前命令行下打 jps,系统要配置需要JAVA_HOME环境.</h4><p>命令：<code>jps</code></p>
+<pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>AmbariServer
+<span class="hljs-symbol">29041 </span>TimelineReaderServer
+<span class="hljs-symbol">4082 </span>ServiceMaster
+<span class="hljs-symbol">32275 </span>Jps</code></pre>
+<h1 id="常用的参数"><a href="#常用的参数" class="headerlink" title="常用的参数"></a>常用的参数</h1><h5 id="q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数"><a href="#q-只显示pid，不显示class名称-jar文件名和传递给main-方法的参数" class="headerlink" title="-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数"></a>-q 只显示pid，不显示class名称,jar文件名和传递给main 方法的参数</h5><p>命令：<code>jpq -q</code></p>
+<pre><code class="hljs angelscript"><span class="hljs-number">26177</span>
+<span class="hljs-number">29041</span>
+<span class="hljs-number">4082</span>
+<span class="hljs-number">32741</span></code></pre>
+<h4 id="m-输出传递给main-方法的参数，在嵌入式jvm上可能是null"><a href="#m-输出传递给main-方法的参数，在嵌入式jvm上可能是null" class="headerlink" title="-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null"></a>-m 输出传递给main 方法的参数，在嵌入式jvm上可能是null</h4><p>命令：<code>jps -m</code></p>
+<pre><code class="hljs basic"><span class="hljs-symbol">6177 </span>AmbariServer
+<span class="hljs-symbol">29041 </span>TimelineReaderServer
+<span class="hljs-symbol">32741 </span>RunJar /<span class="hljs-keyword">usr</span>/hdp/<span class="hljs-number">3.1.0.0</span>-<span class="hljs-number">78</span>/hive/lib/hive-metastore-<span class="hljs-number">3.1.0.3.1.0.0</span>-<span class="hljs-number">78.</span>jar org.apache.hadoop.hive.metastore.HiveMetaStore</code></pre>
+<h4 id="l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名"><a href="#l-输出应用程序main-class的完整package名-或者-应用程序的jar文件完整路径名" class="headerlink" title="-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名"></a>-l 输出应用程序main class的完整package名 或者 应用程序的jar文件完整路径名</h4><p>命令：<code>jps -l</code></p>
+<pre><code class="hljs basic"><span class="hljs-symbol">26177 </span>org.apache.ambari.server.controller.AmbariServer
+<span class="hljs-symbol">29041 </span>org.apache.hadoop.yarn.server.timelineservice.reader.TimelineReaderServer
+<span class="hljs-symbol">4082 </span>org.apache.hadoop.yarn.service.ServiceMaster</code></pre>
+<h4 id="v-输出传递给JVM的参数"><a href="#v-输出传递给JVM的参数" class="headerlink" title="-v 输出传递给JVM的参数"></a>-v 输出传递给JVM的参数</h4><p>命令：<code>jps -v</code></p>
+<pre><code class="hljs routeros">6177 AmbariServer -XX:<span class="hljs-attribute">NewRatio</span>=3 -XX:+UseConcMarkSweepGC -XX:-UseGCOverheadLimit -XX:<span class="hljs-attribute">CMSInitiatingOccupancyFraction</span>=60 -XX:+CMSClassUnloadingEnabled -Dsun.zip.<span class="hljs-attribute">disableMemoryMapping</span>=<span class="hljs-literal">true</span> -Xms512m -Xmx2048m -XX:<span class="hljs-attribute">MaxPermSize</span>=128m -Djava.security.auth.login.<span class="hljs-attribute">config</span>=/etc/ambari-server/conf/krb5JAASLogin.conf -Djava.security.krb5.<span class="hljs-attribute">conf</span>=/etc/krb5.conf -Djavax.security.auth.<span class="hljs-attribute">useSubjectCredsOnly</span>=<span class="hljs-literal">false</span> -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">protocol</span>=plain ssl -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">maxsize</span>=20 -Dcom.sun.jndi.ldap.connect.pool.<span class="hljs-attribute">timeout</span>=300000
+29041 TimelineReaderServer -Dproc_timelinereader -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Djava.net.<span class="hljs-attribute">preferIPv4Stack</span>=<span class="hljs-literal">true</span> -Dhdp.<span class="hljs-attribute">version</span>=3.1.0.0-78 -Dyarn.id.str= -Dyarn.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Djava.io.<span class="hljs-attribute">tmpdir</span>=/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir -Dyarn.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dyarn.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dyarn.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop-yarn -Dyarn.root.<span class="hljs-attribute">logger</span>=INFO,console -Djava.library.<span class="hljs-attribute">path</span>=:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/usr/hdp/3.1.0.0-78/hadoop/lib/native/Linux-amd64-64:/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir:/usr/hdp/3.1.0.0-78/hadoop/lib/native -Xmx1024m -Dhadoop.log.<span class="hljs-attribute">dir</span>=/var/log/hadoop-yarn/yarn -Dhadoop.log.<span class="hljs-attribute">file</span>=hadoop-yarn-timelinereader-vm10-101-179-203.ksc.com.log -Dhadoop.home.<span class="hljs-attribute">dir</span>=/usr/hdp/3.1.0.0-78/hadoop -Dhadoop.id.<span class="hljs-attribute">str</span>=yarn -Dhadoop.root.<span class="hljs-attribute">logger</span>=INFO,RFA -Dhadoop.policy.<span class="hljs-attribute">file</span>=hadoop-policy.xml -Dhadoop.security.<span class="hljs-attribute">logger</span>=INFO,NullAppender</code></pre>
+<h4 id="附详JPS细文档"><a href="#附详JPS细文档" class="headerlink" title="附详JPS细文档"></a><a href="https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jps.html" target="_blank" rel="noopener">附详JPS细文档</a></h4>
             </article>
             <hr>
             <div>
@@ -232,7 +217,7 @@ BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Hadoop/">Hadoop</a>
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
                     
                   </div>
                 
@@ -240,7 +225,7 @@ BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%B5%B7%E6%BA%90/">起源</a>
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
                     
                   </div>
                 
@@ -253,9 +238,9 @@ BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2017/05/07/hadoop2/">
+                      <a href="/2017/05/28/hive1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">大数据生态Hadoop(二)：hadoop安装部署</span>
+                        <span class="hidden-mobile">数仓工具Hive(一)：起源</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -263,8 +248,8 @@ BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2015/06/07/linux4/">
-                        <span class="hidden-mobile">Linux(四)：常用基本命令</span>
+                      <a href="/2017/05/08/hadoop3/">
+                        <span class="hidden-mobile">大数据生态Hadoop(三)：实现官方自带wordcount案例</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -404,7 +389,7 @@ BigTable <span class="hljs-comment">---&gt;HBase</span></code></pre></li>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "大数据生态Hadoop(一)：起源&nbsp;",
+        "详解JPS命令&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

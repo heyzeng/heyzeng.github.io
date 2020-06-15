@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    33
+                    34
                      分钟
                   </span>
                 
@@ -187,7 +187,7 @@
 <p>Flink版本为：1.11</p>
 </blockquote>
 <h1 id="Git-配置代理"><a href="#Git-配置代理" class="headerlink" title="Git 配置代理"></a>Git 配置代理</h1><blockquote>
-<p>先科学上网，不然` Git clone flink源码的速度很慢、还会中断</p>
+<p>先科学上网，不然 Git clone flink源码的速度很慢、还会中断</p>
 </blockquote>
 <pre><code class="hljs routeros"><span class="hljs-comment"># 设置代理</span>
 git<span class="hljs-built_in"> config </span>--global http.proxy <span class="hljs-string">'socks5://127.0.0.1:1080'</span>
@@ -203,8 +203,9 @@ git<span class="hljs-built_in"> config </span>--global --unset https.proxy</code
 
 <h1 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h1><blockquote>
 <p>编译源码可能会出现很多状况，根据实际问题多排查几次。</p>
+<p>我遇到的问题是<code>flink-runtime-web</code>模块一直编译失败，报错信息<code>maven</code>仓库内的<code>node</code>有问题，解决方法：<code>maven</code>仓库中删除下载好的<code>node</code>包即可</p>
 </blockquote>
-<pre><code class="hljs ada">mvn clean <span class="hljs-keyword">package</span> <span class="hljs-title">-DskipTests</span></code></pre>
+<pre><code class="hljs ada">mvn clean <span class="hljs-keyword">package</span> <span class="hljs-title">-DskipTests # 编译命令</span></code></pre>
 
 <h1 id="编译成功"><a href="#编译成功" class="headerlink" title="编译成功"></a>编译成功</h1><blockquote>
 <p>官网说编写需要10分钟左右，我是用MacbookPro编译的，大概时间在23分钟左右。(具体编译时间根据配置吧)。下面即为编译成功</p>

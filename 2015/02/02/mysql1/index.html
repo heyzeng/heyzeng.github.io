@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    32
+                    33
                      分钟
                   </span>
                 
@@ -239,14 +239,33 @@ mysql.<span class="hljs-keyword">server</span> restart</code></pre>
 <li>1.查询的结果为一个虚拟表，并没有真实存在</li>
 <li>2.查询列表可以是常量、字段、表达式、函数以及上述的组合</li>
 </ul>
-<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p>语法：</br><br>select 查询列表 from 表名</br><br>where 条件;</br><br><strong>条件的形式：</strong></br></p>
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p>语法：</p>
+<blockquote>
+<p>select 查询列表 from 表名<br>where 条件;</p>
+</blockquote>
+<p><strong>条件的形式：</strong></p>
 <ul>
-<li>关系表达式 </br><br>通过关系运算符组成的表达式：关系表达式<br>sql中的关系运算符：&gt; &lt; &gt;= &lt;= = != &lt;&gt;</li>
-<li>逻辑表达式</br><br>通过逻辑运算符组成的表达式：逻辑表达式<br>sql中的逻辑运算符：and、or 、not   【&amp;&amp; || ！】</li>
-<li>模糊查询</br><br>like、between and、in、is null</li>
+<li><p>关系表达式 </p>
+<blockquote>
+<p>通过关系运算符组成的表达式：关系表达式<br>sql中的关系运算符：&gt; &lt; &gt;= &lt;= = != &lt;&gt;</p>
+</blockquote>
+</li>
+<li><p>逻辑表达式</p>
+<blockquote>
+<p>通过逻辑运算符组成的表达式：逻辑表达式<br>sql中的逻辑运算符：and、or 、not   【&amp;&amp; || ！】</p>
+</blockquote>
+</li>
+<li><p>模糊查询</p>
+<blockquote>
+<p>like、between and、in、is null</p>
+</blockquote>
+</li>
 </ul>
-<h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><p>语法：</br><br>select 查询列表</br><br>from 表名</br><br>where 条件</br><br>order by 排序列表 asc|desc;</br></p>
-<p>特点：</br></p>
+<h2 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h2><p>语法：</p>
+<blockquote>
+<p>select 查询列表<br>from 表名<br>where 条件<br>order by 排序列表 asc|desc;</p>
+</blockquote>
+<p>特点：</p>
 <ul>
 <li>asc代表升序，desc代表降序。默认是升序</li>
 <li>查询列表可以是 单个字段、多个字段、函数、表达式、别名或上述的组合</li>
@@ -304,11 +323,39 @@ mysql.<span class="hljs-keyword">server</span> restart</code></pre>
 <h2 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h2><p><strong>语法：</strong></br></p>
 <p>select 分组函数,分组的字段 – ⑤</br><br>from 表名 –   ①</br><br>where 分组前的筛选条件– ②</br><br>group by 分组的字段,…  – ③</br><br>having 分组后的筛选条件 – ④</br><br>order by 排序列表 –⑥</br></p>
 <p><strong>特点：</strong></p>
-<p>筛选可以分为分组前筛选和分组后筛选<br>筛选|针对的数据    |    使用的关键字    |    位置<br>-|-|-|-<br>分组前筛选|    原始表|where|group by前面<br>    分组后筛选|分组后的结果集        |having            |group by后面</p>
+<p><strong>筛选可以分为分组前筛选和分组后筛选</strong></p>
+<table>
+<thead>
+<tr>
+<th>筛选</th>
+<th>针对的数据</th>
+<th>使用的关键字</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分组前筛选</td>
+<td>原始表</td>
+<td>where</td>
+<td>group by前面</td>
+</tr>
+<tr>
+<td>分组后筛选</td>
+<td>分组后的结果集</td>
+<td>having</td>
+<td>group by后面</td>
+</tr>
+<tr>
+<td>&gt;分组函数做条件放在having后面！</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>查询的字段或条件来自于多张表，这个时候则需要使用多表连接查询，简称连接查询</br><br>笛卡尔乘积的现象：</p>
 <blockquote>
-<p>分组函数做条件放在having后面！</p>
+<p>表1行数m行，表2行数n行，结果为m*n行<br>如何产生的？<br>    没有添加连接条件<br>如何解决？<br>    添加连接条件<br>如何添加连接条件？</p>
 </blockquote>
-<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>查询的字段或条件来自于多张表，这个时候则需要使用多表连接查询，简称连接查询</br><br>笛卡尔乘积的现象：</br><br>    表1行数m行，表2行数n行，结果为m*n行<br>如何产生的？<br>    没有添加连接条件<br>如何解决？<br>    添加连接条件<br>如何添加连接条件？</br></p>
 <p><strong>sql92语法：</strong></p>
 <pre><code>内连接：
     等值连接

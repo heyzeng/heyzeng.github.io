@@ -185,22 +185,22 @@
               <h1 id="Shell概述"><a href="#Shell概述" class="headerlink" title="Shell概述"></a>Shell概述</h1><blockquote>
 <p>shell是一个命令解释器，它接受应用程序、用户命令，然后调用操作linux系统内核</p>
 </blockquote>
-<h1 id="Shell解释器"><a href="#Shell解释器" class="headerlink" title="Shell解释器"></a>Shell解释器</h1><h2 id="Linux提供的Shell解析器有"><a href="#Linux提供的Shell解析器有" class="headerlink" title="Linux提供的Shell解析器有"></a>Linux提供的Shell解析器有</h2><pre><code class="hljs shell">[root@jude ~]# cat /etc/shells
+<h1 id="Shell解释器"><a href="#Shell解释器" class="headerlink" title="Shell解释器"></a>Shell解释器</h1><h2 id="Linux提供的Shell解析器有"><a href="#Linux提供的Shell解析器有" class="headerlink" title="Linux提供的Shell解析器有"></a>Linux提供的Shell解析器有</h2><div class="hljs"><pre><code class="hljs shell">[root@jude ~]# cat /etc/shells
 /bin/sh
 /bin/bash
 /sbin/nologin
 /usr/bin/sh
 /usr/bin/bash
-/usr/sbin/nologin</code></pre>
+/usr/sbin/nologin</code></pre></div>
 
-<h2 id="bash和sh的关系"><a href="#bash和sh的关系" class="headerlink" title="bash和sh的关系"></a>bash和sh的关系</h2><pre><code class="hljs shell">[root@jude bin]# ll | grep bash
+<h2 id="bash和sh的关系"><a href="#bash和sh的关系" class="headerlink" title="bash和sh的关系"></a>bash和sh的关系</h2><div class="hljs"><pre><code class="hljs shell">[root@jude bin]# ll | grep bash
 -rwxr-xr-x.   1 root root     964600 8月   8 2015 bash
 lrwxrwxrwx.   1 root root         10 11月  5 2015 bashbug -&gt; bashbug-64
 -rwxr-xr-x.   1 root root       6964 8月   8 2015 bashbug-64
-lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre>
+lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre></div>
 
-<h2 id="Centos默认的解析器是bash"><a href="#Centos默认的解析器是bash" class="headerlink" title="Centos默认的解析器是bash"></a>Centos默认的解析器是bash</h2><pre><code class="hljs autoit">[root<span class="hljs-symbol">@jude</span> bin]<span class="hljs-meta"># echo $SHELL</span>
-/bin/bash</code></pre>
+<h2 id="Centos默认的解析器是bash"><a href="#Centos默认的解析器是bash" class="headerlink" title="Centos默认的解析器是bash"></a>Centos默认的解析器是bash</h2><div class="hljs"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@jude</span> bin]<span class="hljs-meta"># echo $SHELL</span>
+/bin/bash</code></pre></div>
 
 <h1 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h1><ul>
 <li>脚本格式</li>
@@ -208,12 +208,12 @@ lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre>
 <blockquote>
 <p>脚本以#!/bin/bash开头（指定解析器）</p>
 </blockquote>
-<h2 id="第一个Shell脚本：helloworld"><a href="#第一个Shell脚本：helloworld" class="headerlink" title="第一个Shell脚本：helloworld"></a>第一个Shell脚本：helloworld</h2><pre><code class="hljs bash">[root@hadoop101 datas]$ touch helloworld.sh
+<h2 id="第一个Shell脚本：helloworld"><a href="#第一个Shell脚本：helloworld" class="headerlink" title="第一个Shell脚本：helloworld"></a>第一个Shell脚本：helloworld</h2><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch helloworld.sh
 [root@hadoop101 datas]$ vi helloworld.sh
 
 在helloworld.sh中输入如下内容
 <span class="hljs-meta">#!/bin/bash</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">"helloworld"</span></code></pre>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"helloworld"</span></code></pre></div>
 
 <ul>
 <li>脚本的常用执行方式</li>
@@ -221,7 +221,7 @@ lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre>
 <blockquote>
 <p>第一种：采用bash或sh+脚本的相对路径或绝对路径（不用赋予脚本+x权限）</p>
 </blockquote>
-<pre><code class="hljs elixir"><span class="hljs-comment"># sh+脚本的相对路径</span>
+<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment"># sh+脚本的相对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>sh helloworld.sh 
 Helloworld
 <span class="hljs-comment">#	sh+脚本的绝对路径</span>
@@ -232,12 +232,12 @@ helloworld
 Helloworld
 <span class="hljs-comment">#	bash+脚本的绝对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>bash /home/root/datas/helloworld.sh 
-Helloworld</code></pre>
+Helloworld</code></pre></div>
 
 <blockquote>
 <p>第二种：采用输入脚本的绝对路径或相对路径执行脚本（必须具有可执行权限+x）</p>
 </blockquote>
-<pre><code class="hljs elixir"><span class="hljs-comment">#（a）首先要赋予helloworld.sh 脚本的+x权限</span>
+<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment">#（a）首先要赋予helloworld.sh 脚本的+x权限</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>chmod <span class="hljs-number">777</span> helloworld.sh
 <span class="hljs-comment">#（b）执行脚本</span>
 <span class="hljs-comment"># 相对路径</span>
@@ -245,7 +245,7 @@ Helloworld</code></pre>
 Helloworld
 <span class="hljs-comment"># 绝对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>/home/root/datas/helloworld.sh 
-Helloworld</code></pre>
+Helloworld</code></pre></div>
 
 <blockquote>
 <p>注意：第一种执行方法，本质是bash解析器帮你执行脚本，所以脚本本身不需要执行权限。第二种执行方法，本质是脚本需要自己执行，所以需要执行权限。</p>
@@ -256,7 +256,7 @@ Helloworld</code></pre>
 <blockquote>
 <p>在/home/root/目录下创建一个banzhang.txt,在banzhang.txt文件中增加“I love cls”。</p>
 </blockquote>
-<pre><code class="hljs bash">[root@hadoop101 datas]$ touch batch.sh
+<div class="hljs"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch batch.sh
 [root@hadoop101 datas]$ vi batch.sh
 
 在batch.sh中输入如下内容
@@ -264,13 +264,13 @@ Helloworld</code></pre>
 
 <span class="hljs-built_in">cd</span> /home/root
 touch cls.txt
-<span class="hljs-built_in">echo</span> <span class="hljs-string">"I love cls"</span> &gt;&gt;cls.txt</code></pre>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"I love cls"</span> &gt;&gt;cls.txt</code></pre></div>
 
 <h1 id="Shell中的变量"><a href="#Shell中的变量" class="headerlink" title="Shell中的变量"></a>Shell中的变量</h1><h2 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h2><ul>
 <li>常用系统变量</li>
 </ul>
 <p><code>$HOME</code>、<code>$PWD</code>、<code>$SHELL</code>、<code>$USER</code>等</p>
-<pre><code class="hljs elixir"><span class="hljs-comment">#（1）查看系统变量的值</span>
+<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment">#（1）查看系统变量的值</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$HOME</span>
 /home/atguigu
 <span class="hljs-comment">#（2）显示当前Shell中所有变量：set</span>
@@ -278,7 +278,7 @@ touch cls.txt
 BASH=<span class="hljs-regexp">/bin/bash</span>
 BASH_ALIASES=()
 BASH_ARGC=()
-BASH_ARGV=()</code></pre>
+BASH_ARGV=()</code></pre></div>
 
 
             </article>

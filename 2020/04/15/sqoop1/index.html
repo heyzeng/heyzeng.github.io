@@ -182,11 +182,11 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="报错日志"><a href="#报错日志" class="headerlink" title="报错日志"></a>报错日志</h1><pre><code class="hljs xml">20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: Could not find HBase table hbase_company
+              <h1 id="报错日志"><a href="#报错日志" class="headerlink" title="报错日志"></a>报错日志</h1><div class="hljs"><pre><code class="hljs xml">20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: Could not find HBase table hbase_company
 20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: This job may fail. Either explicitly create the table,
 20/04/14 16:40:45 WARN mapreduce.HBaseImportJob: or re-run with --hbase-create-table.
 20/04/14 16:40:45 INFO zookeeper.ZooKeeper: Session: 0x36db06bc9c32fb9 closed
-20/04/14 16:40:45 INFO zookeeper.ClientCnxn: EventThread shut down</code></pre>
+20/04/14 16:40:45 INFO zookeeper.ClientCnxn: EventThread shut down</code></pre></div>
 <h1 id="失败原因"><a href="#失败原因" class="headerlink" title="失败原因"></a>失败原因</h1><ul>
 <li><p>使用sqoop导mysql数据到HDFS，不用在hive里面建表，在跑mr任务时候自动创建hive表</p>
 </li>
@@ -201,10 +201,10 @@
 <li><p>Hbase 版本2.1.1</p>
 </li>
 </ul>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1、在hbase里面建表"><a href="#1、在hbase里面建表" class="headerlink" title="1、在hbase里面建表"></a>1、在hbase里面建表</h2><pre><code class="hljs bash">create <span class="hljs-string">'hbase_company'</span>,<span class="hljs-string">'info'</span>
-scan <span class="hljs-string">'hbase_company'</span></code></pre>
-<h2 id="2、脚本添加参数"><a href="#2、脚本添加参数" class="headerlink" title="2、脚本添加参数"></a>2、脚本添加参数</h2><pre><code class="hljs bash">--hbase-create-table</code></pre>
-<h1 id="附：导数据脚本"><a href="#附：导数据脚本" class="headerlink" title="附：导数据脚本"></a>附：导数据脚本</h1><pre><code class="hljs bash">bin/sqoop import \
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1、在hbase里面建表"><a href="#1、在hbase里面建表" class="headerlink" title="1、在hbase里面建表"></a>1、在hbase里面建表</h2><div class="hljs"><pre><code class="hljs bash">create <span class="hljs-string">'hbase_company'</span>,<span class="hljs-string">'info'</span>
+scan <span class="hljs-string">'hbase_company'</span></code></pre></div>
+<h2 id="2、脚本添加参数"><a href="#2、脚本添加参数" class="headerlink" title="2、脚本添加参数"></a>2、脚本添加参数</h2><div class="hljs"><pre><code class="hljs bash">--hbase-create-table</code></pre></div>
+<h1 id="附：导数据脚本"><a href="#附：导数据脚本" class="headerlink" title="附：导数据脚本"></a>附：导数据脚本</h1><div class="hljs"><pre><code class="hljs bash">bin/sqoop import \
 --connect jdbc:mysql://ip:3306/company \
 --username root \
 --password 000000 \
@@ -215,7 +215,7 @@ scan <span class="hljs-string">'hbase_company'</span></code></pre>
 --hbase-row-key <span class="hljs-string">"id"</span> \
 --hbase-table <span class="hljs-string">"hbase_company"</span> \
 --num-mappers 1 \
---split-by id</code></pre>
+--split-by id</code></pre></div>
 
 
             </article>

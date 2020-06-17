@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    571 字
+                    1.4k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    8
+                    18
                      分钟
                   </span>
                 
@@ -279,6 +279,128 @@ BASH=<span class="hljs-regexp">/bin/bash</span>
 BASH_ALIASES=()
 BASH_ARGC=()
 BASH_ARGV=()</code></pre></div>
+
+<h2 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h2><blockquote>
+<p>（1）定义变量：变量=值 </p>
+<p>（2）撤销变量：unset 变量</p>
+<p>（3）声明静态变量：readonly变量，注意：不能unset</p>
+</blockquote>
+<ul>
+<li>变量定义规则</li>
+</ul>
+<blockquote>
+<p>（1）变量名称可以由字母、数字和下划线组成，但是不能以数字开头，环境变量名建议大写。</p>
+<p>（2）等号两侧不能有空格</p>
+<p>（3）在bash中，变量默认类型都是字符串类型，无法直接进行数值运算。</p>
+<p>（4）变量的值如果有空格，需要使用双引号或单引号括起来。</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<div class="hljs"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）定义变量A
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>A=<span class="hljs-number">5</span>
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span>
+<span class="hljs-number">5</span>
+（<span class="hljs-number">2</span>）给变量A重新赋值
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>A=<span class="hljs-number">8</span>
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span>
+<span class="hljs-number">8</span>
+	（<span class="hljs-number">3</span>）撤销变量A
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>unset A
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span>
+	（<span class="hljs-number">4</span>）声明静态的变量B=<span class="hljs-number">2</span>，不能unset
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>readonly B=<span class="hljs-number">2</span>
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$B</span>
+<span class="hljs-number">2</span>
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>B=<span class="hljs-number">9</span>
+-<span class="hljs-symbol">bash:</span> <span class="hljs-symbol">B:</span> readonly variable
+	（<span class="hljs-number">5</span>）在bash中，变量默认类型都是字符串类型，无法直接进行数值运算
+[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>C=<span class="hljs-number">1+2</span>
+[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$C</span>
+<span class="hljs-number">1+2</span>
+（<span class="hljs-number">6</span>）变量的值如果有空格，需要使用双引号或单引号括起来
+[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>D=I love banzhang
+-<span class="hljs-symbol">bash:</span> <span class="hljs-symbol">world:</span> command <span class="hljs-keyword">not</span> found
+[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>D=<span class="hljs-string">"I love banzhang"</span>
+[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span>
+I love banzhang
+	（<span class="hljs-number">7</span>）可把变量提升为全局环境变量，可供其他Shell程序使用
+export 变量名
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>vim helloworld.sh 
+
+在helloworld.sh文件中增加echo <span class="hljs-variable">$B</span>
+<span class="hljs-comment">#!/bin/bash</span>
+
+echo <span class="hljs-string">"helloworld"</span>
+echo <span class="hljs-variable">$B</span>
+
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh 
+Helloworld
+发现并没有打印输出变量B的值。
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>export B
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh 
+helloworld</code></pre></div>
+
+<h2 id="特殊变量：-n"><a href="#特殊变量：-n" class="headerlink" title="特殊变量：$n"></a>特殊变量：<code>$n</code></h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p><code>$n</code>  （功能描述：n为数字，<code>$0</code>代表该脚本名称，<code>$1-$9</code>代表第一到第九个参数，十以上的参数，十以上的参数需要用大括号包含，如<code>${10}</code>）</p>
+</blockquote>
+<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 输出该脚本文件名称、输入参数1和输入参数2 的值</span>
+[root@hadoop101 datas]$ touch parameter.sh 
+[root@hadoop101 datas]$ vim parameter.sh
+
+<span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span>
+
+[root@hadoop101 datas]$ chmod 777 parameter.sh
+[root@hadoop101 datas]$ ./parameter.sh cls  xz
+./parameter.sh  cls   xz</code></pre></div>
+
+<h2 id="特殊变量："><a href="#特殊变量：" class="headerlink" title="特殊变量：$#"></a>特殊变量：<code>$#</code></h2><blockquote>
+<p>$#  （功能描述：获取所有输入参数个数，常用于循环）</p>
+</blockquote>
+<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 获取输入参数的个数</span>
+[root@hadoop101 datas]$ vim parameter.sh
+
+<span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$#</span>
+
+[root@hadoop101 datas]$ chmod 777 parameter.sh
+
+[root@hadoop101 datas]$ ./parameter.sh cls  xz
+parameter.sh cls xz 
+2</code></pre></div>
+
+<h2 id="特殊变量：-、"><a href="#特殊变量：-、" class="headerlink" title="特殊变量：$*、$@"></a>特殊变量：<code>$*</code>、<code>$@</code></h2><blockquote>
+<p><code>$*</code>  （功能描述：这个变量代表命令行中所有的参数，<code>$*</code>把所有的参数看成一个整体）</p>
+<p> <code>$@</code> （功能描述：这个变量也代表命令行中所有的参数，不过<code>$@</code>把每个参数区分对待）</p>
+</blockquote>
+<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 打印输入的所有参数</span>
+[root@hadoop101 datas]$ vim parameter.sh
+
+<span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$#</span>
+<span class="hljs-built_in">echo</span> $*
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$@</span>
+
+[root@hadoop101 datas]$ bash parameter.sh 1 2 3
+parameter.sh  1   2  
+3
+1 2 3
+1 2 3</code></pre></div>
+
+<h2 id="特殊变量：-？"><a href="#特殊变量：-？" class="headerlink" title="特殊变量：$？"></a>特殊变量：<code>$？</code></h2><blockquote>
+<p><code>$？</code> （功能描述：最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0（具体是哪个数，由命令自己来决定），则证明上一个命令执行不正确了。）</p>
+</blockquote>
+<div class="hljs"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）判断helloworld.sh脚本是否正确执行
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh 
+hello world
+[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$?</span>
+0</code></pre></div>
 
 
             </article>

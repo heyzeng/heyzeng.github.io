@@ -413,6 +413,53 @@ git config --globa</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/06/17/mysql1-1/">MySQL权限问题</a>
+
+      <a href="/2018/06/17/mysql1-1/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言
+连接mysql报错java.sql.SQLException: Access denied for user ‘root’@’IP一直会报错，尝试了修改host，还是有问题。
+
+#给单个IP用户授权
+# 给一个用用户use ip: 1.1.1.1
+grant all on *.* to root@192.168.0.1 identified by 'passwd'
+
+授权连接全部的ip地址G</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-06-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/troubleshooting/">troubleshooting</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2018/03/15/hadoop1-1-balancer/">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</a>
 
       <a href="/2018/03/15/hadoop1-1-balancer/" class="index-excerpt">
@@ -545,57 +592,6 @@ creat</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%BB%83%E4%B9%A0/">练习</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2017/07/21/hive1-1/" target="_self">
-          <img src="https://i.loli.net/2020/05/17/jTSHORqgXmnyAb4.png" srcset="/img/loading.gif" alt="Ambari+HDP安装的Hive出现中文乱码解决">
-        </a>
-      </div>
-    
-    <div class="col-12 col-md-8 mx-auto index-info">
-      <a class="index-header" href="/2017/07/21/hive1-1/">Ambari+HDP安装的Hive出现中文乱码解决</a>
-
-      <a href="/2017/07/21/hive1-1/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言公司决定使用Ambari+HDP这一套大数据运维加部署框架去替代CDH，遇到一些问题会及时记录下来
-Hive注释comment出现乱码Hive建表语句create table  test.mytest_tm1(
-              id int comment'编号',
-              name string comment '名字'
-              )
-row</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-07-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hive/">Hive</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ambari/">ambari</a>
             
           </div>
         

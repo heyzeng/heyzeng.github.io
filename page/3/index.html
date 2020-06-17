@@ -157,6 +157,76 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2016/03/10/mysql2/">MySQL面试题(一)</a>
+
+      <a href="/2016/03/10/mysql2/" class="index-excerpt">
+        
+        
+          
+        
+        <div>MyISAM与InnoDB的区别
+
+
+对比项
+MyISAM
+InnoDB
+
+
+
+外键
+不支持
+支持
+
+
+事务
+不支持
+支持
+
+
+行表锁
+表锁，即使操作一条记录也会锁住整个表，不适合高并发的操作
+行锁,操作时只锁某一行，不对其它行有影响，适合高并发的操作
+
+
+缓存
+只缓存索引，不缓存真实数据
+不仅缓存索引还要缓存真实数据，对内存要求较高，而且内存大小对性能有决定性的影响
+
+
+索引优化
+数据结构：B+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2016-03-10
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2015/06/07/linux4/">Linux(四)：常用基本命令</a>
 
       <a href="/2015/06/07/linux4/" class="index-excerpt">

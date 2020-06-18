@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    570 字
+                    594 字
                   </span>
                 
 
@@ -200,7 +200,14 @@
     ... 22 more</code></pre></div>
 
 <h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><ul>
-<li>查找问题文件</li>
+<li><p>问题原因</p>
+<blockquote>
+<p>1、重启flume导致hdfs块异常</p>
+<p>2、重启hadoop集群导致hdfs块异常</p>
+</blockquote>
+</li>
+<li><p>查找问题文件</p>
+</li>
 </ul>
 <div class="hljs"><pre><code class="hljs angelscript">hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite</code></pre></div>
 
@@ -246,7 +253,7 @@ Erasure Coded Block Groups:
 FSCK ended at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span> <span class="hljs-keyword">in</span> <span class="hljs-number">8</span> milliseconds</code></pre></div>
 
 <ul>
-<li>修改命令</li>
+<li>修复命令</li>
 </ul>
 <div class="hljs"><pre><code class="hljs angelscript">hdfs debug recoverLease -path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo -retries <span class="hljs-number">3</span></code></pre></div>
 

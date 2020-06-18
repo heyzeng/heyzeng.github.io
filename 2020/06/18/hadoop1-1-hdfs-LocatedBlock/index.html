@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jude Zeng">
+  <meta name="keywords" content="">
+  <title>hadoop修复hdfs中文件块错误：Cannot obtain block length for LocatedBlock - 曾俊峰的技术博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/tomorrow-night.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jude'blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://i.loli.net/2020/05/16/pPq2N5KTLjRBiDu.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-06-18 19:37">
+                    2020年6月18日 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    570 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    11
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="错误日志"><a href="#错误日志" class="headerlink" title="错误日志"></a>错误日志</h1><div class="hljs"><pre><code class="hljs roboconf">Caused by: org.apache.hadoop.hdfs.CannotObtainBlockLengthException: Cannot obtain block length for LocatedBlock&#123;<span class="hljs-attribute">BP-1529808326-127.0.0.1-1581044994027</span>:blk_1075632921_1893326; <span class="hljs-attribute">getBlockSize()=1702; corrupt=false; offset=0; locs=[DatanodeInfoWithStorage[10.101.179.206</span>:50010,DS-66edcaf3-52d8-47fa-b6a8-17b8d80cdd43,DISK], DatanodeInfoWithStorage[10.101.179.209:50010,DS-bfa64a38-cd7a-4ab4-a3cc-16376d2705e4,DISK]]&#125;
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.readBlockLength</span>(DFSInputStream<span class="hljs-variable">.java</span>:360)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.fetchLocatedBlocksAndGetLastBlockLength</span>(DFSInputStream<span class="hljs-variable">.java</span>:267)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.openInfo</span>(DFSInputStream<span class="hljs-variable">.java</span>:198)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span>.&lt;init&gt;(DFSInputStream<span class="hljs-variable">.java</span>:182)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSClient</span><span class="hljs-variable">.openInternal</span>(DFSClient<span class="hljs-variable">.java</span>:1042)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSClient</span><span class="hljs-variable">.open</span>(DFSClient<span class="hljs-variable">.java</span>:1005)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DistributedFileSystem</span>$4<span class="hljs-variable">.doCall</span>(DistributedFileSystem<span class="hljs-variable">.java</span>:326)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DistributedFileSystem</span>$4<span class="hljs-variable">.doCall</span>(DistributedFileSystem<span class="hljs-variable">.java</span>:322)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.fs</span><span class="hljs-variable">.FileSystemLinkResolver</span><span class="hljs-variable">.resolve</span>(FileSystemLinkResolver<span class="hljs-variable">.java</span>:81)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DistributedFileSystem</span><span class="hljs-variable">.open</span>(DistributedFileSystem<span class="hljs-variable">.java</span>:334)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.fs</span><span class="hljs-variable">.FileSystem</span><span class="hljs-variable">.open</span>(FileSystem<span class="hljs-variable">.java</span>:899)
+    at com<span class="hljs-variable">.hadoop</span><span class="hljs-variable">.mapred</span><span class="hljs-variable">.DeprecatedLzoLineRecordReader</span>.&lt;init&gt;(DeprecatedLzoLineRecordReader<span class="hljs-variable">.java</span>:57)
+    at com<span class="hljs-variable">.hadoop</span><span class="hljs-variable">.mapred</span><span class="hljs-variable">.DeprecatedLzoTextInputFormat</span><span class="hljs-variable">.getRecordReader</span>(DeprecatedLzoTextInputFormat<span class="hljs-variable">.java</span>:156)
+    at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hive</span><span class="hljs-variable">.ql</span><span class="hljs-variable">.io</span><span class="hljs-variable">.HiveInputFormat</span><span class="hljs-variable">.getRecordReader</span>(HiveInputFormat<span class="hljs-variable">.java</span>:418)
+    ... 22 more</code></pre></div>
+
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><ul>
+<li>查找问题文件</li>
+</ul>
+<div class="hljs"><pre><code class="hljs angelscript">hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite</code></pre></div>
+
+<ul>
+<li>定位块位置</li>
+</ul>
+<div class="hljs"><pre><code class="hljs angelscript">[<span class="hljs-symbol">hdfs@</span>vm10<span class="hljs-number">-101</span><span class="hljs-number">-179</span><span class="hljs-number">-203</span> root]$ hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite
+Connecting to namenode via http:<span class="hljs-comment">//vm10-101-179-203.ksc.com:50070/fsck?ugi=hdfs&amp;openforwrite=1&amp;path=%2Fwarehouse%2Fhive%2Faiotclouddb%2Fods%2Fods_gateway%2Fdt%3D2020-06-16</span>
+FSCK started by hdfs (auth:SIMPLE) <span class="hljs-keyword">from</span> /<span class="hljs-number">10.101</span><span class="hljs-number">.179</span><span class="hljs-number">.203</span> <span class="hljs-keyword">for</span> path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span>
+/warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node7<span class="hljs-number">.1592294424296</span>.lzo <span class="hljs-number">1702</span> bytes, replicated: replication=<span class="hljs-number">2</span>, <span class="hljs-number">1</span> block(s), OPENFORWRITE: /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo <span class="hljs-number">2917</span> bytes, replicated: replication=<span class="hljs-number">2</span>, <span class="hljs-number">1</span> block(s), OPENFORWRITE:
+Status: HEALTHY
+ Number of data-nodes:  <span class="hljs-number">10</span>
+ Number of racks:       <span class="hljs-number">1</span>
+ Total dirs:            <span class="hljs-number">1</span>
+ Total symlinks:        <span class="hljs-number">0</span>
+
+Replicated Blocks:
+ Total size:    <span class="hljs-number">280527873</span> B
+ Total files:   <span class="hljs-number">50</span>
+ Total blocks (validated):  <span class="hljs-number">50</span> (avg. block size <span class="hljs-number">5610557</span> B)
+ Minimally replicated blocks:   <span class="hljs-number">48</span> (<span class="hljs-number">96.0</span> %)
+ Over-replicated blocks:    <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> %)
+ Under-replicated blocks:   <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> %)
+ Mis-replicated blocks:     <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> %)
+ Default replication factor:    <span class="hljs-number">2</span>
+ Average block replication: <span class="hljs-number">1.92</span>
+ Missing blocks:        <span class="hljs-number">0</span>
+ Corrupt blocks:        <span class="hljs-number">0</span>
+ Missing replicas:      <span class="hljs-number">0</span> (<span class="hljs-number">0.0</span> %)
+
+Erasure Coded Block Groups:
+ Total size:    <span class="hljs-number">0</span> B
+ Total files:   <span class="hljs-number">0</span>
+ Total block groups (validated):    <span class="hljs-number">0</span>
+ Minimally erasure-coded block groups:  <span class="hljs-number">0</span>
+ Over-erasure-coded block groups:   <span class="hljs-number">0</span>
+ Under-erasure-coded block groups:  <span class="hljs-number">0</span>
+ Unsatisfactory placement block groups: <span class="hljs-number">0</span>
+ Average block group size:  <span class="hljs-number">0.0</span>
+ Missing block groups:      <span class="hljs-number">0</span>
+ Corrupt block groups:      <span class="hljs-number">0</span>
+ Missing <span class="hljs-built_in">int</span>ernal blocks:   <span class="hljs-number">0</span>
+FSCK ended at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span> <span class="hljs-keyword">in</span> <span class="hljs-number">8</span> milliseconds</code></pre></div>
+
+<ul>
+<li>修改命令</li>
+</ul>
+<div class="hljs"><pre><code class="hljs angelscript">hdfs debug recoverLease -path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo -retries <span class="hljs-number">3</span></code></pre></div>
+
+<ul>
+<li>修复结果</li>
+</ul>
+<div class="hljs"><pre><code class="hljs angelscript">recoverLease returned <span class="hljs-literal">false</span>.
+Retrying <span class="hljs-keyword">in</span> <span class="hljs-number">5000</span> ms...
+Retry #<span class="hljs-number">1</span>
+recoverLease SUCCEEDED on /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo</code></pre></div>
+
+<ul>
+<li>重跑mr</li>
+</ul>
+<blockquote>
+<p>没报异常，完美运行</p>
+</blockquote>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Hadoop/">Hadoop</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/troubleshooting/">troubleshooting</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/15/flink01/">
+                        <span class="hidden-mobile">Flink(一)：编译源码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "hadoop修复hdfs中文件块错误：Cannot obtain block length for LocatedBlock&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

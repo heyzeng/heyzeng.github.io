@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    594 字
+                    961 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    11
+                    15
                      分钟
                   </span>
                 
@@ -200,14 +200,20 @@
     ... 22 more</code></pre></div>
 
 <h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><ul>
-<li><p>问题原因</p>
+<li>问题原因</li>
+</ul>
 <blockquote>
 <p>1、重启flume导致hdfs块异常</p>
 <p>2、重启hadoop集群导致hdfs块异常</p>
 </blockquote>
-</li>
-<li><p>查找问题文件</p>
-</li>
+<ul>
+<li>问题根源</li>
+</ul>
+<blockquote>
+<p>此时这些block并不是已经损坏了，只是租约未释放，导致其他程序无法读写，我们可以将其租约恢复或者暴力的直接删除该文件；</p>
+</blockquote>
+<ul>
+<li>查找问题文件</li>
 </ul>
 <div class="hljs"><pre><code class="hljs angelscript">hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite</code></pre></div>
 
@@ -270,6 +276,15 @@ recoverLease SUCCEEDED on /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span c
 </ul>
 <blockquote>
 <p>没报异常，完美运行</p>
+</blockquote>
+<h2 id="HDFS租约机制"><a href="#HDFS租约机制" class="headerlink" title="HDFS租约机制"></a>HDFS租约机制</h2><p>在HDFS中，当每次客户端用户往某个文件中写入数据的时候，为了保持数据的一致性，此时其它客户端程序是不允许向此文件同时写入数据的。那么HDFS是如何做到这一点的呢？答案是租约（Lease）。换句话说，租约是HDFS给予客户端的一个写文件操作的临时许可证，无此证件者将不被允许操作此文件，客户端在每次读写HDFS文件的时候获取租约对文件进行读写，文件读取完毕了，然后再释放此租约</p>
+<ul>
+<li>每个客户端用户持有一个租约。</li>
+<li>每个租约内部包含有一个租约持有者信息，还有此租约对应的文件Id列表，表示当前租约持有者正在写这些文件Id对应的文件</li>
+<li>每个租约内包含有一个最新近更新时间，最近更新时间将会决定此租约是否已过期。过期的租约会导致租约持有者无法继续执行写数据到文件中，除非进行租约的更新。</li>
+</ul>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p><a href="https://blog.csdn.net/androidlushangderen/article/details/52850349" target="_blank" rel="noopener">https://blog.csdn.net/androidlushangderen/article/details/52850349</a></p>
 </blockquote>
 
             </article>

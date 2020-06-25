@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
-  <title>ClickHouse之深圳MeetUp - 曾俊峰的技术博客</title>
+  <title>Docker安装MySQL以及解决Navicat连接MySQL报错 - 曾俊峰的技术博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2019-10-25 13:11">
-                    2019年10月25日 下午
+                  <time datetime="2020-01-25 10:19">
+                    2020年1月25日 上午
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    250 字
+                    593 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    3
+                    9
                      分钟
                   </span>
                 
@@ -182,23 +182,99 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前公司调研OLAT开源框架，最近ClickHouse火热，看了ClickHouse开源社区的Meetup，于是参加了宣讲，感触蛮多，同时俄罗斯Yandex团队小哥们都很帅、</p>
-<h1 id="纪要"><a href="#纪要" class="headerlink" title="纪要"></a>纪要</h1><h2 id="时间：10月20日下午2-00-6-30"><a href="#时间：10月20日下午2-00-6-30" class="headerlink" title="时间：10月20日下午2:00 -6:30"></a>时间：10月20日下午2:00 -6:30</h2><h2 id="地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速"><a href="#地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速" class="headerlink" title="地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速"></a>地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速</h2><h2 id="议题"><a href="#议题" class="headerlink" title="议题"></a>议题</h2><ul>
-<li>2:00pm-3:00pm  《Roadmap and overview of ClickHouse》   AlekSei Milovidov</li>
-<li>3:00pm-3:40pm 《ClickHouse编写自定义计算函数》 Sundy Li</li>
-<li>3:40pm-4:20pm  《Clickhouse 在Tencent的应用实践》Tencent  丁晓坤 周东祥</li>
-<li>4:20pm-4:30pm Break</li>
-<li>4:30pm-5:10pm 《ClickHouse MergeTree原理解析》 远光软件 朱凯</li>
-<li>5:10pm-5:50pm 《数仓Clickhouse多维分析应用实践》 华润万家 数据分析高级经理 朱元</li>
-<li>5:50pm-6:30pm   《Recently released features and future plans》 Ivan Blinkov(Temp)</li>
-<li>6:00pm-6:30   Free discussion </li>
-</ul>
-<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><ul>
-<li>Yandex团队clickhouse的新特性以及在机器学习方面的研究，未来大有可期。</li>
-<li>腾讯内部已经在大规模应用。</li>
-<li>朱凯老师MergerTree讲解的很细致。</li>
-</ul>
+              <h1 id="MacOS-Docker-安装"><a href="#MacOS-Docker-安装" class="headerlink" title="MacOS Docker 安装"></a>MacOS Docker 安装</h1><h2 id="使用Homebrew安装"><a href="#使用Homebrew安装" class="headerlink" title="使用Homebrew安装"></a>使用Homebrew安装</h2><div class="hljs"><pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span>cask <span class="hljs-keyword">install </span>docker</code></pre></div>
 
+<h2 id="手动下载安装"><a href="#手动下载安装" class="headerlink" title="手动下载安装"></a>手动下载安装</h2><blockquote>
+<p>如果需要手动下载，请点击以下链接下载 <a href="https://download.docker.com/mac/stable/Docker.dmg" target="_blank" rel="noopener">Stable</a> 或 <a href="https://download.docker.com/mac/edge/Docker.dmg" target="_blank" rel="noopener">Edge</a> 版本的 Docker for Mac。</p>
+<p>如同 macOS 其它软件一样，安装也非常简单，双击下载的 .dmg 文件，然后将鲸鱼图标拖拽到 Application 文件夹即可。</p>
+</blockquote>
+<h2 id="查看Docker版本"><a href="#查看Docker版本" class="headerlink" title="查看Docker版本"></a>查看Docker版本</h2><div class="hljs"><pre><code class="hljs angelscript">➜  ~ docker --version
+Docker version <span class="hljs-number">19.03</span><span class="hljs-number">.8</span>, build afacb8b</code></pre></div>
+
+<h1 id="Docker-安装MySQL"><a href="#Docker-安装MySQL" class="headerlink" title="Docker 安装MySQL"></a>Docker 安装MySQL</h1><h2 id="访问镜像查看MySQL版本"><a href="#访问镜像查看MySQL版本" class="headerlink" title="访问镜像查看MySQL版本"></a>访问镜像查看MySQL版本</h2><blockquote>
+<p>访问 MySQL 镜像库地址：<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">https://hub.docker.com/_/mysql?tab=tags</a> 。</p>
+<p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 <strong>mysql:latest</strong> 。</p>
+</blockquote>
+<h2 id="命令查看MySQL可用版本"><a href="#命令查看MySQL可用版本" class="headerlink" title="命令查看MySQL可用版本"></a>命令查看MySQL可用版本</h2><div class="hljs"><pre><code class="hljs routeros">➜  ~ docker search mysql
+NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+mysql                             MySQL is a widely used, open-source relation…   9673                [OK]
+mariadb                           MariaDB is a community-developed fork of MyS…   3518                [OK]
+mysql/mysql-server                Optimized MySQL<span class="hljs-built_in"> Server </span>Docker images. Create…   705                                     [OK]
+centos/mysql-57-centos7           MySQL 5.7 SQL database<span class="hljs-built_in"> server </span>                  77
+mysql/mysql-cluster               Experimental MySQL Cluster Docker images. Cr…   70
+centurylink/mysql                 Image containing mysql. Optimized <span class="hljs-keyword">to</span> be link…   61                                      [OK]
+<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span></code></pre></div>
+
+<h2 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h2><div class="hljs"><pre><code class="hljs properties"><span class="hljs-comment"># 最新的镜像</span>
+<span class="hljs-attr">docker</span> <span class="hljs-string">pull mysql:latest</span>
+<span class="hljs-comment"># 指定镜像</span>
+ <span class="hljs-attr">docker</span> <span class="hljs-string">pull mysql:8.0</span></code></pre></div>
+
+<h2 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h2><div class="hljs"><pre><code class="hljs angelscript">➜  ~ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mysql               <span class="hljs-number">5.7</span><span class="hljs-number">.30</span>              <span class="hljs-number">9</span>cfcce23593a        <span class="hljs-number">2</span> weeks ago         <span class="hljs-number">448</span>MB
+mysql               latest              be0dbf01a0f3        <span class="hljs-number">2</span> weeks ago         <span class="hljs-number">541</span>MB</code></pre></div>
+
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><div class="hljs"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -itd --name mysql-test -p 3306:3306 -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=123456 mysql</code></pre></div>
+
+<ul>
+<li>参数说明：</li>
+</ul>
+<blockquote>
+<ul>
+<li><strong>-p 3306:3306</strong> ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 <strong>宿主机ip:3306</strong> 访问到 MySQL 的服务。</li>
+<li><strong>MYSQL_ROOT_PASSWORD=123456</strong>：设置 MySQL 服务 root 用户的密码。</li>
+</ul>
+</blockquote>
+<div class="hljs"><pre><code class="hljs angelscript"># 查看是否安装成功
+➜  ~ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+a96f3f885216        mysql               <span class="hljs-string">"docker-entrypoint.s…"</span>   <span class="hljs-number">16</span> hours ago        Up <span class="hljs-number">21</span> minutes       <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>:<span class="hljs-number">3306</span>-&gt;<span class="hljs-number">3306</span>/tcp, <span class="hljs-number">33060</span>/tcp   mysql-test</code></pre></div>
+
+<h2 id="切换到MySQL镜像，登录MySQL"><a href="#切换到MySQL镜像，登录MySQL" class="headerlink" title="切换到MySQL镜像，登录MySQL"></a>切换到MySQL镜像，登录MySQL</h2><div class="hljs"><pre><code class="hljs applescript">docker exec -<span class="hljs-keyword">it</span> mysql-test bash</code></pre></div>
+
+<h2 id="登录MySQL"><a href="#登录MySQL" class="headerlink" title="登录MySQL"></a>登录MySQL</h2><div class="hljs"><pre><code class="hljs angelscript">mysql -u root -p <span class="hljs-number">123456</span></code></pre></div>
+
+<h1 id="Navicat-连接Docker-MySQL"><a href="#Navicat-连接Docker-MySQL" class="headerlink" title="Navicat 连接Docker MySQL"></a>Navicat 连接Docker MySQL</h1><h2 id="连接报错信息"><a href="#连接报错信息" class="headerlink" title="连接报错信息"></a>连接报错信息</h2><div class="hljs"><pre><code class="hljs basic"><span class="hljs-symbol">2059 </span>- Authentication plugin <span class="hljs-comment">'caching_sha2_password' cannot be loaded: dlope</span></code></pre></div>
+
+<h2 id="查看mysql版本"><a href="#查看mysql版本" class="headerlink" title="查看mysql版本"></a>查看mysql版本</h2><div class="hljs"><pre><code class="hljs asciidoc">mysql&gt; select version();
+<span class="hljs-code">+-----------+</span>
+| version() |
+<span class="hljs-code">+-----------+</span>
+| 8.0.20    |
+<span class="hljs-code">+-----------+</span>
+1 row in set (0.00 sec)</code></pre></div>
+
+<blockquote>
+<p><code>mysql_native_password</code>是<code>mysql5</code>的加密方式，<code>mysql8</code>是<code>caching_sha2_password</code>认证方式，所以要修改加密方式</p>
+</blockquote>
+<h2 id="修改MySQL权限以及加密方式"><a href="#修改MySQL权限以及加密方式" class="headerlink" title="修改MySQL权限以及加密方式"></a>修改MySQL权限以及加密方式</h2><div class="hljs"><pre><code class="hljs routeros"><span class="hljs-comment"># 添加授权</span>
+GRANT ALL ON *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span>;
+flush privileges;
+
+<span class="hljs-comment">#查看用户加密方式</span>
+use mysql;# 切换到mysql库
+mysql&gt; select user,plugin <span class="hljs-keyword">from</span><span class="hljs-built_in"> user </span>where <span class="hljs-attribute">user</span>=<span class="hljs-string">'root'</span>; # 查看加密方式
++------+-----------------------+
+|<span class="hljs-built_in"> user </span>| plugin                |
++------+-----------------------+
+| root | caching_sha2_password |
+| root | mysql_native_password |
++------+-----------------------+
+<span class="hljs-comment">## 修改加密方式</span>
+mysql&gt; alter<span class="hljs-built_in"> user </span><span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span> identified with mysql_native_password by <span class="hljs-string">'123456'</span>;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; select user,plugin <span class="hljs-keyword">from</span><span class="hljs-built_in"> user </span>where <span class="hljs-attribute">user</span>=<span class="hljs-string">'root'</span>;
++------+-----------------------+
+|<span class="hljs-built_in"> user </span>| plugin                |
++------+-----------------------+
+| root | mysql_native_password |
+| root | mysql_native_password |
++------+-----------------------+
+2 rows <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)</code></pre></div>
+
+<h2 id="Navicat连接成功"><a href="#Navicat连接成功" class="headerlink" title="Navicat连接成功"></a>Navicat连接成功</h2>
             </article>
             <hr>
             <div>
@@ -207,7 +283,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/ClickHouse/">ClickHouse</a>
+                      <a class="hover-with-bg" href="/categories/MySQL/">MySQL</a>
                     
                   </div>
                 
@@ -215,7 +291,13 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/meetup/">meetup</a>
+                      <a class="hover-with-bg" href="/tags/troubleshooting/">troubleshooting</a>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/navicat/">navicat</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
                     
                   </div>
                 
@@ -228,9 +310,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/01/25/mysql1-2/">
+                      <a href="/2020/03/28/%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker安装MySQL以及解决Navicat连接MySQL报错</span>
+                        <span class="hidden-mobile">博客导航</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -238,8 +320,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2018/06/17/mysql1-1/">
-                        <span class="hidden-mobile">MySQL权限问题</span>
+                      <a href="/2019/10/25/clickhouse1-1/">
+                        <span class="hidden-mobile">ClickHouse之深圳MeetUp</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -398,7 +480,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "ClickHouse之深圳MeetUp&nbsp;",
+        "Docker安装MySQL以及解决Navicat连接MySQL报错&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

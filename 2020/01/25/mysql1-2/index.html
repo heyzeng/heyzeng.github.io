@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    593 字
+                    778 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    9
+                    11
                      分钟
                   </span>
                 
@@ -274,7 +274,41 @@ mysql&gt; select user,plugin <span class="hljs-keyword">from</span><span class="
 +------+-----------------------+
 2 rows <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)</code></pre></div>
 
-<h2 id="Navicat连接成功"><a href="#Navicat连接成功" class="headerlink" title="Navicat连接成功"></a>Navicat连接成功</h2>
+<h2 id="Navicat连接成功"><a href="#Navicat连接成功" class="headerlink" title="Navicat连接成功"></a>Navicat连接成功</h2><h1 id="Docker版本Mysql容器中不支持输入中文"><a href="#Docker版本Mysql容器中不支持输入中文" class="headerlink" title="Docker版本Mysql容器中不支持输入中文"></a>Docker版本Mysql容器中不支持输入中文</h1><blockquote>
+<p>mysql插入数据时候，发现中文字符不支持</p>
+</blockquote>
+<h2 id="查看字符集"><a href="#查看字符集" class="headerlink" title="查看字符集"></a>查看字符集</h2><div class="hljs"><pre><code class="hljs makefile"><span class="hljs-section">root@a96f3f885216:/# locale</span>
+LANG=
+LANGUAGE=
+LC_CTYPE=<span class="hljs-string">"POSIX"</span>
+LC_NUMERIC=<span class="hljs-string">"POSIX"</span>
+LC_TIME=<span class="hljs-string">"POSIX"</span>
+LC_COLLATE=<span class="hljs-string">"POSIX"</span>
+LC_MONETARY=<span class="hljs-string">"POSIX"</span>
+LC_MESSAGES=<span class="hljs-string">"POSIX"</span>
+LC_PAPER=<span class="hljs-string">"POSIX"</span>
+LC_NAME=<span class="hljs-string">"POSIX"</span>
+LC_ADDRESS=<span class="hljs-string">"POSIX"</span>
+LC_TELEPHONE=<span class="hljs-string">"POSIX"</span>
+LC_MEASUREMENT=<span class="hljs-string">"POSIX"</span>
+LC_IDENTIFICATION=<span class="hljs-string">"POSIX"</span>
+LC_ALL=</code></pre></div>
+
+<blockquote>
+<p>可以看到，默认的是POSIX字符集，这个传统的字符集是不支持中文的，所以我们的核心操作就是要更改字符集为支持中文的字符集。</p>
+</blockquote>
+<h2 id="可支持utf-8"><a href="#可支持utf-8" class="headerlink" title="可支持utf-8"></a>可支持<code>utf-8</code></h2><div class="hljs"><pre><code class="hljs elixir">root<span class="hljs-variable">@a96f3f885216</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># locale -a</span>
+C
+C.UTF<span class="hljs-number">-8</span>
+POSIX</code></pre></div>
+
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="1、添加到profile"><a href="#1、添加到profile" class="headerlink" title="1、添加到profile"></a>1、添加到<code>profile</code></h3><div class="hljs"><pre><code class="hljs routeros">echo <span class="hljs-string">"export LANG=C.UTF-8"</span> &gt;&gt;/etc<span class="hljs-built_in">/profile </span>&amp;&amp; source /etc/profile</code></pre></div>
+
+<h3 id="2、直接设置环境变量"><a href="#2、直接设置环境变量" class="headerlink" title="2、直接设置环境变量"></a>2、直接设置环境变量</h3><div class="hljs"><pre><code class="hljs ini"><span class="hljs-attr">LANG</span>=C.UTF-<span class="hljs-number">8</span></code></pre></div>
+
+<h3 id="3、Docker启动容器时，指定环境变量"><a href="#3、Docker启动容器时，指定环境变量" class="headerlink" title="3、Docker启动容器时，指定环境变量"></a>3、Docker启动容器时，指定环境变量</h3><div class="hljs"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -d mysql env <span class="hljs-attribute">LANG</span>=C.UTF-8</code></pre></div>
+
+
             </article>
             <hr>
             <div>

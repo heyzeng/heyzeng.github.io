@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://heyzeng.github.io/2018/01/01/leetcode01/</loc>
+    
+    <lastmod>2020-06-30T04:05:47.803Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://heyzeng.github.io/2018/01/08/leetcode118/</loc>
+    
+    <lastmod>2020-06-30T04:05:40.316Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://heyzeng.github.io/2019/11/25/mysql1-2/</loc>
     
     <lastmod>2020-06-29T07:11:22.397Z</lastmod>
@@ -110,20 +124,6 @@
     <loc>https://heyzeng.github.io/2020/06/15/flink01/</loc>
     
     <lastmod>2020-06-15T08:11:30.047Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2020/05/28/leetcode01/</loc>
-    
-    <lastmod>2020-05-31T14:54:00.882Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2020/05/31/leetcode118/</loc>
-    
-    <lastmod>2020-05-31T14:53:28.034Z</lastmod>
     
   </url>
   

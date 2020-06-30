@@ -10,4 +10,4 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://www.zengjunfeng.com.cn/sitemap.xml
+Sitemap: https://heyzeng.github.io/sitemap.xml

@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.4k 字
+                    1.8k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    18
+                    24
                      分钟
                   </span>
                 
@@ -402,7 +402,76 @@ hello world
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$?</span>
 0</code></pre></div>
 
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>（1）<code>“$((运算式))”</code>或<code>“$[运算式]”</code></p>
+<p>（2）<code>expr  + , - , \*, /, %</code>  加，减，乘，除，取余</p>
+<p>   注意：expr运算符间要有空格</p>
+</blockquote>
+<ul>
+<li>示例</li>
+</ul>
+<div class="hljs"><pre><code class="hljs angelscript">（<span class="hljs-number">1</span>）计算<span class="hljs-number">3</span>+<span class="hljs-number">2</span>的值
+[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr <span class="hljs-number">2</span> + <span class="hljs-number">3</span>
+<span class="hljs-number">5</span>
+（<span class="hljs-number">2</span>）计算<span class="hljs-number">3</span><span class="hljs-number">-2</span>的值
+[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr <span class="hljs-number">3</span> - <span class="hljs-number">2</span> 
+<span class="hljs-number">1</span>
+（<span class="hljs-number">3</span>）计算（<span class="hljs-number">2</span>+<span class="hljs-number">3</span>）X4的值
+	（a）expr一步完成计算
+[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr `expr <span class="hljs-number">2</span> + <span class="hljs-number">3</span>` \* <span class="hljs-number">4</span>
+<span class="hljs-number">20</span>
+（b）采用$[运算式]方式
+[<span class="hljs-symbol">root@</span>hadoop101 datas]# S=$[(<span class="hljs-number">2</span>+<span class="hljs-number">3</span>)*<span class="hljs-number">4</span>]
+[<span class="hljs-symbol">root@</span>hadoop101 datas]# echo $S</code></pre></div>
 
+<h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>[ condition ]（注意condition前后要有空格）</p>
+<p>注意：条件非空即为true，[ root ]返回true，[] 返回false</p>
+</blockquote>
+<ul>
+<li>常用判断条件</li>
+</ul>
+<blockquote>
+<p>（1）两个整数之间比较</p>
+<p>= 字符串比较</p>
+<p>-lt 小于（less than）         -le 小于等于（less equal）</p>
+<p>-eq 等于（equal）           -gt 大于（greater than）</p>
+<p>-ge 大于等于（greater equal）  -ne 不等于（Not equal）</p>
+<p>（2）按照文件权限进行判断</p>
+<p>-r 有读的权限（read）       -w 有写的权限（write）</p>
+<p>-x 有执行的权限（execute）</p>
+<p>（3）按照文件类型进行判断</p>
+<p>-f 文件存在并且是一个常规的文件（file）</p>
+<p>-e 文件存在（existence）      -d 文件存在并是一个目录（directory）</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<div class="hljs"><pre><code class="hljs ruby"><span class="hljs-number">1</span>）<span class="hljs-number">23</span>是否大于等于<span class="hljs-number">22</span>
+[root@hadoop101 datas]$ [ <span class="hljs-number">23</span> -ge <span class="hljs-number">22</span> ]
+[root@hadoop101 datas]$ echo $?
+<span class="hljs-number">0</span>
+	（<span class="hljs-number">2</span>）helloworld.sh是否具有写权限
+[root@hadoop101 datas]$ [ -w helloworld.sh ]
+[root@hadoop101 datas]$ echo $?
+<span class="hljs-number">0</span>
+	（<span class="hljs-number">3</span>）/home/root/cls.txt目录中的文件是否存在
+[root@hadoop101 datas]$ [ -e /home/root/cls.txt ]
+[root@hadoop101 datas]$ echo $?
+<span class="hljs-number">1</span>
+（<span class="hljs-number">4</span>）多条件判断（&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令，<span class="hljs-params">||</span> 表示上一条命令执行失败后，才执行下一条命令）
+[root@hadoop101 ~]$ [ condition ] &amp;&amp; echo OK <span class="hljs-params">||</span> echo notok
+OK
+[root@hadoop101 datas]$ [ condition ] &amp;&amp; [ ] <span class="hljs-params">||</span> echo notok
+notok</code></pre></div>
+
+<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h2>
             </article>
             <hr>
             <div>

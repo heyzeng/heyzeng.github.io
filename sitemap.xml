@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://heyzeng.github.io/2016/06/16/shell1/</loc>
+    
+    <lastmod>2020-07-01T09:25:37.274Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://heyzeng.github.io/2017/06/30/python1/</loc>
     
     <lastmod>2020-06-30T07:59:03.775Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>https://heyzeng.github.io/2017/05/05/hadoop1/</loc>
     
     <lastmod>2020-06-17T12:00:44.993Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2016/06/16/shell1/</loc>
-    
-    <lastmod>2020-06-17T01:45:10.715Z</lastmod>
     
   </url>
   

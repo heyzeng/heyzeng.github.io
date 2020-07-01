@@ -185,22 +185,22 @@
               <h1 id="Shell概述"><a href="#Shell概述" class="headerlink" title="Shell概述"></a>Shell概述</h1><blockquote>
 <p>shell是一个命令解释器，它接受应用程序、用户命令，然后调用操作linux系统内核</p>
 </blockquote>
-<h1 id="Shell解释器"><a href="#Shell解释器" class="headerlink" title="Shell解释器"></a>Shell解释器</h1><h2 id="Linux提供的Shell解析器有"><a href="#Linux提供的Shell解析器有" class="headerlink" title="Linux提供的Shell解析器有"></a>Linux提供的Shell解析器有</h2><div class="hljs"><pre><code class="hljs shell">[root@jude ~]# cat /etc/shells
+<h1 id="Shell解释器"><a href="#Shell解释器" class="headerlink" title="Shell解释器"></a>Shell解释器</h1><h2 id="Linux提供的Shell解析器有"><a href="#Linux提供的Shell解析器有" class="headerlink" title="Linux提供的Shell解析器有"></a>Linux提供的Shell解析器有</h2><pre><code class="hljs shell">[root@jude ~]# cat /etc/shells
 /bin/sh
 /bin/bash
 /sbin/nologin
 /usr/bin/sh
 /usr/bin/bash
-/usr/sbin/nologin</code></pre></div>
+/usr/sbin/nologin</code></pre>
 
-<h2 id="bash和sh的关系"><a href="#bash和sh的关系" class="headerlink" title="bash和sh的关系"></a>bash和sh的关系</h2><div class="hljs"><pre><code class="hljs shell">[root@jude bin]# ll | grep bash
+<h2 id="bash和sh的关系"><a href="#bash和sh的关系" class="headerlink" title="bash和sh的关系"></a>bash和sh的关系</h2><pre><code class="hljs shell">[root@jude bin]# ll | grep bash
 -rwxr-xr-x.   1 root root     964600 8月   8 2015 bash
 lrwxrwxrwx.   1 root root         10 11月  5 2015 bashbug -&gt; bashbug-64
 -rwxr-xr-x.   1 root root       6964 8月   8 2015 bashbug-64
-lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre></div>
+lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre>
 
-<h2 id="Centos默认的解析器是bash"><a href="#Centos默认的解析器是bash" class="headerlink" title="Centos默认的解析器是bash"></a>Centos默认的解析器是bash</h2><div class="hljs"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@jude</span> bin]<span class="hljs-meta"># echo $SHELL</span>
-/bin/bash</code></pre></div>
+<h2 id="Centos默认的解析器是bash"><a href="#Centos默认的解析器是bash" class="headerlink" title="Centos默认的解析器是bash"></a>Centos默认的解析器是bash</h2><pre><code class="hljs autoit">[root<span class="hljs-symbol">@jude</span> bin]<span class="hljs-meta"># echo $SHELL</span>
+/bin/bash</code></pre>
 
 <h1 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h1><ul>
 <li>脚本格式</li>
@@ -208,12 +208,12 @@ lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre></d
 <blockquote>
 <p>脚本以#!/bin/bash开头（指定解析器）</p>
 </blockquote>
-<h2 id="第一个Shell脚本：helloworld"><a href="#第一个Shell脚本：helloworld" class="headerlink" title="第一个Shell脚本：helloworld"></a>第一个Shell脚本：helloworld</h2><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch helloworld.sh
+<h2 id="第一个Shell脚本：helloworld"><a href="#第一个Shell脚本：helloworld" class="headerlink" title="第一个Shell脚本：helloworld"></a>第一个Shell脚本：helloworld</h2><pre><code class="hljs bash">[root@hadoop101 datas]$ touch helloworld.sh
 [root@hadoop101 datas]$ vi helloworld.sh
 
 在helloworld.sh中输入如下内容
 <span class="hljs-meta">#!/bin/bash</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">"helloworld"</span></code></pre></div>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"helloworld"</span></code></pre>
 
 <ul>
 <li>脚本的常用执行方式</li>
@@ -221,7 +221,7 @@ lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash</code></pre></d
 <blockquote>
 <p>第一种：采用bash或sh+脚本的相对路径或绝对路径（不用赋予脚本+x权限）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment"># sh+脚本的相对路径</span>
+<pre><code class="hljs elixir"><span class="hljs-comment"># sh+脚本的相对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>sh helloworld.sh 
 Helloworld
 <span class="hljs-comment">#	sh+脚本的绝对路径</span>
@@ -232,12 +232,12 @@ helloworld
 Helloworld
 <span class="hljs-comment">#	bash+脚本的绝对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>bash /home/root/datas/helloworld.sh 
-Helloworld</code></pre></div>
+Helloworld</code></pre>
 
 <blockquote>
 <p>第二种：采用输入脚本的绝对路径或相对路径执行脚本（必须具有可执行权限+x）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment">#（a）首先要赋予helloworld.sh 脚本的+x权限</span>
+<pre><code class="hljs elixir"><span class="hljs-comment">#（a）首先要赋予helloworld.sh 脚本的+x权限</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>chmod <span class="hljs-number">777</span> helloworld.sh
 <span class="hljs-comment">#（b）执行脚本</span>
 <span class="hljs-comment"># 相对路径</span>
@@ -245,7 +245,7 @@ Helloworld</code></pre></div>
 Helloworld
 <span class="hljs-comment"># 绝对路径</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>/home/root/datas/helloworld.sh 
-Helloworld</code></pre></div>
+Helloworld</code></pre>
 
 <blockquote>
 <p>注意：第一种执行方法，本质是bash解析器帮你执行脚本，所以脚本本身不需要执行权限。第二种执行方法，本质是脚本需要自己执行，所以需要执行权限。</p>
@@ -256,7 +256,7 @@ Helloworld</code></pre></div>
 <blockquote>
 <p>在/home/root/目录下创建一个banzhang.txt,在banzhang.txt文件中增加“I love cls”。</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch batch.sh
+<pre><code class="hljs bash">[root@hadoop101 datas]$ touch batch.sh
 [root@hadoop101 datas]$ vi batch.sh
 
 在batch.sh中输入如下内容
@@ -264,13 +264,13 @@ Helloworld</code></pre></div>
 
 <span class="hljs-built_in">cd</span> /home/root
 touch cls.txt
-<span class="hljs-built_in">echo</span> <span class="hljs-string">"I love cls"</span> &gt;&gt;cls.txt</code></pre></div>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"I love cls"</span> &gt;&gt;cls.txt</code></pre>
 
 <h1 id="Shell中的变量"><a href="#Shell中的变量" class="headerlink" title="Shell中的变量"></a>Shell中的变量</h1><h2 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h2><ul>
 <li>常用系统变量</li>
 </ul>
 <p><code>$HOME</code>、<code>$PWD</code>、<code>$SHELL</code>、<code>$USER</code>等</p>
-<div class="hljs"><pre><code class="hljs elixir"><span class="hljs-comment">#（1）查看系统变量的值</span>
+<pre><code class="hljs elixir"><span class="hljs-comment">#（1）查看系统变量的值</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$HOME</span>
 /home/atguigu
 <span class="hljs-comment">#（2）显示当前Shell中所有变量：set</span>
@@ -278,7 +278,7 @@ touch cls.txt
 BASH=<span class="hljs-regexp">/bin/bash</span>
 BASH_ALIASES=()
 BASH_ARGC=()
-BASH_ARGV=()</code></pre></div>
+BASH_ARGV=()</code></pre>
 
 <h2 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h2><blockquote>
 <p>（1）定义变量：变量=值 </p>
@@ -297,7 +297,7 @@ BASH_ARGV=()</code></pre></div>
 <ul>
 <li>案例实操</li>
 </ul>
-<div class="hljs"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）定义变量A
+<pre><code class="hljs elixir">（<span class="hljs-number">1</span>）定义变量A
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>A=<span class="hljs-number">5</span>
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span>
 <span class="hljs-number">5</span>
@@ -339,7 +339,7 @@ Helloworld
 发现并没有打印输出变量B的值。
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>export B
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh 
-helloworld</code></pre></div>
+helloworld</code></pre>
 
 <h2 id="特殊变量：-n"><a href="#特殊变量：-n" class="headerlink" title="特殊变量：$n"></a>特殊变量：<code>$n</code></h2><ul>
 <li>基本语法</li>
@@ -347,7 +347,7 @@ helloworld</code></pre></div>
 <blockquote>
 <p><code>$n</code>  （功能描述：n为数字，<code>$0</code>代表该脚本名称，<code>$1-$9</code>代表第一到第九个参数，十以上的参数，十以上的参数需要用大括号包含，如<code>${10}</code>）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 输出该脚本文件名称、输入参数1和输入参数2 的值</span>
+<pre><code class="hljs bash"><span class="hljs-comment"># 输出该脚本文件名称、输入参数1和输入参数2 的值</span>
 [root@hadoop101 datas]$ touch parameter.sh 
 [root@hadoop101 datas]$ vim parameter.sh
 
@@ -356,12 +356,12 @@ helloworld</code></pre></div>
 
 [root@hadoop101 datas]$ chmod 777 parameter.sh
 [root@hadoop101 datas]$ ./parameter.sh cls  xz
-./parameter.sh  cls   xz</code></pre></div>
+./parameter.sh  cls   xz</code></pre>
 
 <h2 id="特殊变量："><a href="#特殊变量：" class="headerlink" title="特殊变量：$#"></a>特殊变量：<code>$#</code></h2><blockquote>
 <p>$#  （功能描述：获取所有输入参数个数，常用于循环）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 获取输入参数的个数</span>
+<pre><code class="hljs bash"><span class="hljs-comment"># 获取输入参数的个数</span>
 [root@hadoop101 datas]$ vim parameter.sh
 
 <span class="hljs-meta">#!/bin/bash</span>
@@ -372,13 +372,13 @@ helloworld</code></pre></div>
 
 [root@hadoop101 datas]$ ./parameter.sh cls  xz
 parameter.sh cls xz 
-2</code></pre></div>
+2</code></pre>
 
 <h2 id="特殊变量：-、"><a href="#特殊变量：-、" class="headerlink" title="特殊变量：$*、$@"></a>特殊变量：<code>$*</code>、<code>$@</code></h2><blockquote>
 <p><code>$*</code>  （功能描述：这个变量代表命令行中所有的参数，<code>$*</code>把所有的参数看成一个整体）</p>
 <p> <code>$@</code> （功能描述：这个变量也代表命令行中所有的参数，不过<code>$@</code>把每个参数区分对待）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs bash"><span class="hljs-comment"># 打印输入的所有参数</span>
+<pre><code class="hljs bash"><span class="hljs-comment"># 打印输入的所有参数</span>
 [root@hadoop101 datas]$ vim parameter.sh
 
 <span class="hljs-meta">#!/bin/bash</span>
@@ -391,16 +391,16 @@ parameter.sh cls xz
 parameter.sh  1   2  
 3
 1 2 3
-1 2 3</code></pre></div>
+1 2 3</code></pre>
 
 <h2 id="特殊变量：-？"><a href="#特殊变量：-？" class="headerlink" title="特殊变量：$？"></a>特殊变量：<code>$？</code></h2><blockquote>
 <p><code>$？</code> （功能描述：最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0（具体是哪个数，由命令自己来决定），则证明上一个命令执行不正确了。）</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）判断helloworld.sh脚本是否正确执行
+<pre><code class="hljs elixir">（<span class="hljs-number">1</span>）判断helloworld.sh脚本是否正确执行
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh 
 hello world
 [root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$?</span>
-0</code></pre></div>
+0</code></pre>
 
 <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
 <li>基本语法</li>
@@ -413,7 +413,7 @@ hello world
 <ul>
 <li>示例</li>
 </ul>
-<div class="hljs"><pre><code class="hljs angelscript">（<span class="hljs-number">1</span>）计算<span class="hljs-number">3</span>+<span class="hljs-number">2</span>的值
+<pre><code class="hljs angelscript">（<span class="hljs-number">1</span>）计算<span class="hljs-number">3</span>+<span class="hljs-number">2</span>的值
 [<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr <span class="hljs-number">2</span> + <span class="hljs-number">3</span>
 <span class="hljs-number">5</span>
 （<span class="hljs-number">2</span>）计算<span class="hljs-number">3</span><span class="hljs-number">-2</span>的值
@@ -425,7 +425,7 @@ hello world
 <span class="hljs-number">20</span>
 （b）采用$[运算式]方式
 [<span class="hljs-symbol">root@</span>hadoop101 datas]# S=$[(<span class="hljs-number">2</span>+<span class="hljs-number">3</span>)*<span class="hljs-number">4</span>]
-[<span class="hljs-symbol">root@</span>hadoop101 datas]# echo $S</code></pre></div>
+[<span class="hljs-symbol">root@</span>hadoop101 datas]# echo $S</code></pre>
 
 <h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><ul>
 <li>基本语法</li>
@@ -453,7 +453,7 @@ hello world
 <ul>
 <li>案例实操</li>
 </ul>
-<div class="hljs"><pre><code class="hljs ruby"><span class="hljs-number">1</span>）<span class="hljs-number">23</span>是否大于等于<span class="hljs-number">22</span>
+<pre><code class="hljs ruby"><span class="hljs-number">1</span>）<span class="hljs-number">23</span>是否大于等于<span class="hljs-number">22</span>
 [root@hadoop101 datas]$ [ <span class="hljs-number">23</span> -ge <span class="hljs-number">22</span> ]
 [root@hadoop101 datas]$ echo $?
 <span class="hljs-number">0</span>
@@ -469,7 +469,7 @@ hello world
 [root@hadoop101 ~]$ [ condition ] &amp;&amp; echo OK <span class="hljs-params">||</span> echo notok
 OK
 [root@hadoop101 datas]$ [ condition ] &amp;&amp; [ ] <span class="hljs-params">||</span> echo notok
-notok</code></pre></div>
+notok</code></pre>
 
 <h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h2>
             </article>

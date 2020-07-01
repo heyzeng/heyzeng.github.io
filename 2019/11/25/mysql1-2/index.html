@@ -182,20 +182,20 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="MacOS-Docker-安装"><a href="#MacOS-Docker-安装" class="headerlink" title="MacOS Docker 安装"></a>MacOS Docker 安装</h1><h2 id="使用Homebrew安装"><a href="#使用Homebrew安装" class="headerlink" title="使用Homebrew安装"></a>使用Homebrew安装</h2><div class="hljs"><pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span>cask <span class="hljs-keyword">install </span>docker</code></pre></div>
+              <h1 id="MacOS-Docker-安装"><a href="#MacOS-Docker-安装" class="headerlink" title="MacOS Docker 安装"></a>MacOS Docker 安装</h1><h2 id="使用Homebrew安装"><a href="#使用Homebrew安装" class="headerlink" title="使用Homebrew安装"></a>使用Homebrew安装</h2><pre><code class="hljs mipsasm"><span class="hljs-keyword">brew </span>cask <span class="hljs-keyword">install </span>docker</code></pre>
 
 <h2 id="手动下载安装"><a href="#手动下载安装" class="headerlink" title="手动下载安装"></a>手动下载安装</h2><blockquote>
 <p>如果需要手动下载，请点击以下链接下载 <a href="https://download.docker.com/mac/stable/Docker.dmg" target="_blank" rel="noopener">Stable</a> 或 <a href="https://download.docker.com/mac/edge/Docker.dmg" target="_blank" rel="noopener">Edge</a> 版本的 Docker for Mac。</p>
 <p>如同 macOS 其它软件一样，安装也非常简单，双击下载的 .dmg 文件，然后将鲸鱼图标拖拽到 Application 文件夹即可。</p>
 </blockquote>
-<h2 id="查看Docker版本"><a href="#查看Docker版本" class="headerlink" title="查看Docker版本"></a>查看Docker版本</h2><div class="hljs"><pre><code class="hljs angelscript">➜  ~ docker --version
-Docker version <span class="hljs-number">19.03</span><span class="hljs-number">.8</span>, build afacb8b</code></pre></div>
+<h2 id="查看Docker版本"><a href="#查看Docker版本" class="headerlink" title="查看Docker版本"></a>查看Docker版本</h2><pre><code class="hljs angelscript">➜  ~ docker --version
+Docker version <span class="hljs-number">19.03</span><span class="hljs-number">.8</span>, build afacb8b</code></pre>
 
 <h1 id="Docker-安装MySQL"><a href="#Docker-安装MySQL" class="headerlink" title="Docker 安装MySQL"></a>Docker 安装MySQL</h1><h2 id="访问镜像查看MySQL版本"><a href="#访问镜像查看MySQL版本" class="headerlink" title="访问镜像查看MySQL版本"></a>访问镜像查看MySQL版本</h2><blockquote>
 <p>访问 MySQL 镜像库地址：<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">https://hub.docker.com/_/mysql?tab=tags</a> 。</p>
 <p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 <strong>mysql:latest</strong> 。</p>
 </blockquote>
-<h2 id="命令查看MySQL可用版本"><a href="#命令查看MySQL可用版本" class="headerlink" title="命令查看MySQL可用版本"></a>命令查看MySQL可用版本</h2><div class="hljs"><pre><code class="hljs routeros">➜  ~ docker search mysql
+<h2 id="命令查看MySQL可用版本"><a href="#命令查看MySQL可用版本" class="headerlink" title="命令查看MySQL可用版本"></a>命令查看MySQL可用版本</h2><pre><code class="hljs routeros">➜  ~ docker search mysql
 NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
 mysql                             MySQL is a widely used, open-source relation…   9673                [OK]
 mariadb                           MariaDB is a community-developed fork of MyS…   3518                [OK]
@@ -203,19 +203,19 @@ mysql/mysql-server                Optimized MySQL<span class="hljs-built_in"> Se
 centos/mysql-57-centos7           MySQL 5.7 SQL database<span class="hljs-built_in"> server </span>                  77
 mysql/mysql-cluster               Experimental MySQL Cluster Docker images. Cr…   70
 centurylink/mysql                 Image containing mysql. Optimized <span class="hljs-keyword">to</span> be link…   61                                      [OK]
-<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span></code></pre></div>
+<span class="hljs-built_in">..</span><span class="hljs-built_in">..</span></code></pre>
 
-<h2 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h2><div class="hljs"><pre><code class="hljs properties"><span class="hljs-comment"># 最新的镜像</span>
+<h2 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 MySQL 镜像</h2><pre><code class="hljs properties"><span class="hljs-comment"># 最新的镜像</span>
 <span class="hljs-attr">docker</span> <span class="hljs-string">pull mysql:latest</span>
 <span class="hljs-comment"># 指定镜像</span>
-<span class="hljs-attr">docker</span> <span class="hljs-string">pull mysql:8.0</span></code></pre></div>
+<span class="hljs-attr">docker</span> <span class="hljs-string">pull mysql:8.0</span></code></pre>
 
-<h2 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h2><div class="hljs"><pre><code class="hljs angelscript">➜  ~ docker images
+<h2 id="查看本地镜像"><a href="#查看本地镜像" class="headerlink" title="查看本地镜像"></a>查看本地镜像</h2><pre><code class="hljs angelscript">➜  ~ docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 mysql               <span class="hljs-number">5.7</span><span class="hljs-number">.30</span>              <span class="hljs-number">9</span>cfcce23593a        <span class="hljs-number">2</span> weeks ago         <span class="hljs-number">448</span>MB
-mysql               latest              be0dbf01a0f3        <span class="hljs-number">2</span> weeks ago         <span class="hljs-number">541</span>MB</code></pre></div>
+mysql               latest              be0dbf01a0f3        <span class="hljs-number">2</span> weeks ago         <span class="hljs-number">541</span>MB</code></pre>
 
-<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><div class="hljs"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -itd --name mysql-test -p 3306:3306 -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=123456 mysql</code></pre></div>
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -itd --name mysql-test -p 3306:3306 -e <span class="hljs-attribute">MYSQL_ROOT_PASSWORD</span>=123456 mysql</code></pre>
 
 <ul>
 <li>参数说明：</li>
@@ -226,29 +226,29 @@ mysql               latest              be0dbf01a0f3        <span class="hljs-nu
 <li><strong>MYSQL_ROOT_PASSWORD=123456</strong>：设置 MySQL 服务 root 用户的密码。</li>
 </ul>
 </blockquote>
-<div class="hljs"><pre><code class="hljs angelscript"># 查看是否安装成功
+<pre><code class="hljs angelscript"># 查看是否安装成功
 ➜  ~ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
-a96f3f885216        mysql               <span class="hljs-string">"docker-entrypoint.s…"</span>   <span class="hljs-number">16</span> hours ago        Up <span class="hljs-number">21</span> minutes       <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>:<span class="hljs-number">3306</span>-&gt;<span class="hljs-number">3306</span>/tcp, <span class="hljs-number">33060</span>/tcp   mysql-test</code></pre></div>
+a96f3f885216        mysql               <span class="hljs-string">"docker-entrypoint.s…"</span>   <span class="hljs-number">16</span> hours ago        Up <span class="hljs-number">21</span> minutes       <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>:<span class="hljs-number">3306</span>-&gt;<span class="hljs-number">3306</span>/tcp, <span class="hljs-number">33060</span>/tcp   mysql-test</code></pre>
 
-<h2 id="切换到MySQL镜像，登录MySQL"><a href="#切换到MySQL镜像，登录MySQL" class="headerlink" title="切换到MySQL镜像，登录MySQL"></a>切换到MySQL镜像，登录MySQL</h2><div class="hljs"><pre><code class="hljs applescript">docker exec -<span class="hljs-keyword">it</span> mysql-test bash</code></pre></div>
+<h2 id="切换到MySQL镜像，登录MySQL"><a href="#切换到MySQL镜像，登录MySQL" class="headerlink" title="切换到MySQL镜像，登录MySQL"></a>切换到MySQL镜像，登录MySQL</h2><pre><code class="hljs applescript">docker exec -<span class="hljs-keyword">it</span> mysql-test bash</code></pre>
 
-<h2 id="登录MySQL"><a href="#登录MySQL" class="headerlink" title="登录MySQL"></a>登录MySQL</h2><div class="hljs"><pre><code class="hljs angelscript">mysql -u root -p <span class="hljs-number">123456</span></code></pre></div>
+<h2 id="登录MySQL"><a href="#登录MySQL" class="headerlink" title="登录MySQL"></a>登录MySQL</h2><pre><code class="hljs angelscript">mysql -u root -p <span class="hljs-number">123456</span></code></pre>
 
-<h1 id="Navicat-连接Docker-MySQL"><a href="#Navicat-连接Docker-MySQL" class="headerlink" title="Navicat 连接Docker MySQL"></a>Navicat 连接Docker MySQL</h1><h2 id="连接报错信息"><a href="#连接报错信息" class="headerlink" title="连接报错信息"></a>连接报错信息</h2><div class="hljs"><pre><code class="hljs basic"><span class="hljs-symbol">2059 </span>- Authentication plugin <span class="hljs-comment">'caching_sha2_password' cannot be loaded: dlope</span></code></pre></div>
+<h1 id="Navicat-连接Docker-MySQL"><a href="#Navicat-连接Docker-MySQL" class="headerlink" title="Navicat 连接Docker MySQL"></a>Navicat 连接Docker MySQL</h1><h2 id="连接报错信息"><a href="#连接报错信息" class="headerlink" title="连接报错信息"></a>连接报错信息</h2><pre><code class="hljs basic"><span class="hljs-symbol">2059 </span>- Authentication plugin <span class="hljs-comment">'caching_sha2_password' cannot be loaded: dlope</span></code></pre>
 
-<h2 id="查看mysql版本"><a href="#查看mysql版本" class="headerlink" title="查看mysql版本"></a>查看mysql版本</h2><div class="hljs"><pre><code class="hljs asciidoc">mysql&gt; select version();
+<h2 id="查看mysql版本"><a href="#查看mysql版本" class="headerlink" title="查看mysql版本"></a>查看mysql版本</h2><pre><code class="hljs asciidoc">mysql&gt; select version();
 <span class="hljs-code">+-----------+</span>
 | version() |
 <span class="hljs-code">+-----------+</span>
 | 8.0.20    |
 <span class="hljs-code">+-----------+</span>
-1 row in set (0.00 sec)</code></pre></div>
+1 row in set (0.00 sec)</code></pre>
 
 <blockquote>
 <p><code>mysql_native_password</code>是<code>mysql5</code>的加密方式，<code>mysql8</code>是<code>caching_sha2_password</code>认证方式，所以要修改加密方式</p>
 </blockquote>
-<h2 id="修改MySQL权限以及加密方式"><a href="#修改MySQL权限以及加密方式" class="headerlink" title="修改MySQL权限以及加密方式"></a>修改MySQL权限以及加密方式</h2><div class="hljs"><pre><code class="hljs routeros"><span class="hljs-comment"># 添加授权</span>
+<h2 id="修改MySQL权限以及加密方式"><a href="#修改MySQL权限以及加密方式" class="headerlink" title="修改MySQL权限以及加密方式"></a>修改MySQL权限以及加密方式</h2><pre><code class="hljs routeros"><span class="hljs-comment"># 添加授权</span>
 GRANT ALL ON *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span>;
 flush privileges;
 
@@ -272,12 +272,12 @@ mysql&gt; select user,plugin <span class="hljs-keyword">from</span><span class="
 | root | mysql_native_password |
 | root | mysql_native_password |
 +------+-----------------------+
-2 rows <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)</code></pre></div>
+2 rows <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)</code></pre>
 
 <h2 id="Navicat连接成功"><a href="#Navicat连接成功" class="headerlink" title="Navicat连接成功"></a>Navicat连接成功</h2><h1 id="Docker版本Mysql容器中不支持输入中文"><a href="#Docker版本Mysql容器中不支持输入中文" class="headerlink" title="Docker版本Mysql容器中不支持输入中文"></a>Docker版本Mysql容器中不支持输入中文</h1><blockquote>
 <p>mysql插入数据时候，发现中文字符不支持</p>
 </blockquote>
-<h2 id="查看字符集"><a href="#查看字符集" class="headerlink" title="查看字符集"></a>查看字符集</h2><div class="hljs"><pre><code class="hljs makefile"><span class="hljs-section">root@a96f3f885216:/# locale</span>
+<h2 id="查看字符集"><a href="#查看字符集" class="headerlink" title="查看字符集"></a>查看字符集</h2><pre><code class="hljs makefile"><span class="hljs-section">root@a96f3f885216:/# locale</span>
 LANG=
 LANGUAGE=
 LC_CTYPE=<span class="hljs-string">"POSIX"</span>
@@ -292,21 +292,21 @@ LC_ADDRESS=<span class="hljs-string">"POSIX"</span>
 LC_TELEPHONE=<span class="hljs-string">"POSIX"</span>
 LC_MEASUREMENT=<span class="hljs-string">"POSIX"</span>
 LC_IDENTIFICATION=<span class="hljs-string">"POSIX"</span>
-LC_ALL=</code></pre></div>
+LC_ALL=</code></pre>
 
 <blockquote>
 <p>可以看到，默认的是POSIX字符集，这个传统的字符集是不支持中文的，所以我们的核心操作就是要更改字符集为支持中文的字符集。</p>
 </blockquote>
-<h2 id="可支持utf-8"><a href="#可支持utf-8" class="headerlink" title="可支持utf-8"></a>可支持<code>utf-8</code></h2><div class="hljs"><pre><code class="hljs elixir">root<span class="hljs-variable">@a96f3f885216</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># locale -a</span>
+<h2 id="可支持utf-8"><a href="#可支持utf-8" class="headerlink" title="可支持utf-8"></a>可支持<code>utf-8</code></h2><pre><code class="hljs elixir">root<span class="hljs-variable">@a96f3f885216</span><span class="hljs-symbol">:/</span><span class="hljs-comment"># locale -a</span>
 C
 C.UTF<span class="hljs-number">-8</span>
-POSIX</code></pre></div>
+POSIX</code></pre>
 
-<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="1、添加到profile"><a href="#1、添加到profile" class="headerlink" title="1、添加到profile"></a>1、添加到<code>profile</code></h3><div class="hljs"><pre><code class="hljs routeros">echo <span class="hljs-string">"export LANG=C.UTF-8"</span> &gt;&gt;/etc<span class="hljs-built_in">/profile </span>&amp;&amp; source /etc/profile</code></pre></div>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><h3 id="1、添加到profile"><a href="#1、添加到profile" class="headerlink" title="1、添加到profile"></a>1、添加到<code>profile</code></h3><pre><code class="hljs routeros">echo <span class="hljs-string">"export LANG=C.UTF-8"</span> &gt;&gt;/etc<span class="hljs-built_in">/profile </span>&amp;&amp; source /etc/profile</code></pre>
 
-<h3 id="2、直接设置环境变量"><a href="#2、直接设置环境变量" class="headerlink" title="2、直接设置环境变量"></a>2、直接设置环境变量</h3><div class="hljs"><pre><code class="hljs ini"><span class="hljs-attr">LANG</span>=C.UTF-<span class="hljs-number">8</span></code></pre></div>
+<h3 id="2、直接设置环境变量"><a href="#2、直接设置环境变量" class="headerlink" title="2、直接设置环境变量"></a>2、直接设置环境变量</h3><pre><code class="hljs ini"><span class="hljs-attr">LANG</span>=C.UTF-<span class="hljs-number">8</span></code></pre>
 
-<h3 id="3、Docker启动容器时，指定环境变量"><a href="#3、Docker启动容器时，指定环境变量" class="headerlink" title="3、Docker启动容器时，指定环境变量"></a>3、Docker启动容器时，指定环境变量</h3><div class="hljs"><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -d mysql env <span class="hljs-attribute">LANG</span>=C.UTF-8</code></pre></div>
+<h3 id="3、Docker启动容器时，指定环境变量"><a href="#3、Docker启动容器时，指定环境变量" class="headerlink" title="3、Docker启动容器时，指定环境变量"></a>3、Docker启动容器时，指定环境变量</h3><pre><code class="hljs routeros">docker <span class="hljs-builtin-name">run</span> -d mysql env <span class="hljs-attribute">LANG</span>=C.UTF-8</code></pre>
 
 
             </article>

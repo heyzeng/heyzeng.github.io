@@ -189,28 +189,28 @@
 <h1 id="Git-配置代理"><a href="#Git-配置代理" class="headerlink" title="Git 配置代理"></a>Git 配置代理</h1><blockquote>
 <p>先科学上网，不然 Git clone flink源码的速度很慢、还会中断</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs routeros"><span class="hljs-comment"># 设置代理</span>
+<pre><code class="hljs routeros"><span class="hljs-comment"># 设置代理</span>
 git<span class="hljs-built_in"> config </span>--global http.proxy <span class="hljs-string">'socks5://127.0.0.1:1080'</span>
 git<span class="hljs-built_in"> config </span>--global https.proxy <span class="hljs-string">'socks5://127.0.0.1:1080'</span>
 <span class="hljs-comment"># 取消代理</span>
 git<span class="hljs-built_in"> config </span>--global --unset http.proxy
-git<span class="hljs-built_in"> config </span>--global --unset https.proxy</code></pre></div>
+git<span class="hljs-built_in"> config </span>--global --unset https.proxy</code></pre>
 
 <h1 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h1><blockquote>
 <p>最好把源码fork到自己的仓库，切换dev分支以方便自己后续做源码注释</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/heyzeng/flink.git</code></pre></div>
+<pre><code class="hljs crmsh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/heyzeng/flink.git</code></pre>
 
 <h1 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h1><blockquote>
 <p>编译源码可能会出现很多状况，根据实际问题多排查几次。</p>
 <p>我遇到的问题是<code>flink-runtime-web</code>模块一直编译失败，报错信息<code>maven</code>仓库内的<code>node</code>有问题，解决方法：<code>maven</code>仓库中删除下载好的<code>node</code>包即可</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs ada">mvn clean <span class="hljs-keyword">package</span> <span class="hljs-title">-DskipTests # 编译命令</span></code></pre></div>
+<pre><code class="hljs ada">mvn clean <span class="hljs-keyword">package</span> <span class="hljs-title">-DskipTests # 编译命令</span></code></pre>
 
 <h1 id="编译成功"><a href="#编译成功" class="headerlink" title="编译成功"></a>编译成功</h1><blockquote>
 <p>官网说编写需要10分钟左右，我是用MacbookPro编译的，大概时间在23分钟左右。(具体编译时间根据配置吧)。下面即为编译成功</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs routeros">[<span class="hljs-builtin-name">INFO</span>] Reactor Summary:
+<pre><code class="hljs routeros">[<span class="hljs-builtin-name">INFO</span>] Reactor Summary:
 [<span class="hljs-builtin-name">INFO</span>]
 [<span class="hljs-builtin-name">INFO</span>] force-shading <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span> SUCCESS [  0.940 s]
 [<span class="hljs-builtin-name">INFO</span>] flink <span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span> SUCCESS [  1.380 s]
@@ -395,7 +395,7 @@ git<span class="hljs-built_in"> config </span>--global --unset https.proxy</code
 [<span class="hljs-builtin-name">INFO</span>] Total time: 23:11 min
 [<span class="hljs-builtin-name">INFO</span>] Finished at: 2020-06-15T15:50:14+08:00
 [<span class="hljs-builtin-name">INFO</span>] Final Memory: 674M/2582M
-[<span class="hljs-builtin-name">INFO</span>] ------------------------------------------------------------------------</code></pre></div>
+[<span class="hljs-builtin-name">INFO</span>] ------------------------------------------------------------------------</code></pre>
 
 
             </article>

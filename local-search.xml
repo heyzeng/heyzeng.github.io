@@ -146,6 +146,31 @@
   
   
   <entry>
+    <title>redis</title>
+    <link href="/2018/07/02/redis01/"/>
+    <url>/2018/07/02/redis01/</url>
+    
+    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote><p>Redis 是速度非常快的非关系型（NoSQL）内存键值数据库，可以存储键和五种不同类型的值之间的映射。</p><p>键的类型只能为字符串，值支持五种数据类型：字符串、列表、集合、散列表、有序集合。</p><p>Redis 支持很多特性，例如将内存中的数据持久化到硬盘中，使用复制来扩展读性能，使用分片来扩展写性能</p></blockquote><p><code>redis</code>:<code>Remote Dictionary Server</code>(远程字典服务器)</p><h2 id="NoSQL数据库的优势性"><a href="#NoSQL数据库的优势性" class="headerlink" title="NoSQL数据库的优势性"></a>NoSQL数据库的优势性</h2><ul><li>易扩展</li></ul><blockquote><p>NoSQL数据库种类繁多，但它们都有一个共通的特点：就是去除关系型数据库的“关系型”特点。数据之间无关系，这样就变得非常容易扩展，而相对应的来看：关系型数据库修改表结构非常困难。这就为项目架构设计提供了更大的扩展空间。</p></blockquote><ul><li>大数据量高性能</li></ul><blockquote><p>NoSQL数据库都具有非常高的读写性能，尤其在大数据量的情况下，表现同样优秀。这得益于NoSQL数据库中数据之间没有“关系”，数据库结构简单。</p></blockquote><blockquote><p>从缓存角度来看，MySQL的Query Cache是表级别的粗粒度缓存，假设存储了100条数据，其中有一条数据修改了，整个缓存失效，效率很低。而NoSQL数据库的缓存是记录级的细粒度缓存，任何一条记录的修改都不影响其他记录，效率很高。</p></blockquote><ul><li>多样灵活的数据模型</li></ul><blockquote><p>NoSQL数据库无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增减修改字段简直就是一个噩梦。</p></blockquote><h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="redis的bin目录常用命令"><a href="#redis的bin目录常用命令" class="headerlink" title="redis的bin目录常用命令"></a><code>redis</code>的<code>bin</code>目录常用命令</h2><table><thead><tr><th>Redis-benchmark</th><th>压力测试。标准是每秒80000次写操作，110000次读操作 (服务启动起来后执行,类似安兔兔跑分)</th></tr></thead><tbody><tr><td>Redis-check-aof</td><td>修复有问题的AOF文件</td></tr><tr><td>Redis-check-dump</td><td>修复有问题的dump.rdb文件</td></tr><tr><td>Redis-sentinel</td><td>启动哨兵，集群使用</td></tr><tr><td>redis-server</td><td>启动服务器</td></tr><tr><td>redis-cli</td><td>启动客户端</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>redis</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>NoSQL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>MySQL权限问题</title>
     <link href="/2018/06/17/mysql1-1/"/>
     <url>/2018/06/17/mysql1-1/</url>

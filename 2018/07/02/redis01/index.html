@@ -18,7 +18,7 @@
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
   <meta name="google-site-verification" content="LuN9eC7rIeg_mhqqprA5b0KeD1v6m9va57KdadEa3Yk" />
-  <title>ClickHouse之深圳MeetUp - 曾俊峰的技术博客</title>
+  <title>redis - 曾俊峰的技术博客</title>
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2019-10-25 13:11">
-                    2019年10月25日 下午
+                  <time datetime="2018-07-02 20:31">
+                    2018年7月2日 晚上
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    250 字
+                    568 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    3
+                    6
                      分钟
                   </span>
                 
@@ -182,22 +182,61 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前公司调研OLAT开源框架，最近ClickHouse火热，看了ClickHouse开源社区的Meetup，于是参加了宣讲，感触蛮多，同时俄罗斯Yandex团队小哥们都很帅、</p>
-<h1 id="纪要"><a href="#纪要" class="headerlink" title="纪要"></a>纪要</h1><h2 id="时间：10月20日下午2-00-6-30"><a href="#时间：10月20日下午2-00-6-30" class="headerlink" title="时间：10月20日下午2:00 -6:30"></a>时间：10月20日下午2:00 -6:30</h2><h2 id="地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速"><a href="#地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速" class="headerlink" title="地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速"></a>地点：深圳湾软件产业基地4栋B座裙楼UTCP创意加速</h2><h2 id="议题"><a href="#议题" class="headerlink" title="议题"></a>议题</h2><ul>
-<li>2:00pm-3:00pm  《Roadmap and overview of ClickHouse》   AlekSei Milovidov</li>
-<li>3:00pm-3:40pm 《ClickHouse编写自定义计算函数》 Sundy Li</li>
-<li>3:40pm-4:20pm  《Clickhouse 在Tencent的应用实践》Tencent  丁晓坤 周东祥</li>
-<li>4:20pm-4:30pm Break</li>
-<li>4:30pm-5:10pm 《ClickHouse MergeTree原理解析》 远光软件 朱凯</li>
-<li>5:10pm-5:50pm 《数仓Clickhouse多维分析应用实践》 华润万家 数据分析高级经理 朱元</li>
-<li>5:50pm-6:30pm   《Recently released features and future plans》 Ivan Blinkov(Temp)</li>
-<li>6:00pm-6:30   Free discussion </li>
+              <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>Redis 是速度非常快的非关系型（NoSQL）内存键值数据库，可以存储键和五种不同类型的值之间的映射。</p>
+<p>键的类型只能为字符串，值支持五种数据类型：字符串、列表、集合、散列表、有序集合。</p>
+<p>Redis 支持很多特性，例如将内存中的数据持久化到硬盘中，使用复制来扩展读性能，使用分片来扩展写性能</p>
+</blockquote>
+<p><code>redis</code>:<code>Remote Dictionary Server</code>(远程字典服务器)</p>
+<h2 id="NoSQL数据库的优势性"><a href="#NoSQL数据库的优势性" class="headerlink" title="NoSQL数据库的优势性"></a>NoSQL数据库的优势性</h2><ul>
+<li>易扩展</li>
 </ul>
-<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><ul>
-<li>Yandex团队clickhouse的新特性以及在机器学习方面的研究，未来大有可期。</li>
-<li>腾讯内部已经在大规模应用。</li>
-<li>朱凯老师MergerTree讲解的很细致。</li>
+<blockquote>
+<p>NoSQL数据库种类繁多，但它们都有一个共通的特点：就是去除关系型数据库的“关系型”特点。数据之间无关系，这样就变得非常容易扩展，而相对应的来看：关系型数据库修改表结构非常困难。这就为项目架构设计提供了更大的扩展空间。</p>
+</blockquote>
+<ul>
+<li>大数据量高性能</li>
 </ul>
+<blockquote>
+<p>NoSQL数据库都具有非常高的读写性能，尤其在大数据量的情况下，表现同样优秀。这得益于NoSQL数据库中数据之间没有“关系”，数据库结构简单。</p>
+</blockquote>
+<blockquote>
+<p>从缓存角度来看，MySQL的Query Cache是表级别的粗粒度缓存，假设存储了100条数据，其中有一条数据修改了，整个缓存失效，效率很低。而NoSQL数据库的缓存是记录级的细粒度缓存，任何一条记录的修改都不影响其他记录，效率很高。</p>
+</blockquote>
+<ul>
+<li>多样灵活的数据模型</li>
+</ul>
+<blockquote>
+<p>NoSQL数据库无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增减修改字段简直就是一个噩梦。</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="redis的bin目录常用命令"><a href="#redis的bin目录常用命令" class="headerlink" title="redis的bin目录常用命令"></a><code>redis</code>的<code>bin</code>目录常用命令</h2><table>
+<thead>
+<tr>
+<th>Redis-benchmark</th>
+<th>压力测试。标准是每秒80000次写操作，110000次读操作 (服务启动起来后执行,类似安兔兔跑分)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Redis-check-aof</td>
+<td>修复有问题的AOF文件</td>
+</tr>
+<tr>
+<td>Redis-check-dump</td>
+<td>修复有问题的dump.rdb文件</td>
+</tr>
+<tr>
+<td>Redis-sentinel</td>
+<td>启动哨兵，集群使用</td>
+</tr>
+<tr>
+<td>redis-server</td>
+<td>启动服务器</td>
+</tr>
+<tr>
+<td>redis-cli</td>
+<td>启动客户端</td>
+</tr>
+</tbody></table>
 
             </article>
             <hr>
@@ -207,7 +246,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/ClickHouse/">ClickHouse</a>
+                      <a class="hover-with-bg" href="/categories/redis/">redis</a>
                     
                   </div>
                 
@@ -215,7 +254,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/meetup/">meetup</a>
+                      <a class="hover-with-bg" href="/tags/NoSQL/">NoSQL</a>
                     
                   </div>
                 
@@ -228,9 +267,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2019/11/25/mysql1-2/">
+                      <a href="/2019/10/25/clickhouse1-1/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker安装MySQL以及解决Navicat连接MySQL报错</span>
+                        <span class="hidden-mobile">ClickHouse之深圳MeetUp</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -238,8 +277,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2018/07/02/redis01/">
-                        <span class="hidden-mobile">redis</span>
+                      <a href="/2018/06/17/mysql1-1/">
+                        <span class="hidden-mobile">MySQL权限问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -398,7 +437,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "ClickHouse之深圳MeetUp&nbsp;",
+        "redis&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

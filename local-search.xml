@@ -4,19 +4,6 @@
   
   
   <entry>
-    <title>leetcode633</title>
-    <link href="/2020/07/06/leetcode633/"/>
-    <url>/2020/07/06/leetcode633/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>hadoop修复hdfs中文件块错误：Cannot obtain block length for LocatedBlock</title>
     <link href="/2020/06/18/hadoop1-1-hdfs-LocatedBlock/"/>
     <url>/2020/06/18/hadoop1-1-hdfs-LocatedBlock/</url>
@@ -234,6 +221,33 @@
   
   
   <entry>
+    <title>Leetcode633:平方数之和</title>
+    <link href="/2018/01/15/leetcode633/"/>
+    <url>/2018/01/15/leetcode633/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Leetcode</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>双指针</tag>
+      
+      <tag>esay</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Leetcode118：杨辉三角</title>
     <link href="/2018/01/08/leetcode118/"/>
     <url>/2018/01/08/leetcode118/</url>
@@ -259,7 +273,7 @@
   
   
   <entry>
-    <title>LeetCode1：两数之和</title>
+    <title>Leetcode1：两数之和</title>
     <link href="/2018/01/01/leetcode01/"/>
     <url>/2018/01/01/leetcode01/</url>
     

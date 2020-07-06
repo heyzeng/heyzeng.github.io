@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://heyzeng.github.io/2018/01/15/leetcode633/</loc>
+    
+    <lastmod>2020-07-06T07:56:46.788Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://heyzeng.github.io/2018/01/01/leetcode01/</loc>
     
-    <lastmod>2020-07-06T02:03:39.554Z</lastmod>
+    <lastmod>2020-07-06T02:09:28.127Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>https://heyzeng.github.io/2018/01/08/leetcode118/</loc>
     
     <lastmod>2020-07-06T02:03:16.150Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2020/07/06/leetcode633/</loc>
-    
-    <lastmod>2020-07-06T01:59:16.415Z</lastmod>
     
   </url>
   

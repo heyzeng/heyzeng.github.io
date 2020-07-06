@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    199 字
+                    454 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    2
+                    6
                      分钟
                   </span>
                 
@@ -210,10 +210,38 @@
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">"no Two sum solution"</span>);
     &#125;
 &#125;</code></pre>
-
-
-
-
+<h1 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h1><blockquote>
+<p>双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。</p>
+</blockquote>
+<blockquote>
+<p>使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。</p>
+</blockquote>
+<ul>
+<li>如果两个指针指向元素的和 sum == target，那么得到要求的结果；</li>
+<li>如果 sum &gt; target，移动较大的元素，使 sum 变小一些；</li>
+<li>如果 sum &lt; target，移动较小的元素，使 sum 变大一些。</li>
+</ul>
+<blockquote>
+<p>数组中的元素最多遍历一次，时间复杂度为<code>O(N)</code>。只使用了两个额外变量，空间复杂度为<code>O(1)</code>。</p>
+</blockquote>
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">solution</span></span>&#123;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers <span class="hljs-keyword">int</span> target)&#123;
+    <span class="hljs-keyword">if</span> ( numbers==<span class="hljs-keyword">null</span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;&#125;
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; 
+    <span class="hljs-keyword">int</span> j = numbers.length - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">while</span>(i&lt;j)&#123;
+      <span class="hljs-keyword">int</span> sum  = numbers[i] + numbers[j]
+      <span class="hljs-keyword">if</span> (sum  = target)&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;i,j&#125;
+      &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (sum &lt; target)&#123;
+        i++;
+      &#125;<span class="hljs-keyword">else</span> &#123;
+        j--;
+      &#125;
+    &#125;   
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+  &#125;
+&#125;</code></pre>
 
 
 
@@ -234,7 +262,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/easy/">easy</a>
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                    
+                      <a class="hover-with-bg" href="/tags/esay/">esay</a>
                     
                   </div>
                 

@@ -302,6 +302,53 @@ balancer
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/01/08/Sqoop%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">Sqoop遇到问题汇总</a>
+
+      <a href="/2018/01/08/Sqoop%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/" class="index-excerpt">
+        
+        
+          
+        
+        <div>MySQL数据导入Hive时数值类型全部为null
+mysql通过sqoop导入到hive表中，发现有个别数据类型为int或tinyint的列导入后数据为null。设置各种行分隔符，列分隔符都没有效果
+
+解决方法尝试一：
+hive中单独将有问题的那几列的数据类型设置为string类型，重新导入后发现，里面的值变成true或者false。
+
+尝试二：
+由此猜想，sqoop在导入的时候，将那几列的数据</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-01-08
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Sqoop/">Sqoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/fixbug/">fixbug</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2018/01/01/leetcode01/">Leetcode1：两数之和</a>
 
       <a href="/2018/01/01/leetcode01/" class="index-excerpt">
@@ -579,87 +626,6 @@ all_unique(y)</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/hive%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5/">hive存储策略</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2017/06/03/hive3/">数仓工具Hive(三)：Hive数据类型</a>
-
-      <a href="/2017/06/03/hive3/" class="index-excerpt">
-        
-        
-          
-        
-        <div>基本数据类型
-
-
-Hive数据类型
-Java数据类型
-长度
-例子
-
-
-
-TINYINT
-byte
-1byte有符号整数
-20
-
-
-SMALINT
-short
-2byte有符号整数
-20
-
-
-INT
-int
-4byte有符号整数
-20
-
-
-BIGINT
-long
-8byte有符号整数
-20
-
-
-BOOLEAN
-boolean
-布尔类型，true或者false
-TRUE  FALSE
-
-
-FLOAT
-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-06-03
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hive/">Hive</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
             
           </div>
         

@@ -323,6 +323,31 @@
   
   
   <entry>
+    <title>Sqoop遇到问题汇总</title>
+    <link href="/2018/01/08/Sqoop%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/"/>
+    <url>/2018/01/08/Sqoop%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="MySQL数据导入Hive时数值类型全部为null"><a href="#MySQL数据导入Hive时数值类型全部为null" class="headerlink" title="MySQL数据导入Hive时数值类型全部为null"></a>MySQL数据导入Hive时数值类型全部为null</h2><blockquote><p>mysql通过sqoop导入到hive表中，发现有个别数据类型为int或tinyint的列导入后数据为null。设置各种行分隔符，列分隔符都没有效果</p></blockquote><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><h4 id="尝试一："><a href="#尝试一：" class="headerlink" title="尝试一："></a>尝试一：</h4><blockquote><p>hive中单独将有问题的那几列的数据类型设置为string类型，重新导入后发现，里面的值变成true或者false。</p></blockquote><h4 id="尝试二："><a href="#尝试二：" class="headerlink" title="尝试二："></a>尝试二：</h4><blockquote><p>由此猜想，sqoop在导入的时候，将那几列的数据转换成了boo类型，问题产生的原因和hive建表语句无关，只能发生在sqoop端或者mysql端。</p><p>经过查看，发现mysql中有问题的那几列数据类型都是tinyint(1),这说明什么，说明那几列的数值长度为1。猜想sqoop将数值长度为1的数据类型，认为是bool类型，导入的时候会自动转换成boo类型</p></blockquote><pre><code class="hljs mysql"># mysql建表语句 截取type字段EATE TABLE &#96;student&#96; (  &#96;type&#96; tinyint(1)  ) ENGINE&#x3D;InnoDB ;</code></pre><h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote><p>  在sqoop的导入sql语句中，单独对那几个问题列进行数据类型转换（CONVERT(match_type,SIGNED)），然后再导入hive，发现数据可以正常显示，一点问题也没有</p></blockquote><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">CONVERT</span>(<span class="hljs-keyword">type</span>,SIGNED) <span class="hljs-keyword">from</span> student;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Sqoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>fixbug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Leetcode1：两数之和</title>
     <link href="/2018/01/01/leetcode01/"/>
     <url>/2018/01/01/leetcode01/</url>

@@ -18,7 +18,7 @@
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
   <meta name="google-site-verification" content="LuN9eC7rIeg_mhqqprA5b0KeD1v6m9va57KdadEa3Yk" />
-  <title>归档 - 曾俊峰的技术博客</title>
+  <title>Sqoop遇到问题汇总 - 曾俊峰的技术博客</title>
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
@@ -46,7 +46,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -129,6 +129,38 @@
             </span>
 
             
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2018-01-08 09:30">
+                    2018年1月8日 上午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    313 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    3
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
           </div>
 
           
@@ -139,37 +171,108 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 35 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2015</p>
-    
-    <a href="/2015/01/15/java1/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Java(一)：基本语法</span>
-      <span style="float: right;">01-15</span>
-    </a>
-  
-</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="MySQL数据导入Hive时数值类型全部为null"><a href="#MySQL数据导入Hive时数值类型全部为null" class="headerlink" title="MySQL数据导入Hive时数值类型全部为null"></a>MySQL数据导入Hive时数值类型全部为null</h2><blockquote>
+<p>mysql通过sqoop导入到hive表中，发现有个别数据类型为int或tinyint的列导入后数据为null。设置各种行分隔符，列分隔符都没有效果</p>
+</blockquote>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><h4 id="尝试一："><a href="#尝试一：" class="headerlink" title="尝试一："></a>尝试一：</h4><blockquote>
+<p>hive中单独将有问题的那几列的数据类型设置为string类型，重新导入后发现，里面的值变成true或者false。</p>
+</blockquote>
+<h4 id="尝试二："><a href="#尝试二：" class="headerlink" title="尝试二："></a>尝试二：</h4><blockquote>
+<p>由此猜想，sqoop在导入的时候，将那几列的数据转换成了boo类型，问题产生的原因和hive建表语句无关，只能发生在sqoop端或者mysql端。</p>
+<p>经过查看，发现mysql中有问题的那几列数据类型都是tinyint(1),这说明什么，说明那几列的数值长度为1。猜想sqoop将数值长度为1的数据类型，认为是bool类型，导入的时候会自动转换成boo类型</p>
+</blockquote>
+<pre><code class="hljs mysql"># mysql建表语句 截取type字段
+EATE TABLE &#96;student&#96; (
+  &#96;type&#96; tinyint(1)  
+) ENGINE&#x3D;InnoDB ;</code></pre>
+
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
+<p>  在sqoop的导入sql语句中，单独对那几个问题列进行数据类型转换（CONVERT(match_type,SIGNED)），然后再导入hive，发现数据可以正常显示，一点问题也没有</p>
+</blockquote>
+<pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">CONVERT</span>(<span class="hljs-keyword">type</span>,SIGNED) <span class="hljs-keyword">from</span> student;</code></pre>
 
 
-
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Sqoop/">Sqoop</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/fixbug/">fixbug</a>
+                    
+                  </div>
+                
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/01/08/leetcode118/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Leetcode118：杨辉三角</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2018/01/01/leetcode01/">
+                        <span class="hidden-mobile">Leetcode1：两数之和</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
             </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -250,6 +353,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -271,7 +402,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "Sqoop遇到问题汇总&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -314,6 +445,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 

@@ -182,7 +182,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Tez引擎跑HQL时候一直报错"><a href="#Tez引擎跑HQL时候一直报错" class="headerlink" title="Tez引擎跑HQL时候一直报错"></a>Tez引擎跑HQL时候一直报错</h2><div class="hljs"><pre><code class="hljs angelscript">--------------------------------------------------------------------------------
+              <h2 id="Tez引擎跑HQL时候一直报错"><a href="#Tez引擎跑HQL时候一直报错" class="headerlink" title="Tez引擎跑HQL时候一直报错"></a>Tez引擎跑HQL时候一直报错</h2><pre><code class="hljs angelscript">--------------------------------------------------------------------------------
         VERTICES      STATUS  TOTAL  COMPLETED  RUNNING  PENDING  FAILED  KILLED
 --------------------------------------------------------------------------------
 Map <span class="hljs-number">1</span> ..........   SUCCEEDED      <span class="hljs-number">2</span>          <span class="hljs-number">2</span>        <span class="hljs-number">0</span>        <span class="hljs-number">0</span>       <span class="hljs-number">7</span>       <span class="hljs-number">0</span>
@@ -196,9 +196,9 @@ Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=v
 Vertex failed, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00, diagnostics=[Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] killed/failed due to:OWN_TASK_FAILURE, Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] failed as task task_1507606976106_0043_2_00_000001 failed after vertex succeeded.]
 DAG did <span class="hljs-keyword">not</span> succeed due to VERTEX_FAILURE. failedVertices:<span class="hljs-number">1</span> killedVertices:<span class="hljs-number">0</span>
 FAILED: Execution Error, <span class="hljs-keyword">return</span> code <span class="hljs-number">2</span> <span class="hljs-keyword">from</span> org.apache.hadoop.hive.ql.exec.tez.TezTask. Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex failed, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00, diagnostics=[Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] killed/failed due to:OWN_TASK_FAILURE, Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] failed as task task_1507606976106_0043_2_00_000001 failed after vertex succeeded.]DAG did <span class="hljs-keyword">not</span> succeed due to VERTEX_FAILURE. failedVertices:<span class="hljs-number">1</span> killedVertices:<span class="hljs-number">0</span>
-expr: syntax error</code></pre></div>
+expr: syntax error</code></pre>
 
-<h2 id="Tez调优参数"><a href="#Tez调优参数" class="headerlink" title="Tez调优参数"></a>Tez调优参数</h2><div class="hljs"><pre><code class="hljs routeros"><span class="hljs-builtin-name">set</span> hive.execution.<span class="hljs-attribute">engine</span>=tez; 
+<h2 id="Tez调优参数"><a href="#Tez调优参数" class="headerlink" title="Tez调优参数"></a>Tez调优参数</h2><pre><code class="hljs routeros"><span class="hljs-builtin-name">set</span> hive.execution.<span class="hljs-attribute">engine</span>=tez; 
 <span class="hljs-builtin-name">set</span> hive.auto.convert.<span class="hljs-attribute">join</span>=<span class="hljs-literal">true</span>; 
 <span class="hljs-builtin-name">set</span> hive.auto.convert.join.<span class="hljs-attribute">noconditionaltask</span>=<span class="hljs-literal">true</span>; 
 <span class="hljs-builtin-name">set</span> hive.auto.convert.join.noconditionaltask.<span class="hljs-attribute">size</span>=405306368; 
@@ -211,7 +211,7 @@ expr: syntax error</code></pre></div>
 <span class="hljs-builtin-name">set</span> hive.merge.<span class="hljs-attribute">mapredfiles</span>=<span class="hljs-literal">true</span>; 
 <span class="hljs-builtin-name">set</span> hive.merge.size.per.<span class="hljs-attribute">task</span>=134217728; 
 <span class="hljs-builtin-name">set</span> hive.merge.smallfiles.<span class="hljs-attribute">avgsize</span>=44739242; 
-<span class="hljs-builtin-name">set</span> mapreduce.job.reduce.slowstart.<span class="hljs-attribute">completedmaps</span>=0.8;</code></pre></div>
+<span class="hljs-builtin-name">set</span> mapreduce.job.reduce.slowstart.<span class="hljs-attribute">completedmaps</span>=0.8;</code></pre>
 
 <h2 id="Tez参数详解"><a href="#Tez参数详解" class="headerlink" title="Tez参数详解"></a>Tez参数详解</h2>
             </article>

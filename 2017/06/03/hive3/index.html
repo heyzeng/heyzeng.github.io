@@ -283,7 +283,7 @@
 <li>Hive有三种复杂数据类型ARRAY、MAP和STRUCT。ARRAY和MAP与Java中的Array和Map类似，而STRUCT与C语言中的Struct类似，它封装了一个命名字段集合，复杂数据类型允许任意层次的嵌套。</li>
 </ul>
 <h2 id="案例实操"><a href="#案例实操" class="headerlink" title="案例实操"></a>案例实操</h2><ul>
-<li>假设某表有如下一行，我们用JSON格式来表示其数据结构。在Hive下访问的格式为<div class="hljs"><pre><code class="hljs json">&#123;
+<li>假设某表有如下一行，我们用JSON格式来表示其数据结构。在Hive下访问的格式为<pre><code class="hljs json">&#123;
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"songsong"</span>,
     <span class="hljs-attr">"friends"</span>: [<span class="hljs-string">"bingbing"</span> , <span class="hljs-string">"lili"</span>] ,       <span class="hljs-comment">//列表Array, </span>
     <span class="hljs-attr">"children"</span>: &#123;                      <span class="hljs-comment">//键值Map,</span>
@@ -294,13 +294,13 @@
         <span class="hljs-attr">"street"</span>: <span class="hljs-string">"hui long guan"</span> ,
         <span class="hljs-attr">"city"</span>: <span class="hljs-string">"beijing"</span> 
     &#125;
-&#125;</code></pre></div></li>
-<li>基于上述数据结构，我们在Hive里创建对应的表，并导入数据。<br>创建本地测试文件test.txt<div class="hljs"><pre><code class="hljs groovy">songsong,bingbing_lili,xiao <span class="hljs-string">song:</span><span class="hljs-number">18</span>_xiaoxiao <span class="hljs-string">song:</span><span class="hljs-number">19</span>,hui <span class="hljs-keyword">long</span> guan_beijing
-yangyang,caicai_susu,xiao <span class="hljs-string">yang:</span><span class="hljs-number">18</span>_xiaoxiao <span class="hljs-string">yang:</span><span class="hljs-number">19</span>,chao yang_beijing</code></pre></div></li>
+&#125;</code></pre></li>
+<li>基于上述数据结构，我们在Hive里创建对应的表，并导入数据。<br>创建本地测试文件test.txt<pre><code class="hljs groovy">songsong,bingbing_lili,xiao <span class="hljs-string">song:</span><span class="hljs-number">18</span>_xiaoxiao <span class="hljs-string">song:</span><span class="hljs-number">19</span>,hui <span class="hljs-keyword">long</span> guan_beijing
+yangyang,caicai_susu,xiao <span class="hljs-string">yang:</span><span class="hljs-number">18</span>_xiaoxiao <span class="hljs-string">yang:</span><span class="hljs-number">19</span>,chao yang_beijing</code></pre></li>
 </ul>
 <p><strong>注意：MAP，STRUCT和ARRAY里的元素间关系都可以用同一个字符表示，这里用”_”。</strong></p>
 <ul>
-<li>Hive上创建测试表test<div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">test</span>(
+<li>Hive上创建测试表test<pre><code class="hljs sql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">test</span>(
 <span class="hljs-keyword">name</span> <span class="hljs-keyword">string</span>,
 friends <span class="hljs-built_in">array</span>&lt;<span class="hljs-keyword">string</span>&gt;,
 children <span class="hljs-keyword">map</span>&lt;<span class="hljs-keyword">string</span>, <span class="hljs-built_in">int</span>&gt;,
@@ -309,7 +309,7 @@ address <span class="hljs-keyword">struct</span>&lt;street:<span class="hljs-key
 <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">','</span>
 collection items <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'_'</span>
 <span class="hljs-keyword">map</span> <span class="hljs-keyword">keys</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">':'</span>
-<span class="hljs-keyword">lines</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\n'</span>;</code></pre></div></li>
+<span class="hljs-keyword">lines</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\n'</span>;</code></pre></li>
 <li>建表语句拆解</li>
 </ul>
 <table>
@@ -337,13 +337,13 @@ collection items <span class="hljs-keyword">terminated</span> <span class="hljs-
 </tr>
 </tbody></table>
 <ul>
-<li>导入文本数据到测试表<div class="hljs"><pre><code class="hljs pgsql">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">load</span> data <span class="hljs-keyword">local</span> inpath ‘/opt/module/datas/test.txt’<span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> test</code></pre></div></li>
-<li>访问三种集合列里的数据，以下分别是ARRAY，MAP，STRUCT的访问方式<div class="hljs"><pre><code class="hljs pgsql">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">select</span> friends[<span class="hljs-number">1</span>],children[<span class="hljs-string">'xiao song'</span>],address.city <span class="hljs-keyword">from</span> test
+<li>导入文本数据到测试表<pre><code class="hljs pgsql">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">load</span> data <span class="hljs-keyword">local</span> inpath ‘/opt/module/datas/test.txt’<span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> test</code></pre></li>
+<li>访问三种集合列里的数据，以下分别是ARRAY，MAP，STRUCT的访问方式<pre><code class="hljs pgsql">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">select</span> friends[<span class="hljs-number">1</span>],children[<span class="hljs-string">'xiao song'</span>],address.city <span class="hljs-keyword">from</span> test
 <span class="hljs-keyword">where</span> <span class="hljs-type">name</span>="songsong";
 OK
 _c0     _c1     city
 lili    <span class="hljs-number">18</span>      beijing
-<span class="hljs-type">Time</span> taken: <span class="hljs-number">0.076</span> seconds, Fetched: <span class="hljs-number">1</span> <span class="hljs-keyword">row</span>(s)</code></pre></div>
+<span class="hljs-type">Time</span> taken: <span class="hljs-number">0.076</span> seconds, Fetched: <span class="hljs-number">1</span> <span class="hljs-keyword">row</span>(s)</code></pre>
 </li>
 </ul>
 <hr>

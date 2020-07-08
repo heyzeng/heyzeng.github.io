@@ -186,15 +186,15 @@
 <p>给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。</p>
 </blockquote>
 <p><strong>示例</strong></p>
-<div class="hljs"><pre><code class="hljs angelscript">给定 nums = [<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>], target = <span class="hljs-number">9</span>
+<pre><code class="hljs angelscript">给定 nums = [<span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>], target = <span class="hljs-number">9</span>
 
 因为 nums[<span class="hljs-number">0</span>] + nums[<span class="hljs-number">1</span>] = <span class="hljs-number">2</span> + <span class="hljs-number">7</span> = <span class="hljs-number">9</span>
-所以返回 [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]</code></pre></div>
+所以返回 [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]</code></pre>
 
 <h1 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h1><blockquote>
 <p>思路：暴力遍历，时间复杂度为<code>O(n^2)</code>、空间复杂度为<code>O(1)​</code></p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span></span>&#123;
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span></span>&#123;
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] nums,<span class="hljs-keyword">int</span> target) &#123;
 
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;
@@ -209,7 +209,7 @@
         &#125;
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">"no Two sum solution"</span>);
     &#125;
-&#125;</code></pre></div>
+&#125;</code></pre>
 <h1 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h1><blockquote>
 <p>双指针主要用于遍历数组，两个指针指向不同的元素，从而协同完成任务。</p>
 </blockquote>
@@ -224,7 +224,7 @@
 <blockquote>
 <p>数组中的元素最多遍历一次，时间复杂度为<code>O(N)</code>。只使用了两个额外变量，空间复杂度为<code>O(1)</code>。</p>
 </blockquote>
-<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">solution</span></span>&#123;
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">solution</span></span>&#123;
   <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers <span class="hljs-keyword">int</span> target)&#123;
     <span class="hljs-keyword">if</span> ( numbers==<span class="hljs-keyword">null</span>)&#123;<span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;&#125;
     <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span> ; 
@@ -241,18 +241,18 @@
     &#125;   
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
   &#125;
-&#125;</code></pre></div>
+&#125;</code></pre>
 
 
 
 <h1 id="解法三"><a href="#解法三" class="headerlink" title="解法三"></a>解法三</h1><blockquote>
-<div class="hljs"><pre><code class="hljs actionscript"><span class="hljs-comment">// 两边hashmap</span>
+<pre><code class="hljs actionscript"><span class="hljs-comment">// 两边hashmap</span>
 <span class="hljs-comment">/*</span>
 <span class="hljs-comment">  1、new Hashmap ,把数组塞进去</span>
 <span class="hljs-comment">  2、遍历hashmap</span>
-<span class="hljs-comment"> */</span></code></pre></div>
+<span class="hljs-comment"> */</span></code></pre>
 </blockquote>
-<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">twoHashMap</span></span>&#123;
+<pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">twoHashMap</span></span>&#123;
     <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] twoSum(<span class="hljs-keyword">int</span>[] numbers,<span class="hljs-keyword">int</span> target)&#123;
 
         <span class="hljs-comment">//1、new Hashmap ,把数组塞进去</span>
@@ -271,7 +271,7 @@
         &#125;
         <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">"no hava"</span>);
     &#125;
-&#125;</code></pre></div>
+&#125;</code></pre>
 
 
             </article>

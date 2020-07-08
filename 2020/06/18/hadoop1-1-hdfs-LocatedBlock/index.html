@@ -182,7 +182,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="错误日志"><a href="#错误日志" class="headerlink" title="错误日志"></a>错误日志</h1><div class="hljs"><pre><code class="hljs roboconf">Caused by: org.apache.hadoop.hdfs.CannotObtainBlockLengthException: Cannot obtain block length for LocatedBlock&#123;<span class="hljs-attribute">BP-1529808326-127.0.0.1-1581044994027</span>:blk_1075632921_1893326; <span class="hljs-attribute">getBlockSize()=1702; corrupt=false; offset=0; locs=[DatanodeInfoWithStorage[10.101.179.206</span>:50010,DS-66edcaf3-52d8-47fa-b6a8-17b8d80cdd43,DISK], DatanodeInfoWithStorage[10.101.179.209:50010,DS-bfa64a38-cd7a-4ab4-a3cc-16376d2705e4,DISK]]&#125;
+              <h1 id="错误日志"><a href="#错误日志" class="headerlink" title="错误日志"></a>错误日志</h1><pre><code class="hljs roboconf">Caused by: org.apache.hadoop.hdfs.CannotObtainBlockLengthException: Cannot obtain block length for LocatedBlock&#123;<span class="hljs-attribute">BP-1529808326-127.0.0.1-1581044994027</span>:blk_1075632921_1893326; <span class="hljs-attribute">getBlockSize()=1702; corrupt=false; offset=0; locs=[DatanodeInfoWithStorage[10.101.179.206</span>:50010,DS-66edcaf3-52d8-47fa-b6a8-17b8d80cdd43,DISK], DatanodeInfoWithStorage[10.101.179.209:50010,DS-bfa64a38-cd7a-4ab4-a3cc-16376d2705e4,DISK]]&#125;
     at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.readBlockLength</span>(DFSInputStream<span class="hljs-variable">.java</span>:360)
     at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.fetchLocatedBlocksAndGetLastBlockLength</span>(DFSInputStream<span class="hljs-variable">.java</span>:267)
     at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hdfs</span><span class="hljs-variable">.DFSInputStream</span><span class="hljs-variable">.openInfo</span>(DFSInputStream<span class="hljs-variable">.java</span>:198)
@@ -197,7 +197,7 @@
     at com<span class="hljs-variable">.hadoop</span><span class="hljs-variable">.mapred</span><span class="hljs-variable">.DeprecatedLzoLineRecordReader</span>.&lt;init&gt;(DeprecatedLzoLineRecordReader<span class="hljs-variable">.java</span>:57)
     at com<span class="hljs-variable">.hadoop</span><span class="hljs-variable">.mapred</span><span class="hljs-variable">.DeprecatedLzoTextInputFormat</span><span class="hljs-variable">.getRecordReader</span>(DeprecatedLzoTextInputFormat<span class="hljs-variable">.java</span>:156)
     at org<span class="hljs-variable">.apache</span><span class="hljs-variable">.hadoop</span><span class="hljs-variable">.hive</span><span class="hljs-variable">.ql</span><span class="hljs-variable">.io</span><span class="hljs-variable">.HiveInputFormat</span><span class="hljs-variable">.getRecordReader</span>(HiveInputFormat<span class="hljs-variable">.java</span>:418)
-    ... 22 more</code></pre></div>
+    ... 22 more</code></pre>
 
 <h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><ul>
 <li>问题原因</li>
@@ -215,12 +215,12 @@
 <ul>
 <li>查找问题文件</li>
 </ul>
-<div class="hljs"><pre><code class="hljs angelscript">hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite</code></pre></div>
+<pre><code class="hljs angelscript">hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite</code></pre>
 
 <ul>
 <li>定位块位置</li>
 </ul>
-<div class="hljs"><pre><code class="hljs angelscript">[<span class="hljs-symbol">hdfs@</span>vm10<span class="hljs-number">-101</span><span class="hljs-number">-179</span><span class="hljs-number">-203</span> root]$ hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite
+<pre><code class="hljs angelscript">[<span class="hljs-symbol">hdfs@</span>vm10<span class="hljs-number">-101</span><span class="hljs-number">-179</span><span class="hljs-number">-203</span> root]$ hdfs fsck /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> -openforwrite
 Connecting to namenode via http:<span class="hljs-comment">//vm10-101-179-203.ksc.com:50070/fsck?ugi=hdfs&amp;openforwrite=1&amp;path=%2Fwarehouse%2Fhive%2Faiotclouddb%2Fods%2Fods_gateway%2Fdt%3D2020-06-16</span>
 FSCK started by hdfs (auth:SIMPLE) <span class="hljs-keyword">from</span> /<span class="hljs-number">10.101</span><span class="hljs-number">.179</span><span class="hljs-number">.203</span> <span class="hljs-keyword">for</span> path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span> at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span>
 /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node7<span class="hljs-number">.1592294424296</span>.lzo <span class="hljs-number">1702</span> bytes, replicated: replication=<span class="hljs-number">2</span>, <span class="hljs-number">1</span> block(s), OPENFORWRITE: /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo <span class="hljs-number">2917</span> bytes, replicated: replication=<span class="hljs-number">2</span>, <span class="hljs-number">1</span> block(s), OPENFORWRITE:
@@ -256,20 +256,20 @@ Erasure Coded Block Groups:
  Missing block groups:      <span class="hljs-number">0</span>
  Corrupt block groups:      <span class="hljs-number">0</span>
  Missing <span class="hljs-built_in">int</span>ernal blocks:   <span class="hljs-number">0</span>
-FSCK ended at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span> <span class="hljs-keyword">in</span> <span class="hljs-number">8</span> milliseconds</code></pre></div>
+FSCK ended at Thu Jun <span class="hljs-number">18</span> <span class="hljs-number">19</span>:<span class="hljs-number">27</span>:<span class="hljs-number">07</span> CST <span class="hljs-number">2020</span> <span class="hljs-keyword">in</span> <span class="hljs-number">8</span> milliseconds</code></pre>
 
 <ul>
 <li>修复命令</li>
 </ul>
-<div class="hljs"><pre><code class="hljs angelscript">hdfs debug recoverLease -path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo -retries <span class="hljs-number">3</span></code></pre></div>
+<pre><code class="hljs angelscript">hdfs debug recoverLease -path /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo -retries <span class="hljs-number">3</span></code></pre>
 
 <ul>
 <li>修复结果</li>
 </ul>
-<div class="hljs"><pre><code class="hljs angelscript">recoverLease returned <span class="hljs-literal">false</span>.
+<pre><code class="hljs angelscript">recoverLease returned <span class="hljs-literal">false</span>.
 Retrying <span class="hljs-keyword">in</span> <span class="hljs-number">5000</span> ms...
 Retry #<span class="hljs-number">1</span>
-recoverLease SUCCEEDED on /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo</code></pre></div>
+recoverLease SUCCEEDED on /warehouse/hive/aiotclouddb/ods/ods_gateway/dt=<span class="hljs-number">2020</span><span class="hljs-number">-06</span><span class="hljs-number">-16</span>/event-node8<span class="hljs-number">.1592294423698</span>.lzo</code></pre>
 
 <ul>
 <li>重跑mr</li>

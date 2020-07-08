@@ -157,6 +157,54 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/03/15/hadoop1-1-balancer/">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</a>
+
+      <a href="/2018/03/15/hadoop1-1-balancer/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言
+用Hadoop集群一点时间时，HDFS节点间的数据不平衡，尤其在新增和下架节点、或者人为干预副本数量的时候，多的达到70%，少的40%。出现这种状况，我们一般采用HDFS自带的balancer工具来解决，保证每个节点的数据分布均衡。
+
+balancer命令
+balancer
+
+# start：
+     start-balancer.sh    #用默认的10%的阈值启动balancer
+ </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-03-15
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/troubleshooting/">troubleshooting</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2018/01/15/leetcode633/">Leetcode633:平方数之和</a>
 
       <a href="/2018/01/15/leetcode633/" class="index-excerpt">
@@ -612,53 +660,6 @@ FLOAT
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">数据类型</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2017/05/29/hive2/">数仓工具hive(二)：Hive安装部署</a>
-
-      <a href="/2017/05/29/hive2/" class="index-excerpt">
-        
-        
-          
-        
-        <div>Hive安装地址
-Hive官网地址
-文档查看地址
-下载地址
-
-Hive安装部署Hive安装及配置
-把apache-hive-1.2.1-bin.tar.gz上传到linux的/opt/software目录下
-解压apache-hive-1.2.1-bin.tar.gz到/opt/module/目录下面[root@hadoop102 software]$ tar -zxvf apache-hive-</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-05-29
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hive/">Hive</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>
             
           </div>
         

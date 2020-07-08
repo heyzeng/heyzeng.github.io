@@ -171,6 +171,31 @@
   
   
   <entry>
+    <title>Hive常用命令汇总</title>
+    <link href="/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/"/>
+    <url>/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Hive删除某一个分区数据"><a href="#Hive删除某一个分区数据" class="headerlink" title="Hive删除某一个分区数据"></a>Hive删除某一个分区数据</h2><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_student <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2019-07-06'</span>)<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_iot_linkage <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2020-07-06'</span>,<span class="hljs-keyword">hour</span>=<span class="hljs-string">'09'</span>)</code></pre><h2 id="Hive中显示表所有分区"><a href="#Hive中显示表所有分区" class="headerlink" title="Hive中显示表所有分区"></a>Hive中显示表所有分区</h2><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">partitions</span> ods_student</code></pre><h2 id="Hive-显示表信息"><a href="#Hive-显示表信息" class="headerlink" title="Hive 显示表信息"></a>Hive 显示表信息</h2><pre><code class="hljs pgsql"><span class="hljs-keyword">show</span> ctreate <span class="hljs-keyword">table</span> ods_student<span class="hljs-keyword">desc</span> ods_student</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>命令</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>redis基础</title>
     <link href="/2018/07/02/redis01/"/>
     <url>/2018/07/02/redis01/</url>

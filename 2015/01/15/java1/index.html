@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -306,7 +306,7 @@
 <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><blockquote>
 <p>算术运算符 :+(正) -（负） +(加) -（减） * / %(取模) 前++ 后++ 前– 后– +(连接符)</p>
 </blockquote>
-<pre><code class="hljs java"><span class="hljs-keyword">int</span> number = <span class="hljs-number">10</span> / <span class="hljs-number">4</span>; <span class="hljs-comment">//2</span>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">int</span> number = <span class="hljs-number">10</span> / <span class="hljs-number">4</span>; <span class="hljs-comment">//2</span>
 		System.out.println(number);
 
 		<span class="hljs-keyword">double</span> dou = <span class="hljs-number">10</span> / <span class="hljs-number">4</span>; <span class="hljs-comment">//2.0</span>
@@ -328,7 +328,7 @@
 		<span class="hljs-comment">//思考：取模结果的正负和谁有关？和被模数有关</span>
 		System.out.println(-<span class="hljs-number">1</span> % <span class="hljs-number">3</span>); <span class="hljs-comment">//-1</span>
 		System.out.println(<span class="hljs-number">2</span> % -<span class="hljs-number">3</span>); <span class="hljs-comment">//2</span>
-		System.out.println(-<span class="hljs-number">5</span> % -<span class="hljs-number">3</span>); <span class="hljs-comment">//-2</span></code></pre>
+		System.out.println(-<span class="hljs-number">5</span> % -<span class="hljs-number">3</span>); <span class="hljs-comment">//-2</span></code></pre></div>
 
 <ul>
 <li>前++后++前–后++区别</li>
@@ -467,7 +467,7 @@
 <p>​    5.三元运算符可以被if所替换。但是反之不成立。如果两者都可以使用的情况下，</p>
 <p>​            建议使用三元运算符效率高一些。</p>
 </blockquote>
-<pre><code class="hljs java"><span class="hljs-comment">//求两个数的最大值</span>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">//求两个数的最大值</span>
 		<span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>,b = <span class="hljs-number">15</span>;
 		<span class="hljs-keyword">int</span> maxNumber = (a &gt; b)? a : b;
 		System.out.println(maxNumber)
@@ -476,7 +476,7 @@
 		<span class="hljs-keyword">int</span> aa = <span class="hljs-number">5</span>,bb = <span class="hljs-number">10</span>,cc = <span class="hljs-number">15</span>;
 		<span class="hljs-keyword">int</span> maxNum = (aa &gt; bb)? aa : bb;
 		maxNum = (maxNum &gt; cc)? maxNum : cc;
-		System.out.println(<span class="hljs-string">"maxNum="</span> + maxNum);</code></pre>
+		System.out.println(<span class="hljs-string">"maxNum="</span> + maxNum);</code></pre></div>
 
 <h1 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h1><blockquote>
 <p>二进制：0,1 ，满2进1.以0b或0B开头。</p>

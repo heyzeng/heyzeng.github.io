@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -182,13 +182,13 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Hive删除某一个分区数据"><a href="#Hive删除某一个分区数据" class="headerlink" title="Hive删除某一个分区数据"></a>Hive删除某一个分区数据</h2><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_student <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2019-07-06'</span>)
-<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_iot_linkage <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2020-07-06'</span>,<span class="hljs-keyword">hour</span>=<span class="hljs-string">'09'</span>)</code></pre>
+              <h2 id="Hive删除某一个分区数据"><a href="#Hive删除某一个分区数据" class="headerlink" title="Hive删除某一个分区数据"></a>Hive删除某一个分区数据</h2><div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_student <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2019-07-06'</span>)
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> ods_iot_linkage <span class="hljs-keyword">drop</span> <span class="hljs-keyword">partition</span>(dt=<span class="hljs-string">'2020-07-06'</span>,<span class="hljs-keyword">hour</span>=<span class="hljs-string">'09'</span>)</code></pre></div>
 
-<h2 id="Hive中显示表所有分区"><a href="#Hive中显示表所有分区" class="headerlink" title="Hive中显示表所有分区"></a>Hive中显示表所有分区</h2><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">partitions</span> ods_student</code></pre>
+<h2 id="Hive中显示表所有分区"><a href="#Hive中显示表所有分区" class="headerlink" title="Hive中显示表所有分区"></a>Hive中显示表所有分区</h2><div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">partitions</span> ods_student</code></pre></div>
 
-<h2 id="Hive-显示表信息"><a href="#Hive-显示表信息" class="headerlink" title="Hive 显示表信息"></a>Hive 显示表信息</h2><pre><code class="hljs pgsql"><span class="hljs-keyword">show</span> ctreate <span class="hljs-keyword">table</span> ods_student
-<span class="hljs-keyword">desc</span> ods_student</code></pre>
+<h2 id="Hive-显示表信息"><a href="#Hive-显示表信息" class="headerlink" title="Hive 显示表信息"></a>Hive 显示表信息</h2><div class="hljs"><pre><code class="hljs pgsql"><span class="hljs-keyword">show</span> ctreate <span class="hljs-keyword">table</span> ods_student
+<span class="hljs-keyword">desc</span> ods_student</code></pre></div>
 
 
             </article>

@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -186,11 +186,11 @@
 <p>连接mysql报错java.sql.SQLException: Access denied for user ‘root’@’IP一直会报错，尝试了修改host，还是有问题。</p>
 </blockquote>
 <p>#给单个IP用户授权</p>
-<pre><code class="hljs sql"><span class="hljs-comment"># 给一个用用户use ip: 1.1.1.1</span>
-<span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> root@<span class="hljs-number">11.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-keyword">identified</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'passwd'</span></code></pre>
+<div class="hljs"><pre><code class="hljs sql"><span class="hljs-comment"># 给一个用用户use ip: 1.1.1.1</span>
+<span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> root@<span class="hljs-number">11.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span> <span class="hljs-keyword">identified</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'passwd'</span></code></pre></div>
 
-<h1 id="授权连接全部的ip地址"><a href="#授权连接全部的ip地址" class="headerlink" title="授权连接全部的ip地址"></a>授权连接全部的ip地址</h1><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span> <span class="hljs-keyword">identified</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'mima'</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;
-<span class="hljs-keyword">FLUSH</span> <span class="hljs-keyword">PRIVILEGES</span></code></pre>
+<h1 id="授权连接全部的ip地址"><a href="#授权连接全部的ip地址" class="headerlink" title="授权连接全部的ip地址"></a>授权连接全部的ip地址</h1><div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">'root'</span>@<span class="hljs-string">'%'</span> <span class="hljs-keyword">identified</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'mima'</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;
+<span class="hljs-keyword">FLUSH</span> <span class="hljs-keyword">PRIVILEGES</span></code></pre></div>
 
 
             </article>

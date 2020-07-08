@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -192,15 +192,15 @@
 <p>由此猜想，sqoop在导入的时候，将那几列的数据转换成了boo类型，问题产生的原因和hive建表语句无关，只能发生在sqoop端或者mysql端。</p>
 <p>经过查看，发现mysql中有问题的那几列数据类型都是<code>tinyint(1)</code>,这说明什么，说明那几列的数值长度为1。猜想sqoop将数值长度为1的数据类型，认为是boo类型，导入的时候会自动转换成boo类型</p>
 </blockquote>
-<pre><code class="hljs mysql"># mysql建表语句 截取type字段
+<div class="hljs"><pre><code class="hljs mysql"># mysql建表语句 截取type字段
 EATE TABLE &#96;student&#96; (
   &#96;type&#96; tinyint(1)  
-) ENGINE&#x3D;InnoDB ;</code></pre>
+) ENGINE&#x3D;InnoDB ;</code></pre></div>
 
 <h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><blockquote>
 <p>  在sqoop的导入sql语句中，单独对那几个问题列进行数据类型转换<code>（CONVERT(match_type,SIGNED)）</code>，然后再导入hive，发现数据可以正常显示</p>
 </blockquote>
-<pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">CONVERT</span>(<span class="hljs-keyword">type</span>,SIGNED) <span class="hljs-keyword">from</span> student;</code></pre>
+<div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> <span class="hljs-keyword">CONVERT</span>(<span class="hljs-keyword">type</span>,SIGNED) <span class="hljs-keyword">from</span> student;</code></pre></div>
 
 
             </article>

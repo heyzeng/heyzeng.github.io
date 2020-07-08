@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -183,15 +183,15 @@
             
             <article class="markdown-body">
               <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>50道Hive之sql必练题，做完50道题会对HiveSql有一个比较深的认识，且附上答案以及验证结果。</p>
-<h1 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h1><pre><code class="hljs sql"><span class="hljs-comment">-- 学生表</span>
+<h1 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h1><div class="hljs"><pre><code class="hljs sql"><span class="hljs-comment">-- 学生表</span>
 <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student(s_id <span class="hljs-keyword">string</span>,s_name <span class="hljs-keyword">string</span>,s_birth <span class="hljs-keyword">string</span>,s_sex <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;
 <span class="hljs-comment">-- 课堂表</span>
 <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> course(c_id <span class="hljs-keyword">string</span>,c_name <span class="hljs-keyword">string</span>,t_id <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;
 <span class="hljs-comment">-- 教师表</span>
 <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> teacher(t_id <span class="hljs-keyword">string</span>,t_name <span class="hljs-keyword">string</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;
 <span class="hljs-comment">-- 分数表</span>
-<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> score(s_id <span class="hljs-keyword">string</span>,c_id <span class="hljs-keyword">string</span>,s_score <span class="hljs-built_in">int</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;</code></pre>
-<h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><pre><code class="hljs bash">-- vim /opt/module/data/student.csv
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> score(s_id <span class="hljs-keyword">string</span>,c_id <span class="hljs-keyword">string</span>,s_score <span class="hljs-built_in">int</span>) <span class="hljs-keyword">row</span> <span class="hljs-keyword">format</span> <span class="hljs-keyword">delimited</span> <span class="hljs-keyword">fields</span> <span class="hljs-keyword">terminated</span> <span class="hljs-keyword">by</span> <span class="hljs-string">'\,'</span>;</code></pre></div>
+<h1 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h1><div class="hljs"><pre><code class="hljs bash">-- vim /opt/module/data/student.csv
 01,赵雷,1990-01-01,男
 02,钱电,1990-12-21,男
 03,孙风,1990-05-20,男
@@ -226,11 +226,11 @@
 06,01,31
 06,03,34
 07,02,89
-07,03,98</code></pre>
-<h1 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h1><pre><code class="hljs sql"><span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/student.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> student;
+07,03,98</code></pre></div>
+<h1 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h1><div class="hljs"><pre><code class="hljs sql"><span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/student.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> student;
 <span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/course.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> course;
 <span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/teacher.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> teacher;
-<span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/score.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> score;</code></pre>
+<span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/score.csv'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> score;</code></pre></div>
 
 
 

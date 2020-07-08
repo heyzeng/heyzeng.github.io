@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -183,22 +183,22 @@
             
             <article class="markdown-body">
               <h1 id="Hadoop官方wordcount示例"><a href="#Hadoop官方wordcount示例" class="headerlink" title="Hadoop官方wordcount示例"></a>Hadoop官方wordcount示例</h1><p>前面的安装准备工作准备好之后，当然要实现下大数据之入门wordcount案例<br>提供版本JDK1.8+Hadoop2.7.2</p>
-<h4 id="在hadoop-2-7-2文件下面创建一个input文件夹"><a href="#在hadoop-2-7-2文件下面创建一个input文件夹" class="headerlink" title="在hadoop-2.7.2文件下面创建一个input文件夹"></a>在hadoop-2.7.2文件下面创建一个input文件夹</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-variable">$mkdir</span> input</code></pre>
-<h4 id="在wcinput文件下创建一个wc-input文件"><a href="#在wcinput文件下创建一个wc-input文件" class="headerlink" title="在wcinput文件下创建一个wc.input文件"></a>在wcinput文件下创建一个wc.input文件</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-built_in">cd</span> input
-[root@hadoop101 input]touch wc.input</code></pre>
-<h4 id="编辑wc-input文件"><a href="#编辑wc-input文件" class="headerlink" title="编辑wc.input文件"></a>编辑wc.input文件</h4><pre><code class="hljs bash">[root@hadoop01 input]vim wc.input
+<h4 id="在hadoop-2-7-2文件下面创建一个input文件夹"><a href="#在hadoop-2-7-2文件下面创建一个input文件夹" class="headerlink" title="在hadoop-2.7.2文件下面创建一个input文件夹"></a>在hadoop-2.7.2文件下面创建一个input文件夹</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-variable">$mkdir</span> input</code></pre></div>
+<h4 id="在wcinput文件下创建一个wc-input文件"><a href="#在wcinput文件下创建一个wc-input文件" class="headerlink" title="在wcinput文件下创建一个wc.input文件"></a>在wcinput文件下创建一个wc.input文件</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]<span class="hljs-built_in">cd</span> input
+[root@hadoop101 input]touch wc.input</code></pre></div>
+<h4 id="编辑wc-input文件"><a href="#编辑wc-input文件" class="headerlink" title="编辑wc.input文件"></a>编辑wc.input文件</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop01 input]vim wc.input
 <span class="hljs-comment"># 文件内容</span>
 hadoop	
 mapreduce	
 yarn
-yarn</code></pre>
-<h4 id="wc-input文件加载到hdfs"><a href="#wc-input文件加载到hdfs" class="headerlink" title="wc.input文件加载到hdfs"></a>wc.input文件加载到hdfs</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -put input/ /tmp/</code></pre>
-<h4 id="运行官方jar包"><a href="#运行官方jar包" class="headerlink" title="运行官方jar包"></a>运行官方jar包</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /tmp/input/  /tmp/output/</code></pre>
-<h4 id="查看wordcount统计词频"><a href="#查看wordcount统计词频" class="headerlink" title="查看wordcount统计词频"></a>查看wordcount统计词频</h4><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -cat /tmp/output//part-r-00000
+yarn</code></pre></div>
+<h4 id="wc-input文件加载到hdfs"><a href="#wc-input文件加载到hdfs" class="headerlink" title="wc.input文件加载到hdfs"></a>wc.input文件加载到hdfs</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -put input/ /tmp/</code></pre></div>
+<h4 id="运行官方jar包"><a href="#运行官方jar包" class="headerlink" title="运行官方jar包"></a>运行官方jar包</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar wordcount /tmp/input/  /tmp/output/</code></pre></div>
+<h4 id="查看wordcount统计词频"><a href="#查看wordcount统计词频" class="headerlink" title="查看wordcount统计词频"></a>查看wordcount统计词频</h4><div class="hljs"><pre><code class="hljs bash">[root@hadoop101 hadoop-2.7.2]hadoop fs -cat /tmp/output//part-r-00000
 <span class="hljs-comment"># 统计内容</span>
 hadoop	1
 mapreduce	1
-yarn	2</code></pre>
+yarn	2</code></pre></div>
 
             </article>
             <hr>

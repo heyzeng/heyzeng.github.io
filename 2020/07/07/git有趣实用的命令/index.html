@@ -23,7 +23,7 @@
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/gml.min.css" />
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/lioshi.min.css" />
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -182,8 +182,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="统计每个repo的代码行数"><a href="#统计每个repo的代码行数" class="headerlink" title="统计每个repo的代码行数"></a>统计每个repo的代码行数</h1><pre><code class="hljs 1c"><span class="hljs-meta"># 去除node_modules和package-lock.json</span>
-git ls-files --exclude-standard -- ':!:**/*.[pjs][npv]g' ':!:**/*.ai' ':!:.idea' ':!:**/*.eslintrc' ':!:package-lock.json' <span class="hljs-string">| xargs wc -l</span></code></pre>
+              <h1 id="统计每个repo的代码行数"><a href="#统计每个repo的代码行数" class="headerlink" title="统计每个repo的代码行数"></a>统计每个repo的代码行数</h1><div class="hljs"><pre><code class="hljs 1c"><span class="hljs-meta"># 去除node_modules和package-lock.json</span>
+git ls-files --exclude-standard -- ':!:**/*.[pjs][npv]g' ':!:**/*.ai' ':!:.idea' ':!:**/*.eslintrc' ':!:package-lock.json' <span class="hljs-string">| xargs wc -l</span></code></pre></div>
 
             </article>
             <hr>

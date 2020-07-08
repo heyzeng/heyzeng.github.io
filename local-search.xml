@@ -171,6 +171,31 @@
   
   
   <entry>
+    <title>tez参数优化</title>
+    <link href="/2019/07/08/tez%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/"/>
+    <url>/2019/07/08/tez%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Tez引擎跑HQL时候一直报错"><a href="#Tez引擎跑HQL时候一直报错" class="headerlink" title="Tez引擎跑HQL时候一直报错"></a>Tez引擎跑HQL时候一直报错</h2><pre><code class="hljs angelscript">--------------------------------------------------------------------------------        VERTICES      STATUS  TOTAL  COMPLETED  RUNNING  PENDING  FAILED  KILLED--------------------------------------------------------------------------------Map <span class="hljs-number">1</span> ..........   SUCCEEDED      <span class="hljs-number">2</span>          <span class="hljs-number">2</span>        <span class="hljs-number">0</span>        <span class="hljs-number">0</span>       <span class="hljs-number">7</span>       <span class="hljs-number">0</span>Reducer <span class="hljs-number">2</span>            RUNNING      <span class="hljs-number">1</span>          <span class="hljs-number">0</span>        <span class="hljs-number">1</span>        <span class="hljs-number">0</span>       <span class="hljs-number">0</span>       <span class="hljs-number">0</span>--------------------------------------------------------------------------------VERTICES: <span class="hljs-number">01</span>/<span class="hljs-number">02</span>  [=================&gt;&gt;---------] <span class="hljs-number">66</span>%   ELAPSED TIME: <span class="hljs-number">11.22</span> s--------------------------------------------------------------------------------Status: FailedVertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex failed, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00, diagnostics=[Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] killed/failed due to:OWN_TASK_FAILURE, Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] failed as task task_1507606976106_0043_2_00_000001 failed after vertex succeeded.]DAG did <span class="hljs-keyword">not</span> succeed due to VERTEX_FAILURE. failedVertices:<span class="hljs-number">1</span> killedVertices:<span class="hljs-number">0</span>FAILED: Execution Error, <span class="hljs-keyword">return</span> code <span class="hljs-number">2</span> <span class="hljs-keyword">from</span> org.apache.hadoop.hive.ql.exec.tez.TezTask. Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex re-running, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00Vertex failed, vertexName=Map <span class="hljs-number">1</span>, vertexId=vertex_1507606976106_0043_2_00, diagnostics=[Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] killed/failed due to:OWN_TASK_FAILURE, Vertex vertex_1507606976106_0043_2_00 [Map <span class="hljs-number">1</span>] failed as task task_1507606976106_0043_2_00_000001 failed after vertex succeeded.]DAG did <span class="hljs-keyword">not</span> succeed due to VERTEX_FAILURE. failedVertices:<span class="hljs-number">1</span> killedVertices:<span class="hljs-number">0</span>expr: syntax error</code></pre><h2 id="Tez调优参数"><a href="#Tez调优参数" class="headerlink" title="Tez调优参数"></a>Tez调优参数</h2><pre><code class="hljs routeros"><span class="hljs-builtin-name">set</span> hive.execution.<span class="hljs-attribute">engine</span>=tez; <span class="hljs-builtin-name">set</span> hive.auto.convert.<span class="hljs-attribute">join</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.auto.convert.join.<span class="hljs-attribute">noconditionaltask</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.auto.convert.join.noconditionaltask.<span class="hljs-attribute">size</span>=405306368; <span class="hljs-builtin-name">set</span> hive.vectorized.execution.<span class="hljs-attribute">enabled</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.vectorized.execution.reduce.enabled =<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.cbo.<span class="hljs-attribute">enable</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.compute.query.using.<span class="hljs-attribute">stats</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.stats.fetch.column.<span class="hljs-attribute">stats</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.merge.mapfiles =<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.merge.<span class="hljs-attribute">mapredfiles</span>=<span class="hljs-literal">true</span>; <span class="hljs-builtin-name">set</span> hive.merge.size.per.<span class="hljs-attribute">task</span>=134217728; <span class="hljs-builtin-name">set</span> hive.merge.smallfiles.<span class="hljs-attribute">avgsize</span>=44739242; <span class="hljs-builtin-name">set</span> mapreduce.job.reduce.slowstart.<span class="hljs-attribute">completedmaps</span>=0.8;</code></pre><h2 id="Tez参数详解"><a href="#Tez参数详解" class="headerlink" title="Tez参数详解"></a>Tez参数详解</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tez</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>调优</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hive常用命令汇总</title>
     <link href="/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/"/>
     <url>/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
@@ -287,9 +312,9 @@
     
     <tags>
       
-      <tag>esay</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>esay</tag>
       
     </tags>
     
@@ -364,9 +389,9 @@
     
     <tags>
       
-      <tag>esay</tag>
-      
       <tag>双指针</tag>
+      
+      <tag>esay</tag>
       
     </tags>
     

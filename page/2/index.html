@@ -157,6 +157,53 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/06/17/mysql1-1/">MySQL权限问题</a>
+
+      <a href="/2018/06/17/mysql1-1/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言
+连接mysql报错java.sql.SQLException: Access denied for user ‘root’@’IP一直会报错，尝试了修改host，还是有问题。
+
+#给单个IP用户授权
+# 给一个用用户use ip: 1.1.1.1
+grant all on *.* to root@11.1.1.1 identified by 'passwd'
+
+授权连接全部的ip地址GRAN</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-06-17
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/MySQL/">MySQL</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/troubleshooting/">troubleshooting</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2018/03/15/hadoop1-1-balancer/">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</a>
 
       <a href="/2018/03/15/hadoop1-1-balancer/" class="index-excerpt">
@@ -233,9 +280,9 @@ balancer
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/esay/">esay</a>
-            
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+              <a href="/tags/esay/">esay</a>
             
           </div>
         
@@ -387,9 +434,9 @@ hive中单独将有问题的那几列的数据类型设置为string类型，重�
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/esay/">esay</a>
-            
               <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+            
+              <a href="/tags/esay/">esay</a>
             
           </div>
         
@@ -584,48 +631,6 @@ all_unique(y)</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/practice/">practice</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2017/06/04/hive4/">数仓工具hive(四)：Hive文件存储格式以及优缺点</a>
-
-      <a href="/2017/06/04/hive4/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言Hive支持的存储数的格式主要有：TEXTFILE 、SEQUENCEFILE、ORC、PARQUET。
-行与列存储的特点行存储的特点查询满足条件的一整行数据的时候，列存储则需要去每个聚集的字段找到对应的每个列的值，行存储只需要找到其中一个值，其余的值都在相邻地方，所以此时行存储查询的速度更快。
-列存储的特点因为每个字段的数据聚集存储，在查询只需要少数几个字段的时候，能大大减少读取的数据量；每</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2017-06-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hive/">Hive</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/hive%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5/">hive存储策略</a>
             
           </div>
         

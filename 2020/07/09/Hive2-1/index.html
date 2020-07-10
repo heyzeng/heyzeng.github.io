@@ -189,6 +189,33 @@
 <p><code>Hive</code>版本：<code>Hive-3.1.0</code> </p>
 <p>由于当前公司数仓用的<code>Hive</code>版本为<code>Hive-3.1.0</code>,故源码阅读版本为<code>Hive-3.1.0</code></p>
 </blockquote>
+<h1 id="Hive组件介绍"><a href="#Hive组件介绍" class="headerlink" title="Hive组件介绍"></a>Hive组件介绍</h1><ul>
+<li><p>三个重要组件</p>
+<ul>
+<li><strong><code>serde</code></strong>：这个组件是<code>hive</code>内置的一些序列化解析类，此组件允许用户自己开发自定义序列化、反序列化文件解析器</li>
+<li><strong><code>MetaStore</code></strong>：<code>hive</code>的元数据服务器，用来存放数据仓库中所有表和分区的信息,<code>hive</code>元数据建表<code>sql</code>、升级<code>sql</code>脚本都存放在此目录下</li>
+<li><strong><code>ql</code></strong>：此组件用于解析sql生成执行计划（<code>hive</code>核心包，熟读此包，可了解hive执行流程核心）</li>
+</ul>
+</li>
+<li><p>次要组件</p>
+<ul>
+<li><strong><code>cli</code>：</strong><code>hive</code>命令的入口，用于处理命令行提交作业</li>
+<li><strong><code>service</code>：</strong>此组件所有对外api接口的服务端(通过<code>thrift</code>实现)，可用于其他客户端与<code>hive</code>交互，比如<code>jdbc</code>。 </li>
+<li><strong><code>common</code>：</strong><code>hive</code>基础代码库，<code>hive</code>各个组件信息的传递也是有此包<code>HiveConf</code>类来管理。</li>
+<li><strong><code>ant</code>：</strong>此组件包含一些<code>ant</code>任务需要的基础代码</li>
+<li><strong><code>bin</code>：</strong>此组件包涵<code>hive</code>里的所有脚本，包括<code>hivecli</code>的脚本</li>
+<li><strong><code>beeline</code>:</strong> <code>HiveServer2</code>提供的一个新的命令行工具<code>Beeline</code></li>
+<li><strong><code>hcatalog</code>:</strong> 是<code>apache</code>开源的对于表和底层数据管理统一服务平台，<code>HCatalog</code>底层依赖于<code>Hive</code> <code>Metastore</code></li>
+<li><strong><code>findbugs</code>：</strong><code>Findbugs</code>是一个在java程序中查找<code>bug</code>的程序，它查找<code>bug</code>模式的实例，也就是可能出错的代码实例，注意<code>Findbugs</code>是检查<code>java</code>字节码，也就是<code>.class</code>文件。 </li>
+<li><strong><code>hwi</code>:</strong> <code>hive</code> <code>web</code>页面的接口</li>
+<li><strong><code>shims</code>:</strong> shims相关类是用来兼容不同的<code>hadoop</code>和<code>hive</code>版本</li>
+<li><strong><code>llap</code>：</strong> 是基于<code>tez</code>的一种近实时查询方案</li>
+<li><strong>conf:</strong> 此目录包涵hive配置文件<code>hive-default.xml</code>、<code>hive-site.xml</code></li>
+<li><strong><code>data</code>:</strong> hive测试所用数据</li>
+<li><strong><code>lib</code>:</strong> hive运行期间依赖的<code>jar</code></li>
+</ul>
+</li>
+</ul>
 <h1 id="编译命令"><a href="#编译命令" class="headerlink" title="编译命令"></a>编译命令</h1><pre><code class="hljs armasm"><span class="hljs-keyword">mvn </span>clean install -DskipTests</code></pre>
 
 
@@ -256,33 +283,6 @@
 [<span class="hljs-builtin-name">INFO</span>] Final Memory: 527M/2052M
 [<span class="hljs-builtin-name">INFO</span>] ------------------------------------------------------------------------</code></pre>
 
-<h1 id="Hive组件介绍"><a href="#Hive组件介绍" class="headerlink" title="Hive组件介绍"></a>Hive组件介绍</h1><ul>
-<li><p>三个重要组件</p>
-<ul>
-<li><strong><code>serde</code></strong>：这个组件是<code>hive</code>内置的一些序列化解析类，此组件允许用户自己开发自定义序列化、反序列化文件解析器</li>
-<li><strong><code>MetaStore</code></strong>：<code>hive</code>的元数据服务器，用来存放数据仓库中所有表和分区的信息,<code>hive</code>元数据建表<code>sql</code>、升级<code>sql</code>脚本都存放在此目录下</li>
-<li><strong><code>ql</code></strong>：此组件用于解析sql生成执行计划（<code>hive</code>核心包，熟读此包，可了解hive执行流程核心）</li>
-</ul>
-</li>
-<li><p>次要组件</p>
-<ul>
-<li><strong><code>cli</code>：</strong><code>hive</code>命令的入口，用于处理命令行提交作业</li>
-<li><strong><code>service</code>：</strong>此组件所有对外api接口的服务端(通过<code>thrift</code>实现)，可用于其他客户端与<code>hive</code>交互，比如<code>jdbc</code>。 </li>
-<li><strong><code>common</code>：</strong><code>hive</code>基础代码库，<code>hive</code>各个组件信息的传递也是有此包<code>HiveConf</code>类来管理。</li>
-<li><strong><code>ant</code>：</strong>此组件包含一些<code>ant</code>任务需要的基础代码</li>
-<li><strong><code>bin</code>：</strong>此组件包涵<code>hive</code>里的所有脚本，包括<code>hivecli</code>的脚本</li>
-<li><strong><code>beeline</code>:</strong> <code>HiveServer2</code>提供的一个新的命令行工具<code>Beeline</code></li>
-<li><strong><code>hcatalog</code>:</strong> 是<code>apache</code>开源的对于表和底层数据管理统一服务平台，<code>HCatalog</code>底层依赖于<code>Hive</code> <code>Metastore</code></li>
-<li><strong><code>findbugs</code>：</strong><code>Findbugs</code>是一个在java程序中查找<code>bug</code>的程序，它查找<code>bug</code>模式的实例，也就是可能出错的代码实例，注意<code>Findbugs</code>是检查<code>java</code>字节码，也就是<code>.class</code>文件。 </li>
-<li><strong><code>hwi</code>:</strong> <code>hive</code> <code>web</code>页面的接口</li>
-<li><strong><code>shims</code>:</strong> shims相关类是用来兼容不同的<code>hadoop</code>和<code>hive</code>版本</li>
-<li><strong><code>llap</code>：</strong> 是基于<code>tez</code>的一种近实时查询方案</li>
-<li><strong>conf:</strong> 此目录包涵hive配置文件<code>hive-default.xml</code>、<code>hive-site.xml</code></li>
-<li><strong><code>data</code>:</strong> hive测试所用数据</li>
-<li><strong><code>lib</code>:</strong> hive运行期间依赖的<code>jar</code></li>
-</ul>
-</li>
-</ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><blockquote>
 <p>粗略的把<code>Hive</code>源码拉下来，并且进行编译，也对各个模块进行了简单介绍，以便以方便的阅读源码</p>
 </blockquote>

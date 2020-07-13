@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Hive源码阅读(二)：基本架构与程序执行入口</title>
+    <link href="/2020/07/10/Hive2-2/"/>
+    <url>/2020/07/10/Hive2-2/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>Hive</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>源码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hive源码阅读(一)：源码编译</title>
     <link href="/2020/07/09/Hive2-1/"/>
     <url>/2020/07/09/Hive2-1/</url>

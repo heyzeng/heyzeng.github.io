@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.8k 字
+                    2k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    24
+                    27
                      分钟
                   </span>
                 
@@ -471,7 +471,60 @@ OK
 [root@hadoop101 datas]$ [ condition ] &amp;&amp; [ ] <span class="hljs-params">||</span> echo notok
 notok</code></pre>
 
-<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h2>
+<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h2><pre><code class="hljs shell">if [ 条件判断式 ];then 
+  程序 
+fi 
+或者 
+if [ 条件判断式 ] 
+  then 
+    程序 
+fi</code></pre>
+
+<blockquote>
+<p>注意事项：</p>
+<p>（1）[ 条件判断式 ]，中括号和条件判断式之间必须有空格</p>
+<p>（2）<code>if</code>后要有空格</p>
+</blockquote>
+<ul>
+<li>案例</li>
+</ul>
+<pre><code class="hljs bash">[root@hadoop101 datas]$ touch if.sh
+[root@hadoop101 datas]$ vim if.sh
+
+<span class="hljs-meta">#!/bin/bash</span>
+
+<span class="hljs-keyword">if</span> [ <span class="hljs-variable">$1</span> -eq <span class="hljs-string">"1"</span> ]
+<span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">echo</span> <span class="hljs-string">"banzhang zhen shuai"</span>
+<span class="hljs-keyword">elif</span> [ <span class="hljs-variable">$1</span> -eq <span class="hljs-string">"2"</span> ]
+<span class="hljs-keyword">then</span>
+        <span class="hljs-built_in">echo</span> <span class="hljs-string">"cls zhen mei"</span>
+<span class="hljs-keyword">fi</span>
+
+[root@hadoop101 datas]$ chmod 777 if.sh 
+[root@hadoop101 datas]$ ./if.sh 1
+banzhang zhen shuai</code></pre>
+
+<h2 id="case-语句"><a href="#case-语句" class="headerlink" title="case 语句"></a>case 语句</h2><pre><code class="hljs shell">case $变量名 in 
+  "值1"） 
+    如果变量的值等于值1，则执行程序1 
+    ;; 
+  "值2"） 
+    如果变量的值等于值2，则执行程序2 
+    ;; 
+  …省略其他分支… 
+  *） 
+    如果变量的值都不是以上的值，则执行此程序 
+    ;; 
+esac</code></pre>
+
+<blockquote>
+<p>注意事项：</p>
+<p>1)   case行尾必须为单词“in”，每一个模式匹配必须以右括号“）”结束。</p>
+<p>2)   双分号“<strong>;;</strong>”表示命令序列结束，相当于java中的break。</p>
+<p>3)   最后的“*）”表示默认模式，相当于java中的default。</p>
+</blockquote>
+
             </article>
             <hr>
             <div>

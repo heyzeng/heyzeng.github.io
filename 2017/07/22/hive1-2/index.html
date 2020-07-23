@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    425 字
+                    428 字
                   </span>
                 
 
@@ -236,6 +236,7 @@
 
 <h1 id="1-查询”01”课程比”02”课程成绩高的学生的信息及课程分数"><a href="#1-查询”01”课程比”02”课程成绩高的学生的信息及课程分数" class="headerlink" title="1 查询”01”课程比”02”课程成绩高的学生的信息及课程分数"></a>1 查询”01”课程比”02”课程成绩高的学生的信息及课程分数</h1><blockquote>
 <p>解析：通过s_id关联，是学生的唯一id </p>
+<p>​           inner join = join</p>
 </blockquote>
 <pre><code class="hljs sql"><span class="hljs-keyword">select</span> student.*,a.s_score <span class="hljs-keyword">as</span> <span class="hljs-number">01</span>_score,b.s_score <span class="hljs-keyword">as</span> <span class="hljs-number">02</span>_score
 <span class="hljs-keyword">from</span> student

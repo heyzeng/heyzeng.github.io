@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    316 字
+                    425 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    5
+                    7
                      分钟
                   </span>
                 
@@ -234,6 +234,21 @@
 
 
 
+<h1 id="1-查询”01”课程比”02”课程成绩高的学生的信息及课程分数"><a href="#1-查询”01”课程比”02”课程成绩高的学生的信息及课程分数" class="headerlink" title="1 查询”01”课程比”02”课程成绩高的学生的信息及课程分数"></a>1 查询”01”课程比”02”课程成绩高的学生的信息及课程分数</h1><blockquote>
+<p>解析：通过s_id关联，是学生的唯一id </p>
+</blockquote>
+<pre><code class="hljs sql"><span class="hljs-keyword">select</span> student.*,a.s_score <span class="hljs-keyword">as</span> <span class="hljs-number">01</span>_score,b.s_score <span class="hljs-keyword">as</span> <span class="hljs-number">02</span>_score
+<span class="hljs-keyword">from</span> student
+  <span class="hljs-keyword">join</span> score a <span class="hljs-keyword">on</span> student.s_id=a.s_id <span class="hljs-keyword">and</span> a.c_id=<span class="hljs-string">'01'</span>
+  <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> score b <span class="hljs-keyword">on</span> student.s_id=b.s_id <span class="hljs-keyword">and</span> b.c_id=<span class="hljs-string">'02'</span>
+<span class="hljs-keyword">where</span>  a.s_score&gt;b.s_score;</code></pre>
+
+<pre><code class="hljs gherkin">+---------------+-----------------+------------------+----------------+-----------+-----------+
+|<span class="hljs-string"> student.s_id  </span>|<span class="hljs-string"> student.s_name  </span>|<span class="hljs-string"> student.s_birth  </span>|<span class="hljs-string"> student.s_sex  </span>|<span class="hljs-string"> 01_score  </span>|<span class="hljs-string"> 02_score  </span>|
++---------------+-----------------+------------------+----------------+-----------+-----------+
+|<span class="hljs-string"> 02            </span>|<span class="hljs-string"> 钱电              </span>|<span class="hljs-string"> 1990-12-21       </span>|<span class="hljs-string"> 男              </span>|<span class="hljs-string"> 70        </span>|<span class="hljs-string"> 60        </span>|
+|<span class="hljs-string"> 04            </span>|<span class="hljs-string"> 李云              </span>|<span class="hljs-string"> 1990-08-06       </span>|<span class="hljs-string"> 男              </span>|<span class="hljs-string"> 50        </span>|<span class="hljs-string"> 30        </span>|
++---------------+-----------------+------------------+----------------+-----------+-----------+</code></pre>
 
 
             </article>

@@ -259,8 +259,7 @@ sh -c "echo umask 0022 &gt;&gt; /etc/profile"
 <span class="hljs-meta">#</span><span class="bash"> 解释：022表示默认创建新文件权限为755 也就是 rxwr-xr-x(所有者全部权限，属组读写，其它人读写) </span>
 <span class="hljs-meta">#</span><span class="bash"> 详细文档：https://www.cnblogs.com/walblog/articles/7903319.html</span></code></pre>
 
-<p>###8、 安装mysql</p>
-<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 安装mysql源,centos7默认不带mysql安装源</span>
+<h3 id="8、-安装mysql"><a href="#8、-安装mysql" class="headerlink" title="8、 安装mysql"></a>8、 安装mysql</h3><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 安装mysql源,centos7默认不带mysql安装源</span>
 rpm -Uvh http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 yum install mysql-server -y
 <span class="hljs-meta">#</span><span class="bash"> 启动mysql</span>

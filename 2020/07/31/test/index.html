@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jude Zeng">
+  <meta name="keywords" content="">
+  <meta name="google-site-verification" content="LuN9eC7rIeg_mhqqprA5b0KeD1v6m9va57KdadEa3Yk" />
+  <title>test - 曾俊峰的技术博客</title>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/tomorrow.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jude'blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://i.loli.net/2020/05/16/pPq2N5KTLjRBiDu.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-07-31 17:50">
+                    2020年7月31日 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    4.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    49
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="索引简述"><a href="#索引简述" class="headerlink" title="索引简述"></a>索引简述</h1><p>mysql查询方式大体上可以划分为两种方式： </p>
+<ol>
+<li>全表扫描。 </li>
+<li>通过索引进行搜索。 </li>
+</ol>
+<p>当数据量不大的情况下，两种方式的耗时相差不大。但是如果数据量庞大，千万级亿级数据量时， <strong>全面扫描数据有下面这些缺点</strong> ： </p>
+<ol>
+<li>查询速度缓慢。 </li>
+<li>机器频繁进行IO操作。 </li>
+<li>机器cpu资源消耗更严重。 </li>
+</ol>
+<p>既然mysql索引作用如此重要，那么我们就一起来研究研究innodb中的索引吧。 </p>
+<p>说明，下面分享的内容主要参考了一位大佬写的系列文章，此处贴上地址 </p>
+<p><a href="https://juejin.im/book/5bffcbc9f265da614b11b731" target="_blank" rel="noopener">https://juejin.im/book/5bffcbc9f265da614b11b731</a></p>
+<h1 id="innodb的行格式和页结构"><a href="#innodb的行格式和页结构" class="headerlink" title="innodb的行格式和页结构"></a>innodb的行格式和页结构</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在磁盘数据上，innodb将数据分为若干个页，以页作为磁盘和内存之间交互的基本单位，InnoDB中页的大小一般为 16 KB。 </p>
+<p>若干行数据，又组成了页。 </p>
+<p> <img src="https://uploader.shimo.im/f/uagYfi21Di5KOn7C.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<h2 id="行格式"><a href="#行格式" class="headerlink" title="行格式"></a>行格式</h2><p>行格式也叫做记录的格式，目前支持Compact、Redundant、Dynamic、Compressed这四种格式，但是他们基本都是类似的。 </p>
+<p>直接上图，可以看到，一行主要分为了两个部分： </p>
+<ol>
+<li>数据部分. </li>
+<li>额外信息部分。 </li>
+</ol>
+<p><img src="https://uploader.shimo.im/f/zZGNHwJdgvTsZsxq.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>记录真实数据部分，也就是我们 insert 的那些数据，这个十分好理解。我们分别来看一下。 </p>
+<h3 id="变长字段长度列表"><a href="#变长字段长度列表" class="headerlink" title="变长字段长度列表"></a>变长字段长度列表</h3><p>mysql支持一些变长字段，如 varchar(M)，text，blob，这些类型的数据存储空间分为两个部分： </p>
+<ol>
+<li>真实数据的内容。 </li>
+<li>占用的字节数。 </li>
+</ol>
+<p>存储变长字段的作用： </p>
+<p>变长字段所占的长度是不确定的，记录了它们的长度之后，查询时便于寻址。 </p>
+<table>
+<thead>
+<tr>
+<th align="left">a</th>
+<th align="left">b</th>
+<th align="left">c</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">### NULL值列表</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>一些字段可能为null，但是如果把这些null值记录到真实的数据部分会很占存储空间。于是mysq将这些null值提取出来： </p>
+<p> <img src="https://uploader.shimo.im/f/Qg31XCxwzWpISvQE.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>这样，每个字段值只占一个big位， 0代表非空， 1代表null 。 </p>
+<h3 id="记录头信息"><a href="#记录头信息" class="headerlink" title="记录头信息"></a>记录头信息</h3><p>header记录了关于本条记录的一些信息，这里我们只对其中的两个信息进行讨论： </p>
+<ol>
+<li>delete_mask   标记该记录是否被删除。 </li>
+</ol>
+<p>可以看出已经删除的记录是还会在页中的，移除的话需要这些记录需要进行重新排列，有比较大的性能消耗。 </p>
+<p>但是被删除的记录所占的空间，其实是可以重新利用的，当新的记录写入时，可能会覆盖被删除的记录。 </p>
+<ol start="2">
+<li>next_record    表示下一条记录的相对位置。 <h2 id="页结构"><a href="#页结构" class="headerlink" title="页结构"></a>页结构</h2></li>
+</ol>
+<p>页是innodb管理存储空间的基本单位，其默认大小是16KB。现在我们先来创建一个表，并插入几条数据： </p>
+<pre><code class="hljs sql">mysql&gt; CREATE TABLE page_demo( 
+-&gt; c1 INT, 
+-&gt; c2 INT, 
+-&gt; c3 VARCHAR(10000), 
+-&gt; PRIMARY KEY (c1) 
+-&gt; ) CHARSET=ascii  
+mysql&gt; INSERT INTO page_demo VALUES(1, 100, 'aaaa'), (2, 200, 'bbbb'), (3, 300, 'cccc'), (4, 400, 'dddd');</code></pre>
+<p><img src="https://uploader.shimo.im/f/UxpLED9abQpBLtSm.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>但是其实每个页中都有两条 伪记录 ，最大记录和最小记录，这些记录按照主键从小到大的顺序形成了一个单链表： </p>
+<p><img src="https://uploader.shimo.im/f/rbdhy4BgpT6RQCqd.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<h3 id="Page-Directory-（页目录）"><a href="#Page-Directory-（页目录）" class="headerlink" title="Page Directory （页目录）"></a>Page Directory （页目录）</h3><p>假如我们想在在一个页中通过主键查找某一条记录，例如： </p>
+<pre><code class="hljs plain">SELECT * FROM page_demo WHERE c1 &#x3D; 3;</code></pre>
+<p>现在有一个很笨的方法，那就是 从最小记录开始沿着链表进行查找 ，一直到最大记录。当然，过程中也可能会找到，也有可能找不到。这样去查找的话，效率很低。<br>平时我们在查字典时，首先会去目录中找到对应的页码，然后直接跳到对应的页码查找想要的内容。innodb作者们，参照字段目录的思想，实现了page directory： </p>
+<ol>
+<li>将所有正常记录，包括最大记录和最小记录，划分为几个小组。 </li>
+<li>将每个组中的最大记录（ 即组内最大记录 ）的地址偏移量提取出来，按顺序存储到 页尾 。页尾的这些地址偏移量被称为 槽（slot） ，page directory正是由这些槽所组成。 </li>
+</ol>
+<p>由于 page_demo 中现在记录比较小，我们继续向其中插入一些数据： </p>
+<pre><code class="hljs sql">mysql&gt; INSERT INTO page_demo VALUES(5, 500, 'eeee'), (6, 600, 'ffff'), (7, 700, 'gggg'), (8, 800, 'hhhh'), (9, 900, 'iiii'), (10, 1000, 'jjjj'), (11, 1100, 'kkkk'), (12, 1200, 'llll'), (13, 1300, 'mmmm'), (14, 1400, 'nnnn'), (15, 1500, 'oooo'), (16, 1600, 'pppp');</code></pre>
+<p>这个页中的记录和page directory结构如下： </p>
+<p><img src="https://uploader.shimo.im/f/CtRm0ubIn00J1pVt.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>有了page directory之后，可以再目录中进行二分查找，5个槽的编号分别为： 0, 1, 2, 3, 4 。比方说我们想查询主键为 6 ，设最低的槽 low=0 ，最高的槽 high=4 ，查找过程如下： </p>
+<ol>
+<li>(low+high)/2 =(0+4)/2=2，接着我们查看槽2对应的主键为8，6&lt;8，所以设置 high=2，low不变 。 </li>
+<li>(low+high)/2 =(0+2)/2=1，查看槽1对应的主键为4，4&lt;6，所以设置 low=1，high不变 。 </li>
+<li>当前， high-low=1 ，说明两个槽已经相邻，并且槽1的主键为4小于我们要查询的6，于是可以判断出，6在槽2中而不在槽1中。 </li>
+</ol>
+<p>每个小组中的记录为1~8条，所以遍历一个组中的记录代价是比较小的。当我们有了page directory，查询效率得以一定的提升。 </p>
+<h1 id="B-树索引"><a href="#B-树索引" class="headerlink" title="B+树索引"></a>B+树索引</h1><p>开始学习索引之前，我们再来总结一下 页 和 记录 。 </p>
+<p>一个数据页中有多条记录，并且这些记录按照从小至大的顺序行程一个 单链表 。 </p>
+<p>每个页之间进行双向连接，组成一个 双向链表 。 </p>
+<p><img src="https://uploader.shimo.im/f/rhPG7NEIvlfE4UU4.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>在很多页中查找记录可以分为两个步骤： </p>
+<ol>
+<li>定位到记录所在的页。 </li>
+<li>从所在的页内中找到相应的记录。 </li>
+</ol>
+<p>在没有索引的情况下，我们并不能快速定位到记录所在的页，只能从第一个页开始，沿着双向链表网下面进行查找。 遍历所有的页，显然非常消耗性能并且效率低下。所以我们希望有一种高效的方法帮助我们进行搜索，那么 索引 就要登场了。 </p>
+<h2 id="一个简单索引"><a href="#一个简单索引" class="headerlink" title="一个简单索引"></a>一个简单索引</h2><p>首先先建一个表， </p>
+<pre><code class="hljs sql">mysql&gt; CREATE TABLE index_demo( 
+    -&gt;     c1 INT, 
+    -&gt;     c2 INT, 
+    -&gt;     c3 CHAR(1), 
+    -&gt;     PRIMARY KEY(c1) 
+    -&gt; ) ROW_FORMAT = Compact;</code></pre>
+<p>把一些记录放到页中，结示意图如下： </p>
+<p> <img src="https://uploader.shimo.im/f/Uv2q69R0V7bN4mle.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>我们现在需要解决核心的问题是： 快速定位到记录所在的页， 因此需要为这些页弄一个目录。于是数据页需要满足： 下个数据页中记录一定要大于上一个页中记录的主键 。比如，现在我们向 index_demo 中插入3条记录: </p>
+<pre><code class="hljs sql">mysql&gt; INSERT INTO index_demo VALUES(1, 4, 'u'), (3, 9, 'd'), (5, 3, 'y');</code></pre>
+<p>这些主键已经在页中按照主键顺序进行排列： </p>
+<p> <img src="https://uploader.shimo.im/f/GfbgTAmdQNCLcWme.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>假设每个页中至多只能储存3条记录，现在我们又插入一条记录： </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> index_demo <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-string">'a'</span>);</code></pre>
+<p>这样的话，我们不得不进行 页分裂 ，也就是再分配一个新页 </p>
+<p><img src="https://uploader.shimo.im/f/8pKrJDWrty1DDcab.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>把新的记录放到了新的页中，违背了上面我们将的准则： 下个数据页中记录一定要大于上一个页中记录的主键 。 </p>
+<p>正确的过程，如下： </p>
+<p><img src="https://uploader.shimo.im/f/oHkBNUnNmkTjaEdj.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>由于数据页的编号并不是连续的 ，所以想 index_demo 表中插入许多条记录后，可能是这样是效果： </p>
+<p><img src="https://uploader.shimo.im/f/Y0BbJc75Y7bHP4Sd.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>现在我们为这几个数据页建一个简单的 目录 ，每个 页 与一个 目录项 对应，每个目录项包括下面两个部分： </p>
+<ol>
+<li>页的用户记录中小的主键值，我们用 key 来表示。 </li>
+<li>页号，我们用 page_no 来表示。 </li>
+</ol>
+<p>按照以上规则，一个简单的目录就出现了： </p>
+<p><img src="https://uploader.shimo.im/f/0KRSUIz2bQd9dx8N.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>比方说我们需要检索主键为 20 的记录，通过二分法可以得到确定该记录在页9中，因为 12 &lt; 20 &lt; 209 。 </p>
+<p>那么，现在就有一个简单的目录了，也称为 索引 。 </p>
+<h2 id="innodb的索引方案"><a href="#innodb的索引方案" class="headerlink" title="innodb的索引方案"></a>innodb的索引方案</h2><p>在上面简易的索引方案中，确实是比较搞笑的实现检索。但是它存在着下面的这些问题： </p>
+<ol>
+<li>innodb用页来管理存储空间，也就是最多能保证有 16kb 的连续空间，但是目录项会随页数量增大而不断增加，一个页的存储空间可能无法存储全部的目录项。 </li>
+<li>当所有的目录项的组成的连续存储空间过于庞大，当其中某一个页被删除，那么对应的目录项都也会被删除，需要把后面的目录项都向前移动一下，这种牵一发而动全身的设计不是什么好主意。 </li>
+</ol>
+<p>innodb作者们发现另一种可以方便地管理目录项的方式，他们忽然发现，这些 目录项 ，其实和 用户记录 长得差不多，只不过目录项中只有两个字段， 主键 和 页号 。 所以他们复用了之前存储用户记录的数据页来存储目录项 ，每个记录header中有 recorder_type ，各个取值代表如下： </p>
+<ul>
+<li>0：普通的用户记录 </li>
+<li>1：目录项记录 </li>
+<li>2：最小记录 </li>
+<li>3：最大记录 </li>
+</ul>
+<p>当 recorder_type 为1时，就代表目录项记录，将目录项也放进数据页，重新整理数据上面的目录，就变成了这样： </p>
+<p><img src="https://uploader.shimo.im/f/qU9T5OPXNMQu7M0m.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>查询主键为 20 的过程也十分类似： </p>
+<ol>
+<li>先到目录项记录中的页进行二分查找，定位到其记录在页9中。 </li>
+<li>在到页9中进行二分查找。 </li>
+</ol>
+<p>我们知道一个 数据页 存储空间只有 16kb ，其能存放的目录项记录也是有限的。遇到这样的情况，当然是再申请一个新的页，对目录项进行存储。假如每个页中至多只能存储 4 条目录项，现在我们再插入一条主键为320的记录，那么： </p>
+<p><img src="https://uploader.shimo.im/f/sV6O9oZs0qURfyUJ.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>现在我们要查询主键为 20 的记录，需要分为3个步骤： </p>
+<ol>
+<li>确定 目录项记录 的页。 </li>
+<li>通过目录项记录页确定需要查找记录的页。 </li>
+<li>再去用户记录页定位具体的记录。 </li>
+</ol>
+<p>那么现在问题来了，现在 目录项页 有两个，我们该如何定位呢？ </p>
+<p>其实解决问题也简单，就是为 目录项页 再生成一个更高级的目录，即大目录嵌小目录，小目录里查具体的数据： </p>
+<p><img src="https://uploader.shimo.im/f/XA0D3rUwK31Q8ay8.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>可见我们生成了一个更高级的目录页 33 ，若主键值在 [1,320) 之间，就去页30中继续查找；若主键值在大于等于 320 ，就去页32中进行查找。 </p>
+<p>随着表中数据不断进行增加，我们可以用这个图来描述它： </p>
+<p><img src="https://uploader.shimo.im/f/JRKPoporUvdJn2mh.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>这个结构倒过来就像是一棵树，也就是我们所说的 B+树 。另外，也称这个索引为 聚簇索引 。 </p>
+<p>我们假设每个数据页能存储 100 条记录，存放目录项记录的页能存 1000 条目录项记录： </p>
+<ul>
+<li>如果 B+树 只有1层，也就是只有一个存储用户记录的页，最多能存放 100 条记录。 </li>
+<li>若果 B+树 有2层，最多能存放 1000×100=100000 条 记录 。 </li>
+<li>若果 B+树 有3层，最多能存放 1000x1000×100=100000000 条 记录 。 </li>
+<li>若果 B+树 有4层，最多能存放 1000x1000x1000×100=100000000000 条 记录 ，千亿级别。 </li>
+</ul>
+<p>可见，仅仅4层的 B+树 ，就可以存储这么多数据！ </p>
+<h2 id="二级索引"><a href="#二级索引" class="headerlink" title="二级索引"></a>二级索引</h2><p>上面我们讲讲到的 聚簇索引 ，只有当搜索条件时为主键时才能发货作用。因为B+树中的数据是按照主键的值从小到大进行排列的。 </p>
+<p>假如想对其他的列进行搜索，难道就不能用到索引了吗？肯定不是这样的，我们可以多建几颗 B+树 ，比方说我们用 c2 列的大小作为数据页、页中记录的排序依据，可以得到下面的效果图： </p>
+<p><img src="https://uploader.shimo.im/f/NP3IoK92og35mvLK.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>这棵 B+树 与上面介绍的 聚簇索引 有几个不同的地方： </p>
+<ul>
+<li>使用记录 c2 列的大小作为排序规则。 </li>
+<li>B+树的叶子节点并不是存储完整的用户记录，而只是 c2 列和 主键 这两个列的值。 </li>
+<li>目录项记录不再是 主键+页号 ，而是 c2+页号 了。 </li>
+</ul>
+<p>查找 c2=4 ，过程是： </p>
+<ol>
+<li>确定 目录项记录页 ，即 页44 ，因为 2&lt; 4 &lt; 9 。 </li>
+<li>通过 目录项记录页 确定用户真实数据所在的页，由于 2&lt; 4 &lt;=4，并且 c2 列并没有唯一性约束，所以 页34 ， 页35 中都有可能有c2=4的记录。 </li>
+<li>在真实的 用户记录页 中定位具体记录，即在 页34 ， 页35 中进行检索。 </li>
+<li>但是这棵B+树只存储了 c2+主键 ，其他列的数据没有存储， 我们必须再根据主键值去聚簇索引中再查找一遍完整的用户记录 。 </li>
+</ol>
+<p>步骤4 这个操作就叫做 回表 ，这里不对 其它列 的数据进行存储，是为了节约存储空间。 </p>
+<p>另外，上面的这棵 B+树 ，就称为 二级索引 。 </p>
+<h2 id="回表的代价"><a href="#回表的代价" class="headerlink" title="回表的代价"></a>回表的代价</h2><p>访问二级索引时，为 顺序IO ，因为二级索引是按照某个规则排序，所以在二级索引中搜索到的记录项都是连续的。但是，这些记录项的 主键id 并不是连续的，然后拿着这些 id 去聚簇索引中搜索就是 随机IO 。 </p>
+<p>需要回表的记录越多，使用二级索引的效率就越低。 mysql查询优化器甚至可能全表扫描也不使用二级索引。 </p>
+<h2 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h2><p>我们也可以同时以 多个列的大小作为排序B+树的排序规则 ，也就是同时为多个列建立索引。比方说想要对 c2 列和 c3 列建立联合索引，那么需要： </p>
+<ul>
+<li>先把各个记录和页按照 c2 进行排序。 </li>
+<li>在 c2 相同的情况下，采用 c3 进行排序。 </li>
+</ul>
+<p>我们所建立的联合索引示意图如下： </p>
+<p><img src="https://uploader.shimo.im/f/OzLG7eTeqEAI9KiQ.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>这棵联合索引有下面几个特点 </p>
+<ul>
+<li>每条目录项记录都由 c2 ， c3 ， 页号 组成，各条记录先按照 c2 列的值进行排序，如果 c2 列的值相同，则按照 c3 列的值进行排序。 </li>
+<li>B+树 叶子节点，由 c2 ， c3 ，和 主键c1 组成。 </li>
+</ul>
+<p>这个 联合索引 ，其本质上也是 二级索引 。 </p>
+<h1 id="单表访问"><a href="#单表访问" class="headerlink" title="单表访问"></a>单表访问</h1><p>我们首先建一张表 </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> single_table ( 
+    <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> AUTO_INCREMENT, 
+    key1 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    key2 <span class="hljs-built_in">INT</span>, 
+    key3 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    key_part1 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    key_part2 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    key_part3 <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    common_field <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>), 
+    PRIMARY <span class="hljs-keyword">KEY</span> (<span class="hljs-keyword">id</span>), 
+    <span class="hljs-keyword">KEY</span> idx_key1 (key1), 
+    <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">KEY</span> idx_key2 (key2), 
+    <span class="hljs-keyword">KEY</span> idx_key3 (key3), 
+    <span class="hljs-keyword">KEY</span> idx_key_part(key_part1, key_part2, key_part3) 
+) <span class="hljs-keyword">Engine</span>=<span class="hljs-keyword">InnoDB</span> <span class="hljs-keyword">CHARSET</span>=utf8;</code></pre>
+<p>同一个sql语句可以有不同的方式拿到查询结果，比如可以通过索引也可以全表扫描。这些不同的访问方式称为 访问方法（access method） 。下面我们依次各种 访问方法 。 </p>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>有时候我们通过主键来定位一条记录，比如： </p>
+<pre><code class="hljs plain">SELECT * FROM single_table WHERE id &#x3D; 1438;</code></pre>
+<p>mysql会直接利用聚簇索引进行定位，访问速度十分之快。 </p>
+<p> <img src="https://uploader.shimo.im/f/SGVD0WFmLomsMU2E.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>另外一种情况就是，根据唯一二级索引来定位一条记录，速度也是很快，如 </p>
+<pre><code class="hljs plain">SELECT * FROM single_table WHERE key2 &#x3D; 3841;</code></pre>
+
+<p>查询过程分为了两步，首先在二级索引 idx_key2 进行搜索定位到主键 id 的值，其次利用 id 的去聚簇索引中进行搜索（即 回表 操作）。 </p>
+<p> <img src="https://uploader.shimo.im/f/utfIxoVgW0xrk6nu.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><p>对某个二级索引列与常数进行比较，比如： </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> single_table <span class="hljs-keyword">WHERE</span> key1 = <span class="hljs-string">'abc'</span>;</code></pre>
+<p>这条sql可以选择使用二级索引找到对应记录的 id 值，再拿 这些id 值去聚簇索引中进行搜索。如果匹配的记录较少， 回表 代表较少，但是如果记录过多，innodb可能会选择 全表扫描 进行搜索。 </p>
+<p><img src="https://uploader.shimo.im/f/FkyqHzGjwnUsW5kc.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>通过 二级索引 搜索，速度也是很不错的，这类查询称为 ref 。 </p>
+<h3 id="ref-or-null"><a href="#ref-or-null" class="headerlink" title="ref_or_null"></a>ref_or_null</h3><p>有时候我们想查询查询某个二级索引列等于 常数 值，并且为 null ，例如： </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> single_table <span class="hljs-keyword">WHERE</span> key1 = <span class="hljs-string">'abc'</span> <span class="hljs-keyword">OR</span> key1 <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span>;</code></pre>
+<p>当使用二级索引进行搜索时，这类查询方法就称为 ref_or_null 。 </p>
+<p><img src="https://uploader.shimo.im/f/tW4lX7uy5QrbHE4O.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p>有时候我们面对返回查询时，如： </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> single_table <span class="hljs-keyword">WHERE</span> key2 <span class="hljs-keyword">IN</span> (<span class="hljs-number">1438</span>, <span class="hljs-number">6328</span>) <span class="hljs-keyword">OR</span> (key2 &gt;= <span class="hljs-number">38</span> <span class="hljs-keyword">AND</span> key2 &lt;= <span class="hljs-number">79</span>);</code></pre>
+<p>这条sql可以拆分为下面三个范围： </p>
+<ul>
+<li>key2是1438 </li>
+<li>key2是6328 </li>
+<li>key在38和79之间 </li>
+</ul>
+<p><img src="https://uploader.shimo.im/f/kMep2kOb1INua7tD.png!thumbnail" srcset="/img/loading.gif" alt="图片"></p>
+<p>同样，上面这条sql可以走 二级索引 ，也可以全部扫描。 </p>
+<p>类似于这条sql，利用 索引 进行范围匹配时，这类访问方法称为 range 。 </p>
+<h3 id="index"><a href="#index" class="headerlink" title="index"></a>index</h3><p>可以操作这个查询 </p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> key_part1, key_part2, key_part3 <span class="hljs-keyword">FROM</span> single_table <span class="hljs-keyword">WHERE</span> key_part2 = <span class="hljs-string">'abc'</span>;</code></pre>
+<p>因为 key_part2 并不是联合索引 idx_key_part 的最左索引列，所以无法使用ref来执行这个语句。<br>但是这个查询遵循下面两个条件： </p>
+<ul>
+<li>它的查询是有三列， key_part1 , key_part2 , key_part3 ，并且联合索引 idx_key_part 又包含这三个列。 </li>
+<li>搜索条件只有 key_part2 ，这个列也在 idx_key_part 中。 </li>
+</ul>
+<p>所以这个查询可以直接遍历联合索引的 叶子节点 进行搜索，并且搜索之后无需回表就可以拿到 key_part1 , key_part2 , key_part3 的值。因为联合索引的叶子节点比聚簇索引的叶子节点小，所以这类查询比全部扫描的代表小。 </p>
+<p>innodb就把这种通过遍历二级索引 叶子节点 的访问方式称为 index 。 </p>
+<h3 id="all"><a href="#all" class="headerlink" title="all"></a>all</h3><p>这类查询就是全表扫描。 </p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/29/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%88%A9%E5%99%A8-Ambari%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2/">
+                        <span class="hidden-mobile">大数据平台利器-Ambari的安装与部署</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div>
+    
+      <!-- 不蒜子统计PV -->
+      
+      <span id="busuanzi_container_site_pv" style="display: none">
+      总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    </span>
+    
+    
+      <!-- 不蒜子统计UV -->
+      
+      <span id="busuanzi_container_site_uv" style="display: none">
+      总访客数 <span id="busuanzi_value_site_uv"></span> 人
+    </span>
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "test&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

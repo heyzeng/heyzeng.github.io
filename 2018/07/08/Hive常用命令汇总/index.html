@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    52 字
+                    286 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    4
                      分钟
                   </span>
                 
@@ -189,6 +189,60 @@
 
 <h2 id="Hive-显示表信息"><a href="#Hive-显示表信息" class="headerlink" title="Hive 显示表信息"></a>Hive 显示表信息</h2><pre><code class="hljs pgsql"><span class="hljs-keyword">show</span> ctreate <span class="hljs-keyword">table</span> ods_student
 <span class="hljs-keyword">desc</span> ods_student</code></pre>
+
+<h2 id="Hive日期函数"><a href="#Hive日期函数" class="headerlink" title="Hive日期函数"></a>Hive日期函数</h2><pre><code class="hljs sql"><span class="hljs-comment">## 当前日期和时间</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">current_timestamp</span>();
+<span class="hljs-comment">-- 2018-04-28 11:46:03.136</span>
+
+<span class="hljs-comment">## 获取当前日期，当前是 2018-04-28</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">current_date</span>;
+OR
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">current_date</span>();
+<span class="hljs-comment">-- 2018-04-28</span>
+
+<span class="hljs-comment">## 获取unix系统下的时间戳</span>
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">UNIX_TIMESTAMP</span>();
+<span class="hljs-comment">-- 1524884881</span>
+
+<span class="hljs-comment">## 当前是 2018-04-28</span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">substr</span>(<span class="hljs-keyword">current_timestamp</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>);
+<span class="hljs-comment">-- 2018-04-28</span>
+
+<span class="hljs-comment">## 当前是 2018-04-28</span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">date_sub</span>(<span class="hljs-keyword">current_date</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">-- 2018-04-27</span>
+
+<span class="hljs-comment">## yyyy-MM-dd HH:MM:ss 截取日期</span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">to_date</span>(<span class="hljs-string">"2017-10-22 10:10:10"</span>);
+<span class="hljs-comment">-- 2017-10-22</span>
+
+<span class="hljs-comment">## 两个日期之间的天数差</span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">datediff</span>(<span class="hljs-string">"2017-10-22"</span>, <span class="hljs-string">"2017-10-12"</span>);
+<span class="hljs-comment">-- 10</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">datediff</span>(<span class="hljs-string">"2017-10-22 10:10:10"</span>, <span class="hljs-string">"2017-10-12 23:10:10"</span>);
+<span class="hljs-comment">-- 10</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">datediff</span>(<span class="hljs-string">"2017-10-22 01:10:10"</span>, <span class="hljs-string">"2017-10-12 23:10:10"</span>);
+<span class="hljs-comment">-- 10</span>
+
+<span class="hljs-comment">## 时间截取</span>
+<span class="hljs-keyword">select</span> from_unixtime(<span class="hljs-keyword">cast</span>(<span class="hljs-keyword">substr</span>(<span class="hljs-string">"1504684212155"</span>, <span class="hljs-number">0</span>,<span class="hljs-number">10</span>) <span class="hljs-keyword">as</span> <span class="hljs-built_in">int</span>)) dt;
+<span class="hljs-comment">-- 2017-09-06 15:50:12</span>
+
+<span class="hljs-comment">## 时间戳转日期</span>
+<span class="hljs-comment">## 语法: to_date(string timestamp) </span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">to_date</span>(from_unixtime(<span class="hljs-keyword">UNIX_TIMESTAMP</span>()));
+<span class="hljs-comment">-- 2018-04-28</span>
+
+<span class="hljs-keyword">select</span> FROM_UNIXTIME(<span class="hljs-keyword">UNIX_TIMESTAMP</span>(),<span class="hljs-string">'yyyy-MM-dd 10:30:00'</span>);
+<span class="hljs-comment">-- 2018-04-28 10:30:00</span>
+
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">concat</span>(<span class="hljs-keyword">date_sub</span>(<span class="hljs-keyword">current_date</span>,<span class="hljs-number">1</span>),<span class="hljs-string">' 20:30:00'</span>);
+<span class="hljs-comment">-- 2018-04-27 20:30:00</span>
+
+<span class="hljs-comment">-- hive version 1.2.0</span>
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">date_format</span>(<span class="hljs-keyword">date_sub</span>(<span class="hljs-keyword">current_date</span>,<span class="hljs-number">1</span>),<span class="hljs-string">'yyyy-MM-dd 20:30:00'</span>);</code></pre>
 
 
             </article>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://heyzeng.github.io/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</loc>
+    
+    <lastmod>2020-08-12T04:00:55.191Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://heyzeng.github.io/2020/08/06/superset%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</loc>
     
     <lastmod>2020-08-06T11:55:30.036Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>https://heyzeng.github.io/2018/01/08/Sqoop%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</loc>
     
     <lastmod>2020-07-08T01:42:56.396Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</loc>
-    
-    <lastmod>2020-07-08T01:28:30.370Z</lastmod>
     
   </url>
   

@@ -157,6 +157,51 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/">记录线上Hadoop集群两个namenode都是standby状态</a>
+
+      <a href="/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/" class="index-excerpt">
+        
+        
+          
+        
+        <div>Hadoop集群产生异常的原因
+线上集群扩容，集群要停机重启。发现两个namenode都为standby状态，这种问题存在的原因大部分都是因为Zookeeper的zkfc进程未启动成功，当然即使你启动了Zookepper进程也是没用的，因为此时只要ZKFC进程未启动的话，那么，HDFS就没办法与Zookeeper之间建立沟通的桥梁。ZKFC是ZooKeeper中用于自动故障转移的组件，也监视和管理</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-08
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Hadoop/">Hadoop</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hadoop/">Hadoop</a>
+            
+              <a href="/tags/namenode/">namenode</a>
+            
+              <a href="/tags/%E9%9B%86%E7%BE%A4/">集群</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/04/15/sqoop1/">使用Sqoop导MySQL数据到Hbase报错</a>
 
       <a href="/2020/04/15/sqoop1/" class="index-excerpt">
@@ -241,9 +286,9 @@ inser</div>
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
-            
               <a href="/tags/MySQL/">MySQL</a>
+            
+              <a href="/tags/%E9%80%92%E5%BD%92/">递归</a>
             
           </div>
         
@@ -557,54 +602,6 @@ grant all on *.* to root@11.1.1.1 identified by 'passwd'
             <i class="iconfont icon-category"></i>
             
               <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/troubleshooting/">troubleshooting</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2018/03/15/hadoop1-1-balancer/">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</a>
-
-      <a href="/2018/03/15/hadoop1-1-balancer/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言
-用Hadoop集群一点时间时，HDFS节点间的数据不平衡，尤其在新增和下架节点、或者人为干预副本数量的时候，多的达到70%，少的40%。出现这种状况，我们一般采用HDFS自带的balancer工具来解决，保证每个节点的数据分布均衡。
-
-balancer命令
-balancer
-
-# start：
-     start-balancer.sh    #用默认的10%的阈值启动balancer
- </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2018-03-15
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Hadoop/">Hadoop</a>
             
           </div>
         

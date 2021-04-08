@@ -18,7 +18,7 @@
   <meta name="author" content="Jude Zeng">
   <meta name="keywords" content="">
   <meta name="google-site-verification" content="LuN9eC7rIeg_mhqqprA5b0KeD1v6m9va57KdadEa3Yk" />
-  <title>Leetcode633:平方数之和 - 曾俊峰的技术博客</title>
+  <title>记录线上Hadoop集群两个namenode都是standby状态 - 曾俊峰的技术博客</title>
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
@@ -132,8 +132,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2018-01-15 09:59">
-                    2018年1月15日 上午
+                  <time datetime="2020-06-08 10:50">
+                    2020年6月8日 上午
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    122 字
+                    873 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    9
                      分钟
                   </span>
                 
@@ -182,37 +182,42 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a href="https://leetcode-cn.com/problems/sum-of-square-numbers/" target="_blank" rel="noopener">平方数之和</a></p>
-<blockquote>
-<p>给定一个非负整数 <code>c</code> ，你要判断是否存在两个整数 <code>a</code> 和 <code>b</code>，使得 $a^2+b^2$ = c。</p>
+              <h1 id="Hadoop集群产生异常的原因"><a href="#Hadoop集群产生异常的原因" class="headerlink" title="Hadoop集群产生异常的原因"></a>Hadoop集群产生异常的原因</h1><blockquote>
+<p>线上集群扩容，集群要停机重启。发现两个<code>namenode</code>都为<code>standby</code>状态，这种问题存在的原因大部分都是因为<code>Zookeeper</code>的<code>zkfc</code>进程未启动成功，当然即使你启动了<code>Zookepper</code>进程也是没用的，因为此时只要<code>ZKFC</code>进程未启动的话，那么，<code>HDFS</code>就没办法与<code>Zookeeper</code>之间建立沟通的桥梁。<code>ZKFC</code>是<code>ZooKeeper</code>中用于自动故障转移的组件，也监视和管理N<code>ameNode</code>的状态。每个运行<code>NameNode</code>的主机也运行了一个<code>ZKFC</code>进程。有了<code>ZKFC</code>之后NameNode之间才可以热切换。</p>
 </blockquote>
-<pre><code class="hljs yaml"><span class="hljs-string">输入:</span> <span class="hljs-number">5</span>
-<span class="hljs-string">输出:</span> <span class="hljs-literal">True</span>
-<span class="hljs-string">解释:</span> <span class="hljs-number">1</span> <span class="hljs-string">*</span> <span class="hljs-number">1</span> <span class="hljs-string">+</span> <span class="hljs-number">2</span> <span class="hljs-string">*</span> <span class="hljs-number">2</span> <span class="hljs-string">=</span> <span class="hljs-number">5</span></code></pre>
+<h1 id="Zookeeper在HA自动故障转移的功能"><a href="#Zookeeper在HA自动故障转移的功能" class="headerlink" title="Zookeeper在HA自动故障转移的功能"></a>Zookeeper在HA自动故障转移的功能</h1><ul>
+<li><p>故障检测：集群中的每个<code>NameNode</code>在<code>ZooKeeper</code>中维护了一个持久会话，如果机器崩溃，<code>ZooKeeper</code>中的会话将终止，<code>ZooKeeper</code>通知另一个<code>NameNode</code>需要触发故障转移。</p>
+</li>
+<li><p><code>ZooKeeper</code>提供了一个简单的机制用于唯一的选择一个节点为<code>active</code>状态。如果目前现役<code>NameNode</code>崩溃，另一个节点可能从<code>ZooKeeper</code>获得特殊的排外锁以表明它应该成为现役<code>NameNode</code>。</p>
+</li>
+</ul>
+<p>#HDFS故障转移的组件</p>
+<blockquote>
+<p>自动故障转移为HDFS部署增加了两个新组件：<code>ZooKeeper</code>和<code>ZKFailoverController</code>（<code>ZKFC</code>）进程。<code>ZooKeeper</code>是维护少量协调数据，通知客户端这些数据的改变和监视客户端故障的高可用服务。</p>
+</blockquote>
+<p>#ZFKC故障自动转移组件 </p>
+<blockquote>
+<p>ZKFC是自动故障转移中的另一个新组件，是<code>ZooKeeper</code>的客户端，也监视和管理<code>NameNode</code>的状态。每个运行<code>NameNode</code>的主机也运行了一个<code>ZKFC</code>进程，<code>ZKFC</code>负责：</p>
+</blockquote>
+<ul>
+<li><p>健康监测：ZKFC使用一个健康检查命令定期地ping与之在相同主机的NameNode，只要该NameNode及时地回复健康状态，ZKFC认为该节点是健康的。如果该节点崩溃，冻结或进入不健康状态，健康监测器标识该节点为非健康的。</p>
+</li>
+<li><p>ZooKeeper会话管理：当本地NameNode是健康的，ZKFC保持一个在ZooKeeper中打开的会话。如果本地NameNode处于active状态，ZKFC也保持一个特殊的znode锁，该锁使用了ZooKeeper对短暂节点的支持，如果会话终止，锁节点将自动删除。</p>
+</li>
+<li><p>基于ZooKeeper的选择：如果本地NameNode是健康的，且ZKFC发现没有其它的节点当前持有znode锁，它将为自己获取该锁。如果成功，则它已经赢得了选择，并负责运行故障转移进程以使它的本地NameNode为active。故障转移进城与前面描述的手动故障转移相似，首先如果必要保护之前的现役NameNode，然后本地NameNode转换为active状态。</p>
+</li>
+</ul>
+<h1 id="Zookeeper部署建议"><a href="#Zookeeper部署建议" class="headerlink" title="Zookeeper部署建议"></a>Zookeeper部署建议</h1><blockquote>
+<p>在典型部署中，ZooKeeper守护进程运行在三个或者五个节点上，但由于ZooKeeper本身需要较少的资源，所以将ZooKeeper部署在与现役NameNode和待机NameNode相同的主机上，还可以将ZooKeeper部署到与YARN的ResourceManager相同的节点上。建议配置ZooKeeper将数据存储在与HDFS元数据不同的硬盘上以得到最好的性能和隔离性。在配置自动故障转移之前需要先停掉集群，目前在集群运行时还不可能将手动故障转移的安装转换为自动故障转移的安装。</p>
+</blockquote>
+<h1 id="TroubleShooting"><a href="#TroubleShooting" class="headerlink" title="TroubleShooting"></a>TroubleShooting</h1><ul>
+<li><p>先停掉<code>Hadoop</code>集群</p>
+</li>
+<li><p>可以在任一<code>NameNode</code>中运行下面的命令实现该目的，该命令在<code>ZooKeeper</code>中创建<code>znode</code>：</p>
+<pre><code class="hljs ebnf"><span class="hljs-attribute">hdfs zkfc -formatZK</span></code></pre>
 
-<h1 id="双指针解法"><a href="#双指针解法" class="headerlink" title="双指针解法"></a>双指针解法</h1><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">judgeSquareSum</span></span>&#123;
-    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">judgeSquareSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target)</span></span>&#123;
-
-        <span class="hljs-comment">//判断target是否为正</span>
-        <span class="hljs-keyword">if</span> (target &lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-        <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">int</span> j = (<span class="hljs-keyword">int</span>)Math.sqrt(target);
-
-        <span class="hljs-keyword">while</span>(i &lt;= j)&#123;
-            <span class="hljs-keyword">int</span> powSum = i * i + j * j;
-            <span class="hljs-keyword">if</span> (powSum == target)&#123;
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
-            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (powSum &gt; target)&#123;
-                j--;
-            &#125;<span class="hljs-keyword">else</span> &#123;
-                i++;
-            &#125;
-        &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
-    &#125;
-
-&#125;</code></pre>
-
+</li>
+</ul>
 
             </article>
             <hr>
@@ -222,7 +227,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Leetcode/">Leetcode</a>
+                      <a class="hover-with-bg" href="/categories/Hadoop/">Hadoop</a>
                     
                   </div>
                 
@@ -230,9 +235,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/esay/">esay</a>
+                      <a class="hover-with-bg" href="/tags/Hadoop/">Hadoop</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">双指针</a>
+                      <a class="hover-with-bg" href="/tags/namenode/">namenode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9B%86%E7%BE%A4/">集群</a>
                     
                   </div>
                 
@@ -245,9 +252,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2018/03/15/hadoop1-1-balancer/">
+                      <a href="/2020/06/15/flink01/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">HDFS的balancer命令详解以及执行命令threads quota is exceeded报错解决</span>
+                        <span class="hidden-mobile">Flink(一)：编译源码</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -255,8 +262,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2018/01/08/leetcode118/">
-                        <span class="hidden-mobile">Leetcode118：杨辉三角</span>
+                      <a href="/2020/04/15/sqoop1/">
+                        <span class="hidden-mobile">使用Sqoop导MySQL数据到Hbase报错</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -415,7 +422,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Leetcode633:平方数之和&nbsp;",
+        "记录线上Hadoop集群两个namenode都是standby状态&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

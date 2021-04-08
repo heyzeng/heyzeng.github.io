@@ -235,6 +235,35 @@
   
   
   <entry>
+    <title>记录线上Hadoop集群两个namenode都是standby状态</title>
+    <link href="/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/"/>
+    <url>/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Hadoop集群产生异常的原因"><a href="#Hadoop集群产生异常的原因" class="headerlink" title="Hadoop集群产生异常的原因"></a>Hadoop集群产生异常的原因</h1><blockquote><p>线上集群扩容，集群要停机重启。发现两个<code>namenode</code>都为<code>standby</code>状态，这种问题存在的原因大部分都是因为<code>Zookeeper</code>的<code>zkfc</code>进程未启动成功，当然即使你启动了<code>Zookepper</code>进程也是没用的，因为此时只要<code>ZKFC</code>进程未启动的话，那么，<code>HDFS</code>就没办法与<code>Zookeeper</code>之间建立沟通的桥梁。<code>ZKFC</code>是<code>ZooKeeper</code>中用于自动故障转移的组件，也监视和管理N<code>ameNode</code>的状态。每个运行<code>NameNode</code>的主机也运行了一个<code>ZKFC</code>进程。有了<code>ZKFC</code>之后NameNode之间才可以热切换。</p></blockquote><h1 id="Zookeeper在HA自动故障转移的功能"><a href="#Zookeeper在HA自动故障转移的功能" class="headerlink" title="Zookeeper在HA自动故障转移的功能"></a>Zookeeper在HA自动故障转移的功能</h1><ul><li><p>故障检测：集群中的每个<code>NameNode</code>在<code>ZooKeeper</code>中维护了一个持久会话，如果机器崩溃，<code>ZooKeeper</code>中的会话将终止，<code>ZooKeeper</code>通知另一个<code>NameNode</code>需要触发故障转移。</p></li><li><p><code>ZooKeeper</code>提供了一个简单的机制用于唯一的选择一个节点为<code>active</code>状态。如果目前现役<code>NameNode</code>崩溃，另一个节点可能从<code>ZooKeeper</code>获得特殊的排外锁以表明它应该成为现役<code>NameNode</code>。</p></li></ul><p>#HDFS故障转移的组件</p><blockquote><p>自动故障转移为HDFS部署增加了两个新组件：<code>ZooKeeper</code>和<code>ZKFailoverController</code>（<code>ZKFC</code>）进程。<code>ZooKeeper</code>是维护少量协调数据，通知客户端这些数据的改变和监视客户端故障的高可用服务。</p></blockquote><p>#ZFKC故障自动转移组件 </p><blockquote><p>ZKFC是自动故障转移中的另一个新组件，是<code>ZooKeeper</code>的客户端，也监视和管理<code>NameNode</code>的状态。每个运行<code>NameNode</code>的主机也运行了一个<code>ZKFC</code>进程，<code>ZKFC</code>负责：</p></blockquote><ul><li><p>健康监测：ZKFC使用一个健康检查命令定期地ping与之在相同主机的NameNode，只要该NameNode及时地回复健康状态，ZKFC认为该节点是健康的。如果该节点崩溃，冻结或进入不健康状态，健康监测器标识该节点为非健康的。</p></li><li><p>ZooKeeper会话管理：当本地NameNode是健康的，ZKFC保持一个在ZooKeeper中打开的会话。如果本地NameNode处于active状态，ZKFC也保持一个特殊的znode锁，该锁使用了ZooKeeper对短暂节点的支持，如果会话终止，锁节点将自动删除。</p></li><li><p>基于ZooKeeper的选择：如果本地NameNode是健康的，且ZKFC发现没有其它的节点当前持有znode锁，它将为自己获取该锁。如果成功，则它已经赢得了选择，并负责运行故障转移进程以使它的本地NameNode为active。故障转移进城与前面描述的手动故障转移相似，首先如果必要保护之前的现役NameNode，然后本地NameNode转换为active状态。</p></li></ul><h1 id="Zookeeper部署建议"><a href="#Zookeeper部署建议" class="headerlink" title="Zookeeper部署建议"></a>Zookeeper部署建议</h1><blockquote><p>在典型部署中，ZooKeeper守护进程运行在三个或者五个节点上，但由于ZooKeeper本身需要较少的资源，所以将ZooKeeper部署在与现役NameNode和待机NameNode相同的主机上，还可以将ZooKeeper部署到与YARN的ResourceManager相同的节点上。建议配置ZooKeeper将数据存储在与HDFS元数据不同的硬盘上以得到最好的性能和隔离性。在配置自动故障转移之前需要先停掉集群，目前在集群运行时还不可能将手动故障转移的安装转换为自动故障转移的安装。</p></blockquote><h1 id="TroubleShooting"><a href="#TroubleShooting" class="headerlink" title="TroubleShooting"></a>TroubleShooting</h1><ul><li><p>先停掉<code>Hadoop</code>集群</p></li><li><p>可以在任一<code>NameNode</code>中运行下面的命令实现该目的，该命令在<code>ZooKeeper</code>中创建<code>znode</code>：</p><pre><code class="hljs ebnf"><span class="hljs-attribute">hdfs zkfc -formatZK</span></code></pre></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hadoop</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hadoop</tag>
+      
+      <tag>namenode</tag>
+      
+      <tag>集群</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用Sqoop导MySQL数据到Hbase报错</title>
     <link href="/2020/04/15/sqoop1/"/>
     <url>/2020/04/15/sqoop1/</url>
@@ -276,9 +305,9 @@
     
     <tags>
       
-      <tag>递归</tag>
-      
       <tag>MySQL</tag>
+      
+      <tag>递归</tag>
       
     </tags>
     
@@ -520,9 +549,9 @@
     
     <tags>
       
-      <tag>双指针</tag>
-      
       <tag>esay</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     
@@ -597,9 +626,9 @@
     
     <tags>
       
-      <tag>双指针</tag>
-      
       <tag>esay</tag>
+      
+      <tag>双指针</tag>
       
     </tags>
     

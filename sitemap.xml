@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://heyzeng.github.io/2021/03/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E9%80%92%E5%BD%92%E6%80%9D%E6%83%B3/</loc>
+    
+    <lastmod>2021-04-08T07:07:40.504Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://heyzeng.github.io/2018/07/02/redis01/</loc>
+    
+    <lastmod>2021-04-08T07:07:28.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://heyzeng.github.io/2016/06/16/shell1/</loc>
+    
+    <lastmod>2021-04-08T07:07:20.557Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://heyzeng.github.io/2020/04/15/sqoop1/</loc>
+    
+    <lastmod>2021-04-08T07:07:11.297Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://heyzeng.github.io/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/</loc>
     
     <lastmod>2021-04-08T03:25:40.879Z</lastmod>
@@ -12,13 +40,6 @@
     <loc>https://heyzeng.github.io/2020/04/01/%E5%AE%9E%E7%8E%B0SQL%E9%80%92%E5%BD%92%E7%B4%AF%E5%8A%A0/</loc>
     
     <lastmod>2021-04-01T11:38:13.307Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2021/03/30/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E9%80%92%E5%BD%92%E6%80%9D%E6%83%B3/</loc>
-    
-    <lastmod>2021-03-30T03:18:48.521Z</lastmod>
     
   </url>
   
@@ -86,13 +107,6 @@
   </url>
   
   <url>
-    <loc>https://heyzeng.github.io/2016/06/16/shell1/</loc>
-    
-    <lastmod>2020-07-14T01:38:06.322Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://heyzeng.github.io/2020/07/10/Hive2-2/</loc>
     
     <lastmod>2020-07-10T00:50:40.495Z</lastmod>
@@ -131,13 +145,6 @@
     <loc>https://heyzeng.github.io/2018/01/01/leetcode01/</loc>
     
     <lastmod>2020-07-07T01:48:32.724Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2018/07/02/redis01/</loc>
-    
-    <lastmod>2020-07-03T07:39:50.855Z</lastmod>
     
   </url>
   
@@ -285,13 +292,6 @@
     <loc>https://heyzeng.github.io/2017/08/18/hive6/</loc>
     
     <lastmod>2020-05-17T16:06:52.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://heyzeng.github.io/2020/04/15/sqoop1/</loc>
-    
-    <lastmod>2020-05-17T16:02:39.183Z</lastmod>
     
   </url>
   

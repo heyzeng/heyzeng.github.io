@@ -305,9 +305,9 @@
     
     <tags>
       
-      <tag>MySQL</tag>
-      
       <tag>递归</tag>
+      
+      <tag>MySQL</tag>
       
     </tags>
     
@@ -320,7 +320,7 @@
     <link href="/2020/03/28/%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA/"/>
     <url>/2020/03/28/%E5%8D%9A%E5%AE%A2%E5%AF%BC%E8%88%AA/</url>
     
-    <content type="html"><![CDATA[<h1 id="文章导航"><a href="#文章导航" class="headerlink" title="文章导航"></a>文章导航</h1><ul><li>Hive</li><li>Hadoop</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="文章导航"><a href="#文章导航" class="headerlink" title="文章导航"></a>文章导航</h1><ul><li><a href="http://www.zengjunfeng.com.cn/categories/Hive/" target="_blank" rel="noopener">Hive</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/Hadoop/" target="_blank" rel="noopener">Hadoop</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/Ambari/" target="_blank" rel="noopener">Ambari</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/ClickHouse/" target="_blank" rel="noopener">ClickHosue</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/Flink/" target="_blank" rel="noopener">Flink</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/MySQL/" target="_blank" rel="noopener">MySQL</a></li><li><a href="http://www.zengjunfeng.com.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">数据结构与算法</a></li></ul>]]></content>
     
     
     

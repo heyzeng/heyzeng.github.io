@@ -30,7 +30,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/darcula.min.css" />
     
   
 
@@ -242,7 +242,7 @@
 <h2 id="MySQL的安装"><a href="#MySQL的安装" class="headerlink" title="MySQL的安装"></a>MySQL的安装</h2><blockquote>
 <p>Mac 下安装<code>brew install mysql</code></p>
 </blockquote>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-meta">#启动服务</span><br>mysql.<span class="hljs-keyword">server</span> start<br><span class="hljs-meta">#停止服务</span><br>mysql.<span class="hljs-keyword">server</span> stop<br><span class="hljs-meta">#重启服务</span><br>mysql.<span class="hljs-keyword">server</span> restart<br></code></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta"><span class="hljs-meta">#启动服务</span><br>mysql.<span class="hljs-keyword">server</span> start<br><span class="hljs-meta">#停止服务</span><br>mysql.<span class="hljs-keyword">server</span> stop<br><span class="hljs-meta">#重启服务</span><br>mysql.<span class="hljs-keyword">server</span> restart<br></code></pre></div></td></tr></table></figure>
 
 <h2 id="sql语法规范"><a href="#sql语法规范" class="headerlink" title="sql语法规范"></a>sql语法规范</h2><ul>
 <li>A.    不区分大小写</li>
@@ -326,8 +326,8 @@
 <p>if函数</br><br>case结构</br></p>
 </blockquote>
 <ul>
-<li>示例1：查询员工的姓名和旧工资、显示的新工资<br>如果部门编号&gt;100,则工资显示为3倍<br>如果部门编号&gt;80,则工资显示为2倍<br>如果部门编号&gt;50,则工资显示为原工资<br>否则，显示为1/2倍<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name,salary 旧工资,<br><span class="hljs-keyword">CASE</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">100</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">3</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">80</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">2</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">50</span> <span class="hljs-keyword">THEN</span> salary<br><span class="hljs-keyword">ELSE</span> salary/<span class="hljs-number">2</span><br><span class="hljs-keyword">END</span> 新工资<br><span class="hljs-keyword">FROM</span> employees;<br></code></pre></td></tr></table></figure></li>
-<li>示例2：案例：显示姓名、工种编号、旧工资、新工资，如果工种为IT_PROG，则工资显示成5倍<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> job_id,last_name,salary,<br><span class="hljs-keyword">CASE</span> job_id<br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'IT_PROG'</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">5</span><br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'ST_CLERK'</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">3</span><br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'AD_VP'</span> <span class="hljs-keyword">THEN</span> salary<br><span class="hljs-keyword">ELSE</span>  salary/<span class="hljs-number">2</span><br><span class="hljs-keyword">END</span> 新工资<br><span class="hljs-keyword">FROM</span> employees;<br></code></pre></td></tr></table></figure>
+<li>示例1：查询员工的姓名和旧工资、显示的新工资<br>如果部门编号&gt;100,则工资显示为3倍<br>如果部门编号&gt;80,则工资显示为2倍<br>如果部门编号&gt;50,则工资显示为原工资<br>否则，显示为1/2倍<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> last_name,salary 旧工资,<br><span class="hljs-keyword">CASE</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">100</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">3</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">80</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">2</span><br><span class="hljs-keyword">WHEN</span> department_id&gt;<span class="hljs-number">50</span> <span class="hljs-keyword">THEN</span> salary<br><span class="hljs-keyword">ELSE</span> salary/<span class="hljs-number">2</span><br><span class="hljs-keyword">END</span> 新工资<br><span class="hljs-keyword">FROM</span> employees;<br></code></pre></div></td></tr></table></figure></li>
+<li>示例2：案例：显示姓名、工种编号、旧工资、新工资，如果工种为IT_PROG，则工资显示成5倍<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> job_id,last_name,salary,<br><span class="hljs-keyword">CASE</span> job_id<br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'IT_PROG'</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">5</span><br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'ST_CLERK'</span> <span class="hljs-keyword">THEN</span> salary*<span class="hljs-number">3</span><br><span class="hljs-keyword">WHEN</span> <span class="hljs-string">'AD_VP'</span> <span class="hljs-keyword">THEN</span> salary<br><span class="hljs-keyword">ELSE</span>  salary/<span class="hljs-number">2</span><br><span class="hljs-keyword">END</span> 新工资<br><span class="hljs-keyword">FROM</span> employees;<br></code></pre></div></td></tr></table></figure>
 
 </li>
 </ul>
@@ -411,22 +411,22 @@
 <p>表1行数m行，表2行数n行，结果为m*n行<br>如何产生的？<br>    没有添加连接条件<br>如何解决？<br>    添加连接条件<br>如何添加连接条件？</p>
 </blockquote>
 <p><strong>sql92语法：</strong></p>
-<pre><code>内连接：
+<div class="hljs code-wrapper"><pre><code>内连接：
     等值连接
     非等值连接
     自连接
 外连接：【支持的不太好】mysql中不支持！
     左外连接
     右外连接
-    全外连接</code></pre><p><strong>sql99语法：</strong></br></p>
-<pre><code>内连接：
+    全外连接</code></pre></div><p><strong>sql99语法：</strong></br></p>
+<div class="hljs code-wrapper"><pre><code>内连接：
     等值连接
     非等值连接
     自连接
 外连接：
     左外连接
     右外连接
-    全外连接【mysql不支持】</code></pre><h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>一个查询语句里面又嵌套了另一个完整的查询语句，被嵌套在里面的查询语句，称为 子查询或内查询<br>外面的查询语句，称为主查询或外查询</p>
+    全外连接【mysql不支持】</code></pre></div><h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>一个查询语句里面又嵌套了另一个完整的查询语句，被嵌套在里面的查询语句，称为 子查询或内查询<br>外面的查询语句，称为主查询或外查询</p>
 <h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>按位置不同：</p>
 <blockquote>
 <p>select后面</br><br>from后面</br><br>where或having后面    ★</br><br>    按查询结果的行数不同：</br><br>        单行子查询</br><br>        多行子查询</br><br>exists后面</br></p>
@@ -465,9 +465,9 @@
 <li><p>整型        TINYINT/SMALLINT/MEDIUMINT/INT/BIGINT</p>
 </li>
 <li><p>浮点型        FLOAT(n,m)/DOUBLE(n,m)/DECIMAL(n,m)</p>
-<pre><code>n:代表整数部位+小数部位的最大长度
+<div class="hljs code-wrapper"><pre><code>n:代表整数部位+小数部位的最大长度
 m:代表小数部位的最大长度
-FLOAT(5,3) :-99.999~99.999</code></pre></li>
+FLOAT(5,3) :-99.999~99.999</code></pre></div></li>
 <li><p>字符型        CHAR(n)/VARCHAR(n)/TEXT<br>TEXT:用于保存较长的文本，比如备注文字、协议文字</p>
 </li>
 </ul>

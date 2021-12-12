@@ -182,6 +182,63 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2020/06/15/flink01/" target="_self">
+          Flink(一)：编译源码
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/06/15/flink01/" target="_self">
+          
+          
+            
+          
+          前言
+以前用过Flink的1.7版本，最近要做实时数仓，于是下载flink源码编译一下，准备精读flink源码
+Flink版本为：1.11
+
+Git 配置代理
+先科学上网，不然 Git clone flink源码的速度很慢、还会中断
+
+123456# 设置代理git config --global http.proxy 'socks5://127.0.0.1:1080'git config --g
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-15 16:02" pubdate>
+              2020-06-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Flink/">Flink</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81/">源码</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2020/06/08/%E8%AE%B0%E5%BD%95%E7%BA%BF%E4%B8%8AHadoop%E9%9B%86%E7%BE%A4%E4%B8%A4%E4%B8%AAnamenode%E9%83%BD%E6%98%AFstandby%E7%8A%B6%E6%80%81/" target="_self">
           记录线上Hadoop集群两个namenode都是standby状态
         </a>
@@ -659,62 +716,6 @@ NoSQL数据库的优
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/NoSQL/">NoSQL</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2018/06/17/mysql1-1/" target="_self">
-          MySQL权限问题
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2018/06/17/mysql1-1/" target="_self">
-          
-          
-            
-          
-          前言
-连接mysql报错java.sql.SQLException: Access denied for user ‘root’@’IP一直会报错，尝试了修改host，还是有问题。
-
-#给单个IP用户授权
-12# 给一个用用户use ip: 1.1.1.1grant all on *.* to root@11.1.1.1 identified by 'passwd'
-
-授权连接全部的ip地址12G
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2018-06-17 08:49" pubdate>
-              2018-06-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/MySQL/">MySQL</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/troubleshooting/">troubleshooting</a>
             
           </div>
         

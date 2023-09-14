@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jude Zeng">
+  <meta name="keywords" content="">
+  
+  <title>redis基础 - 曾俊峰的技术博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/rainbow.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"ef66d4af7f19e187be25c51e68a54b04","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jude'blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://i.loli.net/2020/05/16/pPq2N5KTLjRBiDu.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="redis基础">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-07-02 20:31" pubdate>
+        2018年7月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">redis基础</h1>
+            
+            <div class="markdown-body">
+              <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p>Redis 是速度非常快的非关系型（NoSQL）内存键值数据库，可以存储键和五种不同类型的值之间的映射。</p>
+<p>键的类型只能为字符串，值支持五种数据类型：字符串、列表、集合、散列表、有序集合。</p>
+<p>Redis 支持很多特性，例如将内存中的数据持久化到硬盘中，使用复制来扩展读性能，使用分片来扩展写性能</p>
+</blockquote>
+<p><code>redis</code>:<code>Remote Dictionary Server</code>(远程字典服务器)</p>
+<h2 id="NoSQL数据库的优势性"><a href="#NoSQL数据库的优势性" class="headerlink" title="NoSQL数据库的优势性"></a>NoSQL数据库的优势性</h2><ul>
+<li>易扩展</li>
+</ul>
+<blockquote>
+<p>NoSQL数据库种类繁多，但它们都有一个共通的特点：就是去除关系型数据库的“关系型”特点。数据之间无关系，这样就变得非常容易扩展，而相对应的来看：关系型数据库修改表结构非常困难。这就为项目架构设计提供了更大的扩展空间。</p>
+</blockquote>
+<ul>
+<li>大数据量高性能</li>
+</ul>
+<blockquote>
+<p>NoSQL数据库都具有非常高的读写性能，尤其在大数据量的情况下，表现同样优秀。这得益于NoSQL数据库中数据之间没有“关系”，数据库结构简单。</p>
+</blockquote>
+<blockquote>
+<p>从缓存角度来看，MySQL的Query Cache是表级别的粗粒度缓存，假设存储了100条数据，其中有一条数据修改了，整个缓存失效，效率很低。而NoSQL数据库的缓存是记录级的细粒度缓存，任何一条记录的修改都不影响其他记录，效率很高。</p>
+</blockquote>
+<ul>
+<li>多样灵活的数据模型</li>
+</ul>
+<blockquote>
+<p>NoSQL数据库无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增减修改字段简直就是一个噩梦。</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="redis的bin目录常用命令"><a href="#redis的bin目录常用命令" class="headerlink" title="redis的bin目录常用命令"></a><code>redis</code>的<code>bin</code>目录常用命令</h2><table>
+<thead>
+<tr>
+<th>Redis-benchmark</th>
+<th>压力测试。标准是每秒80000次写操作，110000次读操作 (服务启动起来后执行,类似安兔兔跑分)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Redis-check-aof</td>
+<td>修复有问题的AOF文件</td>
+</tr>
+<tr>
+<td>Redis-check-dump</td>
+<td>修复有问题的dump.rdb文件</td>
+</tr>
+<tr>
+<td>Redis-sentinel</td>
+<td>启动哨兵，集群使用</td>
+</tr>
+<tr>
+<td>redis-server</td>
+<td>启动服务器</td>
+</tr>
+<tr>
+<td>redis-cli</td>
+<td>启动客户端</td>
+</tr>
+</tbody></table>
+<h2 id="客户端登录"><a href="#客户端登录" class="headerlink" title="客户端登录"></a>客户端登录</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>举例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>redis-cli</td>
+<td>启动客户端</td>
+<td>redis-cli –p 端口号  连接指定的端口号</td>
+<td>直接执行的话，默认端口号就是6379；</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>测试联通</td>
+<td></td>
+<td>回复pong代表联通</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出客户端</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>redis-cli shutdown</td>
+<td>停止服务器</td>
+<td>redis-cli -h 127.0.0.1 -p 6379 shutdown  停止指定ip指定端口号的服务器</td>
+<td>redis是通过客户端发送停止服务器的命令</td>
+</tr>
+</tbody></table>
+<h1 id="Redis基本操作"><a href="#Redis基本操作" class="headerlink" title="Redis基本操作"></a>Redis基本操作</h1><h2 id="数据库连接操作"><a href="#数据库连接操作" class="headerlink" title="数据库连接操作"></a>数据库连接操作</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+<th>举例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>select <dbid></td>
+<td>切换数据库</td>
+<td>select 1：切换到1号库</td>
+<td>开启redis服务后，一共有16（0-15）个库，默认在0号库</td>
+</tr>
+<tr>
+<td>flushdb</td>
+<td>清空当前库</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>dbsize</td>
+<td>查看数据库数据个数</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>flushall</td>
+<td>通杀全部库</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="key的操作"><a href="#key的操作" class="headerlink" title="key的操作"></a>key的操作</h2><blockquote>
+<p>Redis中的数据以键值对（key-value）为基本存储方式，其中key都是字符串</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>KEYS  pattern</td>
+<td>查询符合指定表达式的所有key，支持*，？等</td>
+</tr>
+<tr>
+<td>TYPE  key</td>
+<td>查看key对应值的类型</td>
+</tr>
+<tr>
+<td>EXISTS key</td>
+<td>指定的key是否存在，0代表不存在，1代表存在</td>
+</tr>
+<tr>
+<td>DEL key</td>
+<td>删除指定key</td>
+</tr>
+<tr>
+<td>RANDOMKEY</td>
+<td>在现有的KEY中随机返回一个</td>
+</tr>
+<tr>
+<td>EXPIRE key seconds</td>
+<td>为键值设置过期时间，单位是秒，过期后key会被redis移除</td>
+</tr>
+<tr>
+<td>TTL key</td>
+<td>查看key还有多少秒过期，-1表示永不过期，-2表示已过期</td>
+</tr>
+<tr>
+<td>RENAME key newkey</td>
+<td>重命名一个key，NEWKEY不管是否是已经存在的都会执行，如果NEWKEY已经存在则会被覆盖</td>
+</tr>
+<tr>
+<td>RENAMENX   key newkey</td>
+<td>只有在NEWKEY不存在时能够执行成功，否则失败</td>
+</tr>
+</tbody></table>
+<h2 id="常用五大数据类型"><a href="#常用五大数据类型" class="headerlink" title="常用五大数据类型"></a>常用五大数据类型</h2><blockquote>
+<p>Redis中的数据以键值对（key-value）为基本存储方式，其中key都是字符串，这里探讨数据类型都是探讨value的类型。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>list</td>
+<td>可以重复的集合</td>
+</tr>
+<tr>
+<td>set</td>
+<td>不可以重复的集合</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>类似于Map&lt;String,String&gt;</td>
+</tr>
+<tr>
+<td>zset（sorted  set）</td>
+<td>带分数的set</td>
+</tr>
+</tbody></table>
+<h2 id="String操作"><a href="#String操作" class="headerlink" title="String操作"></a>String操作</h2><blockquote>
+<p>String类型是Redis中最基本的类型，它是key对应的一个单一值。</p>
+<p>二进制安全，不必担心由于编码等问题导致二进制数据变化。所以redis的string可以包含任何数据，比如jpg图片或者序列化的对象</p>
+<p>Redis中一个字符串值的最大容量是512M。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>SET  key value</th>
+<th>添加键值对</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET  key</td>
+<td>查询指定key的值</td>
+</tr>
+<tr>
+<td>APPEND key value</td>
+<td>将给定的value追加到原值的末尾</td>
+</tr>
+<tr>
+<td>STRLEN key</td>
+<td>获取值的长度</td>
+</tr>
+<tr>
+<td>SETNX key value</td>
+<td>只有在 key 不存在时设置 key 的值</td>
+</tr>
+<tr>
+<td>INCR key</td>
+<td>指定key的值自增1，只对数字有效</td>
+</tr>
+<tr>
+<td>DECR key</td>
+<td>指定key的值自减1，只对数字有效</td>
+</tr>
+<tr>
+<td>INCRBY key num</td>
+<td>自增num</td>
+</tr>
+<tr>
+<td>DECRBY key num</td>
+<td>自减num</td>
+</tr>
+<tr>
+<td>MSET key1 value1  key2 value2…</td>
+<td>同时设置多个key-value对</td>
+</tr>
+<tr>
+<td>MGET key1 key2</td>
+<td>同时获取一个或多个value</td>
+</tr>
+<tr>
+<td>MSETNX key1 value1 key2 value2</td>
+<td>当key不存在时，设置多个key-value对</td>
+</tr>
+<tr>
+<td>GETRANGE key起始索引 结束索引</td>
+<td>获取指定范围的值，都是闭区间</td>
+</tr>
+<tr>
+<td>SETRANGE key起始索引 value</td>
+<td>从起始位置开始覆写指定的值</td>
+</tr>
+<tr>
+<td>GETSET key value</td>
+<td>以新换旧，同时获取旧值</td>
+</tr>
+<tr>
+<td>SETEX  key 过期时间  value</td>
+<td>设置键值的同时，设置过期时间，单位秒</td>
+</tr>
+</tbody></table>
+<h2 id="list操作"><a href="#list操作" class="headerlink" title="list操作"></a>list操作</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/NoSQL/">NoSQL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/07/08/Hive%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hive常用命令汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/06/17/mysql1-1/">
+                        <span class="hidden-mobile">MySQL权限问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

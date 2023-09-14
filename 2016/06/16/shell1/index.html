@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jude Zeng">
+  <meta name="keywords" content="">
+  
+  <title>shell基本命令 - 曾俊峰的技术博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/rainbow.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"ef66d4af7f19e187be25c51e68a54b04","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jude'blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://i.loli.net/2020/05/16/pPq2N5KTLjRBiDu.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="shell基本命令">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-06-16 08:56" pubdate>
+        2016年6月16日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">shell基本命令</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Shell概述"><a href="#Shell概述" class="headerlink" title="Shell概述"></a>Shell概述</h1><blockquote>
+<p>shell是一个命令解释器，它接受应用程序、用户命令，然后调用操作linux系统内核</p>
+</blockquote>
+<h1 id="Shell解释器"><a href="#Shell解释器" class="headerlink" title="Shell解释器"></a>Shell解释器</h1><h2 id="Linux提供的Shell解析器有"><a href="#Linux提供的Shell解析器有" class="headerlink" title="Linux提供的Shell解析器有"></a>Linux提供的Shell解析器有</h2><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">[root@jude ~]# cat /etc/shells<br>/bin/sh<br>/bin/bash<br>/sbin/nologin<br>/usr/bin/sh<br>/usr/bin/bash<br>/usr/sbin/nologin<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="bash和sh的关系"><a href="#bash和sh的关系" class="headerlink" title="bash和sh的关系"></a>bash和sh的关系</h2><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">[root@jude bin]# ll | grep bash<br>-rwxr-xr-x.   1 root root     964600 8月   8 2015 bash<br>lrwxrwxrwx.   1 root root         10 11月  5 2015 bashbug -&gt; bashbug-64<br>-rwxr-xr-x.   1 root root       6964 8月   8 2015 bashbug-64<br>lrwxrwxrwx.   1 root root          4 11月  5 2015 sh -&gt; bash<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="Centos默认的解析器是bash"><a href="#Centos默认的解析器是bash" class="headerlink" title="Centos默认的解析器是bash"></a>Centos默认的解析器是bash</h2><figure class="highlight autoit"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@jude</span> bin]<span class="hljs-meta"># echo $SHELL</span><br>/bin/bash<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h1><ul>
+<li>脚本格式</li>
+</ul>
+<blockquote>
+<p>脚本以#!/bin/bash开头（指定解析器）</p>
+</blockquote>
+<h2 id="第一个Shell脚本：helloworld"><a href="#第一个Shell脚本：helloworld" class="headerlink" title="第一个Shell脚本：helloworld"></a>第一个Shell脚本：helloworld</h2><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch helloworld.sh<br>[root@hadoop101 datas]$ vi helloworld.sh<br><br>在helloworld.sh中输入如下内容<br><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">"helloworld"</span><br></code></pre></div></td></tr></table></figure>
+
+<ul>
+<li>脚本的常用执行方式</li>
+</ul>
+<blockquote>
+<p>第一种：采用bash或sh+脚本的相对路径或绝对路径（不用赋予脚本+x权限）</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment"># sh+脚本的相对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>sh helloworld.sh <br>Helloworld<br><span class="hljs-comment">#	sh+脚本的绝对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>sh /home/root/datas/helloworld.sh <br>helloworld<br><span class="hljs-comment">#	bash+脚本的相对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>bash helloworld.sh <br>Helloworld<br><span class="hljs-comment">#	bash+脚本的绝对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>bash /home/root/datas/helloworld.sh <br>Helloworld<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>第二种：采用输入脚本的绝对路径或相对路径执行脚本（必须具有可执行权限+x）</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment">#（a）首先要赋予helloworld.sh 脚本的+x权限</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>chmod <span class="hljs-number">777</span> helloworld.sh<br><span class="hljs-comment">#（b）执行脚本</span><br><span class="hljs-comment"># 相对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh <br>Helloworld<br><span class="hljs-comment"># 绝对路径</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>/home/root/datas/helloworld.sh <br>Helloworld<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>注意：第一种执行方法，本质是bash解析器帮你执行脚本，所以脚本本身不需要执行权限。第二种执行方法，本质是脚本需要自己执行，所以需要执行权限。</p>
+</blockquote>
+<h2 id="第二个Shell脚本：多命令处理"><a href="#第二个Shell脚本：多命令处理" class="headerlink" title="第二个Shell脚本：多命令处理"></a>第二个Shell脚本：多命令处理</h2><ul>
+<li>需求</li>
+</ul>
+<blockquote>
+<p>在/home/root/目录下创建一个banzhang.txt,在banzhang.txt文件中增加“I love cls”。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch batch.sh<br>[root@hadoop101 datas]$ vi batch.sh<br><br>在batch.sh中输入如下内容<br><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-built_in">cd</span> /home/root<br>touch cls.txt<br><span class="hljs-built_in">echo</span> <span class="hljs-string">"I love cls"</span> &gt;&gt;cls.txt<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="Shell中的变量"><a href="#Shell中的变量" class="headerlink" title="Shell中的变量"></a>Shell中的变量</h1><h2 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h2><ul>
+<li>常用系统变量</li>
+</ul>
+<p><code>$HOME</code>、<code>$PWD</code>、<code>$SHELL</code>、<code>$USER</code>等</p>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment">#（1）查看系统变量的值</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$HOME</span><br>/home/atguigu<br><span class="hljs-comment">#（2）显示当前Shell中所有变量：set</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>set<br>BASH=<span class="hljs-regexp">/bin/bash</span><br>BASH_ALIASES=()<br>BASH_ARGC=()<br>BASH_ARGV=()<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h2><blockquote>
+<p>（1）定义变量：变量=值 </p>
+<p>（2）撤销变量：unset 变量</p>
+<p>（3）声明静态变量：readonly变量，注意：不能unset</p>
+</blockquote>
+<ul>
+<li>变量定义规则</li>
+</ul>
+<blockquote>
+<p>（1）变量名称可以由字母、数字和下划线组成，但是不能以数字开头，环境变量名建议大写。</p>
+<p>（2）等号两侧不能有空格</p>
+<p>（3）在bash中，变量默认类型都是字符串类型，无法直接进行数值运算。</p>
+<p>（4）变量的值如果有空格，需要使用双引号或单引号括起来。</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）定义变量A<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>A=<span class="hljs-number">5</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span><br><span class="hljs-number">5</span><br>（<span class="hljs-number">2</span>）给变量A重新赋值<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>A=<span class="hljs-number">8</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span><br><span class="hljs-number">8</span><br>	（<span class="hljs-number">3</span>）撤销变量A<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>unset A<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span><br>	（<span class="hljs-number">4</span>）声明静态的变量B=<span class="hljs-number">2</span>，不能unset<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>readonly B=<span class="hljs-number">2</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$B</span><br><span class="hljs-number">2</span><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>B=<span class="hljs-number">9</span><br>-<span class="hljs-symbol">bash:</span> <span class="hljs-symbol">B:</span> readonly variable<br>	（<span class="hljs-number">5</span>）在bash中，变量默认类型都是字符串类型，无法直接进行数值运算<br>[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>C=<span class="hljs-number">1+2</span><br>[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$C</span><br><span class="hljs-number">1+2</span><br>（<span class="hljs-number">6</span>）变量的值如果有空格，需要使用双引号或单引号括起来<br>[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>D=I love banzhang<br>-<span class="hljs-symbol">bash:</span> <span class="hljs-symbol">world:</span> command <span class="hljs-keyword">not</span> found<br>[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>D=<span class="hljs-string">"I love banzhang"</span><br>[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$A</span><br>I love banzhang<br>	（<span class="hljs-number">7</span>）可把变量提升为全局环境变量，可供其他Shell程序使用<br>export 变量名<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>vim helloworld.sh <br><br>在helloworld.sh文件中增加echo <span class="hljs-variable">$B</span><br><span class="hljs-comment">#!/bin/bash</span><br><br>echo <span class="hljs-string">"helloworld"</span><br>echo <span class="hljs-variable">$B</span><br><br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh <br>Helloworld<br>发现并没有打印输出变量B的值。<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>export B<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh <br>helloworld<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="特殊变量：-n"><a href="#特殊变量：-n" class="headerlink" title="特殊变量：$n"></a>特殊变量：<code>$n</code></h2><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p><code>$n</code>  （功能描述：n为数字，<code>$0</code>代表该脚本名称，<code>$1-$9</code>代表第一到第九个参数，十以上的参数，十以上的参数需要用大括号包含，如<code>${10}</code>）</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 输出该脚本文件名称、输入参数1和输入参数2 的值</span><br>[root@hadoop101 datas]$ touch parameter.sh <br>[root@hadoop101 datas]$ vim parameter.sh<br><br><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span><br><br>[root@hadoop101 datas]$ chmod 777 parameter.sh<br>[root@hadoop101 datas]$ ./parameter.sh cls  xz<br>./parameter.sh  cls   xz<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="特殊变量："><a href="#特殊变量：" class="headerlink" title="特殊变量：$#"></a>特殊变量：<code>$#</code></h2><blockquote>
+<p>$#  （功能描述：获取所有输入参数个数，常用于循环）</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 获取输入参数的个数</span><br>[root@hadoop101 datas]$ vim parameter.sh<br><br><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$#</span><br><br>[root@hadoop101 datas]$ chmod 777 parameter.sh<br><br>[root@hadoop101 datas]$ ./parameter.sh cls  xz<br>parameter.sh cls xz <br>2<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="特殊变量：-、"><a href="#特殊变量：-、" class="headerlink" title="特殊变量：$*、$@"></a>特殊变量：<code>$*</code>、<code>$@</code></h2><blockquote>
+<p><code>$*</code>  （功能描述：这个变量代表命令行中所有的参数，<code>$*</code>把所有的参数看成一个整体）</p>
+<p> <code>$@</code> （功能描述：这个变量也代表命令行中所有的参数，不过<code>$@</code>把每个参数区分对待）</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 打印输入的所有参数</span><br>[root@hadoop101 datas]$ vim parameter.sh<br><br><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">"<span class="hljs-variable">$0</span>  <span class="hljs-variable">$1</span>   <span class="hljs-variable">$2</span>"</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$#</span><br><span class="hljs-built_in">echo</span> $*<br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$@</span><br><br>[root@hadoop101 datas]$ bash parameter.sh 1 2 3<br>parameter.sh  1   2  <br>3<br>1 2 3<br>1 2 3<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="特殊变量：-？"><a href="#特殊变量：-？" class="headerlink" title="特殊变量：$？"></a>特殊变量：<code>$？</code></h2><blockquote>
+<p><code>$？</code> （功能描述：最后一次执行的命令的返回状态。如果这个变量的值为0，证明上一个命令正确执行；如果这个变量的值为非0（具体是哪个数，由命令自己来决定），则证明上一个命令执行不正确了。）</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">（<span class="hljs-number">1</span>）判断helloworld.sh脚本是否正确执行<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>./helloworld.sh <br>hello world<br>[root<span class="hljs-variable">@hadoop101</span> datas]<span class="hljs-variable">$ </span>echo <span class="hljs-variable">$?</span><br>0<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>（1）<code>“$((运算式))”</code>或<code>“$[运算式]”</code></p>
+<p>（2）<code>expr  + , - , \*, /, %</code>  加，减，乘，除，取余</p>
+<p>   注意：expr运算符间要有空格</p>
+</blockquote>
+<ul>
+<li>示例</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">（<span class="hljs-number">1</span>）计算<span class="hljs-number">3</span>+<span class="hljs-number">2</span>的值<br>[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr <span class="hljs-number">2</span> + <span class="hljs-number">3</span><br><span class="hljs-number">5</span><br>（<span class="hljs-number">2</span>）计算<span class="hljs-number">3</span><span class="hljs-number">-2</span>的值<br>[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr <span class="hljs-number">3</span> - <span class="hljs-number">2</span> <br><span class="hljs-number">1</span><br>（<span class="hljs-number">3</span>）计算（<span class="hljs-number">2</span>+<span class="hljs-number">3</span>）X4的值<br>	（a）expr一步完成计算<br>[<span class="hljs-symbol">root@</span>hadoop101 datas]$ expr `expr <span class="hljs-number">2</span> + <span class="hljs-number">3</span>` \* <span class="hljs-number">4</span><br><span class="hljs-number">20</span><br>（b）采用$[运算式]方式<br>[<span class="hljs-symbol">root@</span>hadoop101 datas]# S=$[(<span class="hljs-number">2</span>+<span class="hljs-number">3</span>)*<span class="hljs-number">4</span>]<br>[<span class="hljs-symbol">root@</span>hadoop101 datas]# echo $S<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><ul>
+<li>基本语法</li>
+</ul>
+<blockquote>
+<p>[ condition ]（注意condition前后要有空格）</p>
+<p>注意：条件非空即为true，[ root ]返回true，[] 返回false</p>
+</blockquote>
+<ul>
+<li>常用判断条件</li>
+</ul>
+<blockquote>
+<p>（1）两个整数之间比较</p>
+<p>= 字符串比较</p>
+<p>-lt 小于（less than）         -le 小于等于（less equal）</p>
+<p>-eq 等于（equal）           -gt 大于（greater than）</p>
+<p>-ge 大于等于（greater equal）  -ne 不等于（Not equal）</p>
+<p>（2）按照文件权限进行判断</p>
+<p>-r 有读的权限（read）       -w 有写的权限（write）</p>
+<p>-x 有执行的权限（execute）</p>
+<p>（3）按照文件类型进行判断</p>
+<p>-f 文件存在并且是一个常规的文件（file）</p>
+<p>-e 文件存在（existence）      -d 文件存在并是一个目录（directory）</p>
+</blockquote>
+<ul>
+<li>案例实操</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ruby"><span class="hljs-number">1</span>）<span class="hljs-number">23</span>是否大于等于<span class="hljs-number">22</span><br>[root@hadoop101 datas]$ [ <span class="hljs-number">23</span> -ge <span class="hljs-number">22</span> ]<br>[root@hadoop101 datas]$ echo $?<br><span class="hljs-number">0</span><br>	（<span class="hljs-number">2</span>）helloworld.sh是否具有写权限<br>[root@hadoop101 datas]$ [ -w helloworld.sh ]<br>[root@hadoop101 datas]$ echo $?<br><span class="hljs-number">0</span><br>	（<span class="hljs-number">3</span>）/home/root/cls.txt目录中的文件是否存在<br>[root@hadoop101 datas]$ [ -e /home/root/cls.txt ]<br>[root@hadoop101 datas]$ echo $?<br><span class="hljs-number">1</span><br>（<span class="hljs-number">4</span>）多条件判断（&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令，<span class="hljs-params">||</span> 表示上一条命令执行失败后，才执行下一条命令）<br>[root@hadoop101 ~]$ [ condition ] &amp;&amp; echo OK <span class="hljs-params">||</span> echo notok<br>OK<br>[root@hadoop101 datas]$ [ condition ] &amp;&amp; [ ] <span class="hljs-params">||</span> echo notok<br>notok<br></code></pre></div></td></tr></table></figure>
+
+<h1 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h1><h2 id="if-判断"><a href="#if-判断" class="headerlink" title="if 判断"></a>if 判断</h2><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">if [ 条件判断式 ];then <br>  程序 <br>fi <br>或者 <br>if [ 条件判断式 ] <br>  then <br>    程序 <br>fi<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：</p>
+<p>（1）[ 条件判断式 ]，中括号和条件判断式之间必须有空格</p>
+<p>（2）<code>if</code>后要有空格</p>
+</blockquote>
+<ul>
+<li>案例</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">[root@hadoop101 datas]$ touch if.sh<br>[root@hadoop101 datas]$ vim if.sh<br><br><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$1</span> -eq <span class="hljs-string">"1"</span> ]<br><span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">"banzhang zhen shuai"</span><br><span class="hljs-keyword">elif</span> [ <span class="hljs-variable">$1</span> -eq <span class="hljs-string">"2"</span> ]<br><span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">"cls zhen mei"</span><br><span class="hljs-keyword">fi</span><br><br>[root@hadoop101 datas]$ chmod 777 if.sh <br>[root@hadoop101 datas]$ ./if.sh 1<br>banzhang zhen shuai<br></code></pre></div></td></tr></table></figure>
+
+<h2 id="case-语句"><a href="#case-语句" class="headerlink" title="case 语句"></a>case 语句</h2><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">case $变量名 in <br>  "值1"） <br>    如果变量的值等于值1，则执行程序1 <br>    ;; <br>  "值2"） <br>    如果变量的值等于值2，则执行程序2 <br>    ;; <br>  …省略其他分支… <br>  *） <br>    如果变量的值都不是以上的值，则执行此程序 <br>    ;; <br>esac<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p>注意事项：</p>
+<p>1)   case行尾必须为单词“in”，每一个模式匹配必须以右括号“）”结束。</p>
+<p>2)   双分号“<strong>;;</strong>”表示命令序列结束，相当于java中的break。</p>
+<p>3)   最后的“*）”表示默认模式，相当于java中的default。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Shell/">Shell</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">基本语法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/05/05/hadoop1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">大数据生态Hadoop(一)：起源</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/03/10/mysql2/">
+                        <span class="hidden-mobile">MySQL面试题(一)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

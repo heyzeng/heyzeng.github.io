@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jude Zeng">
+  <meta name="keywords" content="">
+  
+  <title>数仓工具hive(二)：Hive安装部署 - 曾俊峰的技术博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/styles/rainbow.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"github.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"ef66d4af7f19e187be25c51e68a54b04","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jude'blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://i.loli.net/2020/05/16/pPq2N5KTLjRBiDu.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="数仓工具hive(二)：Hive安装部署">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-05-29 11:59" pubdate>
+        2017年5月29日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数仓工具hive(二)：Hive安装部署</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Hive安装地址"><a href="#Hive安装地址" class="headerlink" title="Hive安装地址"></a>Hive安装地址</h1><ul>
+<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive官网地址</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/GettingStarted" target="_blank" rel="noopener">文档查看地址</a></li>
+<li><a href="http://archive.apache.org/dist/hive/" target="_blank" rel="noopener">下载地址</a></li>
+</ul>
+<h1 id="Hive安装部署"><a href="#Hive安装部署" class="headerlink" title="Hive安装部署"></a>Hive安装部署</h1><h2 id="Hive安装及配置"><a href="#Hive安装及配置" class="headerlink" title="Hive安装及配置"></a>Hive安装及配置</h2><ul>
+<li>把apache-hive-1.2.1-bin.tar.gz上传到linux的/opt/software目录下</li>
+<li>解压apache-hive-1.2.1-bin.tar.gz到/opt/module/目录下面<figure class="highlight ruby"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ruby">[root@hadoop102 software]$ tar -zxvf apache-hive-<span class="hljs-number">1.2</span>.<span class="hljs-number">1</span>-bin.tar.gz -C /opt/<span class="hljs-class"><span class="hljs-keyword">module</span>/</span><br></code></pre></div></td></tr></table></figure></li>
+<li>修改apache-hive-1.2.1-bin.tar.gz的名称为hive<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 module]$ mv apache-hive<span class="hljs-number">-1.2</span><span class="hljs-number">.1</span>-bin/ hive<br></code></pre></div></td></tr></table></figure></li>
+<li>修改/opt/module/hive/conf目录下的hive-env.sh.template名称为hive-env.sh<figure class="highlight mel"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mel">[root@hadoop102 conf]$ mv hive-<span class="hljs-keyword">env</span>.sh.template hive-<span class="hljs-keyword">env</span>.sh<br></code></pre></div></td></tr></table></figure></li>
+<li>配置hive-env.sh文件<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 配置HADOOP_HOME路径E</span><br><span class="hljs-built_in">export</span> HADOOP_HOME=/opt/module/hadoop-2.7.2<br><span class="hljs-comment"># 配置HIVE_CONF_DIR路径</span><br><span class="hljs-built_in">export</span> HIVE_CONF_DIR=/opt/module/hive/conf<br></code></pre></div></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="Hadoop集群配置"><a href="#Hadoop集群配置" class="headerlink" title="Hadoop集群配置"></a>Hadoop集群配置</h2><ul>
+<li>必须启动hdfs和yarn<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">[root@hadoop102 hadoop-2.7.2]$ sbin/start-dfs.sh<br>[root@hadoop103 hadoop-2.7.2]$ sbin/start-yarn.sh<br></code></pre></div></td></tr></table></figure></li>
+<li>在HDFS上创建/tmp和/user/hive/warehouse两个目录并修改他们的同组权限可写<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 hadoop<span class="hljs-number">-2.7</span><span class="hljs-number">.2</span>]$ bin/hadoop fs -mkdir /tmp<br>[<span class="hljs-symbol">root@</span>hadoop102 hadoop<span class="hljs-number">-2.7</span><span class="hljs-number">.2</span>]$ bin/hadoop fs -mkdir -p /user/hive/warehouse<br>[<span class="hljs-symbol">root@</span>hadoop102 hadoop<span class="hljs-number">-2.7</span><span class="hljs-number">.2</span>]$ bin/hadoop fs -chmod g+w /tmp<br>[<span class="hljs-symbol">root@</span>hadoop102 hadoop<span class="hljs-number">-2.7</span><span class="hljs-number">.2</span>]$ bin/hadoop fs -chmod g+w /user/hive/warehouse<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Hive基本操作"><a href="#Hive基本操作" class="headerlink" title="Hive基本操作"></a>Hive基本操作</h2><ul>
+<li>启动hive<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> hive]<span class="hljs-variable">$ </span>bin/hive<br></code></pre></div></td></tr></table></figure></li>
+<li>查看数据库<figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">hive&gt; show databases<span class="hljs-comment">;</span><br></code></pre></div></td></tr></table></figure></li>
+<li>打开默认数据库<figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript">hive&gt; <span class="hljs-keyword">use</span> <span class="hljs-keyword">default</span>;<br></code></pre></div></td></tr></table></figure></li>
+<li>显示default数据库中的表<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">hive&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">tables</span>;<br></code></pre></div></td></tr></table></figure></li>
+<li>创建一张表<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">hive&gt; <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student(id <span class="hljs-type">int</span>, <span class="hljs-type">name</span> string);<br></code></pre></div></td></tr></table></figure></li>
+<li>查看表的结构<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">hive&gt; <span class="hljs-keyword">desc</span> student;<br>hive&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student;<br></code></pre></div></td></tr></table></figure></li>
+<li>向表中插入数据<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">hive&gt; <span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> student <span class="hljs-keyword">values</span>(<span class="hljs-number">1000</span>,<span class="hljs-string">"ss"</span>);<br></code></pre></div></td></tr></table></figure></li>
+<li>查询表中数据<figure class="highlight n1ql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs n1ql">hive&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> student;<br></code></pre></div></td></tr></table></figure></li>
+<li>退出hive<figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">hive&gt; quit<span class="hljs-comment">;</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h1 id="将本地文件导入Hive案例"><a href="#将本地文件导入Hive案例" class="headerlink" title="将本地文件导入Hive案例"></a>将本地文件导入Hive案例</h1><ul>
+<li>需求 </li>
+</ul>
+<p>将本地/opt/module/datas/student.txt这个目录下的数据导入到hive的student(id int, name string)表中。</p>
+<ul>
+<li><p>数据准备</p>
+<ul>
+<li>在/opt/module/目录下创建datas<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> <span class="hljs-keyword">module</span>]<span class="hljs-variable">$ </span>mkdir datas<br></code></pre></div></td></tr></table></figure></li>
+<li>在/opt/module/datas/目录下创建student.txt文件并添加数据<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 datas]$ touch student.txt<br>[<span class="hljs-symbol">root@</span>hadoop102 datas]$ vi student.txt<br><span class="hljs-number">1001</span>	zhangshan<br><span class="hljs-number">1002</span>	lishi<br><span class="hljs-number">1003</span>	zhaoliu<br></code></pre></div></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Hive实际操作</p>
+<ul>
+<li>创建student表, 并声明文件分隔符’\t’<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">hive&gt; <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> student(id <span class="hljs-type">int</span>, <span class="hljs-type">name</span> string) <span class="hljs-keyword">ROW</span> <span class="hljs-keyword">FORMAT</span> DELIMITED FIELDS TERMINATED<br><span class="hljs-keyword">BY</span> <span class="hljs-string">'\t'</span>;<br></code></pre></div></td></tr></table></figure></li>
+<li>加载/opt/module/datas/student.txt 文件到student数据库表中<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/opt/module/datas/student.txt'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> student;<br></code></pre></div></td></tr></table></figure></li>
+<li>Hive查询结果<figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-string">hive&gt;</span> <span class="hljs-string">select</span> <span class="hljs-string">*</span> <span class="hljs-string">from</span> <span class="hljs-string">student;</span><br><span class="hljs-string">OK</span><br><span class="hljs-number">1001</span>	<span class="hljs-string">zhangshan</span><br><span class="hljs-number">1002</span>	<span class="hljs-string">lishi</span><br><span class="hljs-number">1003</span>	<span class="hljs-string">zhaoliu</span><br><span class="hljs-attr">Time taken:</span> <span class="hljs-number">0.266</span> <span class="hljs-string">seconds,</span> <span class="hljs-attr">Fetched:</span> <span class="hljs-number">3</span> <span class="hljs-string">row(s)</span><br></code></pre></div></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>遇到的问题</p>
+<ul>
+<li>再打开一个客户端窗口启动hive，会产生java.sql.SQLException异常</li>
+<li>原因是，Metastore默认存储在自带的derby数据库中，推荐使用MySQL存储Metastore;<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">Exception</span> <span class="hljs-selector-tag">in</span> <span class="hljs-selector-tag">thread</span> "<span class="hljs-selector-tag">main</span>" <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.RuntimeException</span>: <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.RuntimeException</span>:<br> <span class="hljs-selector-tag">Unable</span> <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">instantiate</span><br> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.metadata</span><span class="hljs-selector-class">.SessionHiveMetaStoreClient</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.session</span><span class="hljs-selector-class">.SessionState</span><span class="hljs-selector-class">.start</span>(<span class="hljs-selector-tag">SessionState</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:522)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.cli</span><span class="hljs-selector-class">.CliDriver</span><span class="hljs-selector-class">.run</span>(<span class="hljs-selector-tag">CliDriver</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:677)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.cli</span><span class="hljs-selector-class">.CliDriver</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">CliDriver</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:621)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">sun</span><span class="hljs-selector-class">.reflect</span><span class="hljs-selector-class">.NativeMethodAccessorImpl</span><span class="hljs-selector-class">.invoke0</span>(<span class="hljs-selector-tag">Native</span> <span class="hljs-selector-tag">Method</span>)<br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">sun</span><span class="hljs-selector-class">.reflect</span><span class="hljs-selector-class">.NativeMethodAccessorImpl</span><span class="hljs-selector-class">.invoke</span>(<span class="hljs-selector-tag">NativeMethodAccessorImpl</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:57)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">sun</span><span class="hljs-selector-class">.reflect</span><span class="hljs-selector-class">.DelegatingMethodAccessorImpl</span><span class="hljs-selector-class">.invoke</span>(<span class="hljs-selector-tag">DelegatingMethodAccessorImpl</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:43)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.reflect</span><span class="hljs-selector-class">.Method</span><span class="hljs-selector-class">.invoke</span>(<span class="hljs-selector-tag">Method</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:606)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.RunJar</span><span class="hljs-selector-class">.run</span>(<span class="hljs-selector-tag">RunJar</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:221)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.util</span><span class="hljs-selector-class">.RunJar</span><span class="hljs-selector-class">.main</span>(<span class="hljs-selector-tag">RunJar</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:136)</span><br><span class="hljs-selector-tag">Caused</span> <span class="hljs-selector-tag">by</span>: <span class="hljs-selector-tag">java</span><span class="hljs-selector-class">.lang</span><span class="hljs-selector-class">.RuntimeException</span>: <span class="hljs-selector-tag">Unable</span> <span class="hljs-selector-tag">to</span> <span class="hljs-selector-tag">instantiate</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.metadata</span><span class="hljs-selector-class">.SessionHiveMetaStoreClient</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.metastore</span><span class="hljs-selector-class">.MetaStoreUtils</span><span class="hljs-selector-class">.newInstance</span>(<span class="hljs-selector-tag">MetaStoreUtils</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:1523)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.metastore</span><span class="hljs-selector-class">.RetryingMetaStoreClient</span>.&lt;<span class="hljs-selector-tag">init</span>&gt;(<span class="hljs-selector-tag">RetryingMetaStoreClient</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:86)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.metastore</span><span class="hljs-selector-class">.RetryingMetaStoreClient</span><span class="hljs-selector-class">.getProxy</span>(<span class="hljs-selector-tag">RetryingMetaStoreClient</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:132)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.metastore</span><span class="hljs-selector-class">.RetryingMetaStoreClient</span><span class="hljs-selector-class">.getProxy</span>(<span class="hljs-selector-tag">RetryingMetaStoreClient</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:104)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.metadata</span><span class="hljs-selector-class">.Hive</span><span class="hljs-selector-class">.createMetaStoreClient</span>(<span class="hljs-selector-tag">Hive</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:3005)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.metadata</span><span class="hljs-selector-class">.Hive</span><span class="hljs-selector-class">.getMSC</span>(<span class="hljs-selector-tag">Hive</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:3024)</span><br>        <span class="hljs-selector-tag">at</span> <span class="hljs-selector-tag">org</span><span class="hljs-selector-class">.apache</span><span class="hljs-selector-class">.hadoop</span><span class="hljs-selector-class">.hive</span><span class="hljs-selector-class">.ql</span><span class="hljs-selector-class">.session</span><span class="hljs-selector-class">.SessionState</span><span class="hljs-selector-class">.start</span>(<span class="hljs-selector-tag">SessionState</span><span class="hljs-selector-class">.java</span><span class="hljs-selector-pseudo">:503)</span><br>... 8 <span class="hljs-selector-tag">more</span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Hive元数据配置到MySQL"><a href="#Hive元数据配置到MySQL" class="headerlink" title="Hive元数据配置到MySQL"></a>Hive元数据配置到MySQL</h1><h2 id="驱动拷贝"><a href="#驱动拷贝" class="headerlink" title="驱动拷贝"></a>驱动拷贝</h2><ul>
+<li>拷贝/opt/software/mysql-libs/mysql-connector-java-5.1.27目录下的mysql-connector-java-5.1.27-bin.jar到/opt/module/hive/lib/<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 mysql-connector-java<span class="hljs-number">-5.1</span><span class="hljs-number">.27</span>]# cp mysql-connector-java<span class="hljs-number">-5.1</span><span class="hljs-number">.27</span>-bin.jar<br> /opt/module/hive/lib/<br></code></pre></div></td></tr></table></figure>
+<h2 id="配置Metastore到MySQL"><a href="#配置Metastore到MySQL" class="headerlink" title="配置Metastore到MySQL"></a>配置Metastore到MySQL</h2></li>
+<li>在/opt/module/hive/conf目录下创建一个hive-site.xml<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> conf]<span class="hljs-variable">$ </span>touch hive-site.xml<br>[root<span class="hljs-variable">@hadoop102</span> conf]<span class="hljs-variable">$ </span>vi hive-site.xml<br></code></pre></div></td></tr></table></figure></li>
+<li>根据官方文档配置参数，拷贝数据到hive-site.xml文件中<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version="1.0"?&gt;</span><br><span class="hljs-meta">&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>jdbc:mysql://hadoop102:3306/metastore?createDatabaseIfNotExist=true<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>JDBC connect string for a JDBC metastore<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>com.mysql.jdbc.Driver<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>Driver class name for a JDBC metastore<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>root<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>username to use against metastore database<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>000000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>	  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>password to use against metastore database<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li>
+<li>配置完毕后，如果启动hive异常，可以重新启动虚拟机。（重启后，别忘了启动hadoop集群</li>
+</ul>
+<h2 id="多窗口启动Hive测试"><a href="#多窗口启动Hive测试" class="headerlink" title="多窗口启动Hive测试"></a>多窗口启动Hive测试</h2><ul>
+<li>先启动MySQL<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> mysql-libs]<span class="hljs-variable">$ </span>mysql -uroot -p000000<br></code></pre></div></td></tr></table></figure></li>
+<li>查看有几个数据库<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">mysql&gt; show databases;<br><span class="hljs-code">+--------------------+</span><br>| Database           |<br><span class="hljs-code">+--------------------+</span><br>| information<span class="hljs-emphasis">_schema |</span><br><span class="hljs-emphasis">| mysql             |</span><br><span class="hljs-emphasis">| performance_</span>schema |<br>| test               |<br><span class="hljs-code">+--------------------+</span><br></code></pre></div></td></tr></table></figure></li>
+<li>再次打开多个窗口，分别启动hive<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> hive]<span class="hljs-variable">$ </span>bin/hive<br></code></pre></div></td></tr></table></figure></li>
+<li>启动hive后，回到MySQL窗口查看数据库，显示增加了metastore数据库<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">mysql&gt; show databases;<br><span class="hljs-code">+--------------------+</span><br>| Database           |<br><span class="hljs-code">+--------------------+</span><br>| information<span class="hljs-emphasis">_schema |</span><br><span class="hljs-emphasis">| metastore          |</span><br><span class="hljs-emphasis">| mysql             |</span><br><span class="hljs-emphasis">| performance_</span>schema |<br>| test               |<br><span class="hljs-code">+--------------------+</span><br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="HiveJDBC访问"><a href="#HiveJDBC访问" class="headerlink" title="HiveJDBC访问"></a>HiveJDBC访问</h2><ul>
+<li>启动hiveserver2服务<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> hive]<span class="hljs-variable">$ </span>bin/hiveserver2<br></code></pre></div></td></tr></table></figure></li>
+<li>启动beeline<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop102 hive]$ bin/beeline<br>Beeline version <span class="hljs-number">1.2</span><span class="hljs-number">.1</span> by Apache Hive<br>beeline&gt;<br></code></pre></div></td></tr></table></figure></li>
+<li>连接hiveserver2<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">beeline&gt; !connect jdbc:hive2://hadoop102:10000（回车）<br>Connecting to jdbc:hive2://hadoop102:10000<br>Enter username for jdbc:hive2://hadoop102:10000: root（回车）<br>Enter password for jdbc:hive2://hadoop102:10000: （直接回车）<br>Connected to: Apache Hive (version 1.2.1)<br>Driver: Hive JDBC (version 1.2.1)<br>Transaction isolation: TRANSACTION<span class="hljs-emphasis">_REPEATABLE_</span>READ<br>0: jdbc:hive2://hadoop102:10000&gt; show databases;<br><span class="hljs-code">+----------------+</span>--+<br>| database<span class="hljs-emphasis">_name  |</span><br><span class="hljs-emphasis">+----------------+--+</span><br><span class="hljs-emphasis">| default        |</span><br><span class="hljs-emphasis">| hive_</span>db2       |<br><span class="hljs-code">+----------------+</span>--+<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Hive常用交互命令"><a href="#Hive常用交互命令" class="headerlink" title="Hive常用交互命令"></a>Hive常用交互命令</h2><figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">[root@hadoop102 hive]$ bin/hive -<span class="hljs-keyword">help</span><br>usage: hive<br> -d,--define &lt;key=value&gt;          Variable subsitution <span class="hljs-keyword">to</span> apply <span class="hljs-keyword">to</span> hive<br>                                  commands. <span class="hljs-keyword">e</span>.g. -d A=B <span class="hljs-built_in">or</span> --define A=B<br>    --database <span class="hljs-symbol">&lt;databasename&gt;</span>     Specify the database <span class="hljs-keyword">to</span> use<br> -<span class="hljs-keyword">e</span> <span class="hljs-symbol">&lt;quoted-query-string&gt;</span>         SQL from <span class="hljs-keyword">command</span> <span class="hljs-built_in">line</span><br> -<span class="hljs-keyword">f</span> <span class="hljs-symbol">&lt;filename&gt;</span>                    SQL from <span class="hljs-keyword">files</span><br> -H,--<span class="hljs-keyword">help</span>                        <span class="hljs-keyword">Print</span> <span class="hljs-keyword">help</span> information<br>    --hiveconf &lt;property=value&gt;   Use value <span class="hljs-keyword">for</span> given property<br>    --hivevar &lt;key=value&gt;         Variable subsitution <span class="hljs-keyword">to</span> apply <span class="hljs-keyword">to</span> hive<br>                                  commands. <span class="hljs-keyword">e</span>.g. --hivevar A=B<br> -i <span class="hljs-symbol">&lt;filename&gt;</span>                    Initialization SQL <span class="hljs-keyword">file</span><br> -S,--<span class="hljs-keyword">silent</span>                      Silent <span class="hljs-keyword">mode</span> in interactive <span class="hljs-keyword">shell</span><br> -v,--<span class="hljs-keyword">verbose</span>                     Verbose <span class="hljs-keyword">mode</span> (<span class="hljs-keyword">echo</span> executed SQL <span class="hljs-keyword">to</span> the console)<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>“-e”不进入hive的交互窗口执行sql语句<figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">[root@hadoop102 hive]$ bin/hive -e "<span class="hljs-keyword">select</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">from</span> student;"<br></code></pre></div></td></tr></table></figure></li>
+<li>“-f”执行脚本中sql语句<ul>
+<li>在/opt/module/datas目录下创建hivef.sql文件<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> datas]<span class="hljs-variable">$ </span>touch hivef.sql<br></code></pre></div></td></tr></table></figure></li>
+<li>执行文件中的sql语句<figure class="highlight ruby"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ruby">[root@hadoop102 hive]$ bin/hive -f /opt/<span class="hljs-class"><span class="hljs-keyword">module</span>/<span class="hljs-title">datas</span>/<span class="hljs-title">hivef</span>.<span class="hljs-title">sql</span></span><br></code></pre></div></td></tr></table></figure></li>
+<li>执行文件中的sql语句并将结果写入文件中<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> hive]<span class="hljs-variable">$ </span>bin/hive -f /opt/<span class="hljs-keyword">module</span>/datas/hivef.sql  &gt; <span class="hljs-regexp">/opt/module</span><span class="hljs-regexp">/datas/hive</span>_result.txt<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hive其他命令操作"><a href="#Hive其他命令操作" class="headerlink" title="Hive其他命令操作"></a>Hive其他命令操作</h2><ul>
+<li>退出hive窗口：<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">hive(default)&gt;<span class="hljs-keyword">exit</span>;<br>hive(default)&gt;quit;<br></code></pre></div></td></tr></table></figure>
+在新版的hive中没区别了，在以前的版本是有的：<br>exit:先隐性提交数据，再退出；<br>quit:不提交数据，退出；</li>
+<li>在hive cli命令窗口中如何查看hdfs文件系统<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">hive</span><span class="hljs-params">(default)</span></span>&gt;dfs -ls /<br></code></pre></div></td></tr></table></figure></li>
+<li>在hive cli命令窗口中如何查看本地文件系统<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">hive</span><span class="hljs-params">(default)</span></span>&gt;! ls /opt/module/datas<br></code></pre></div></td></tr></table></figure></li>
+<li>查看在hive中输入的所有历史命令<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">[root<span class="hljs-variable">@hadoop102</span> ~]<span class="hljs-variable">$ </span>cat .hivehistory<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="参数配置方式"><a href="#参数配置方式" class="headerlink" title="参数配置方式"></a>参数配置方式</h2><ul>
+<li>查看当前所有的配置信息<figure class="highlight gams"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gams">hive&gt;<span class="hljs-keyword">set</span>;<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="参数的配置三种方式"><a href="#参数的配置三种方式" class="headerlink" title="参数的配置三种方式"></a>参数的配置三种方式</h3><ul>
+<li>配置文件方式<ul>
+<li>默认配置文件：hive-default.xml,</li>
+<li>用户自定义配置文件：hive-site.xml</li>
+<li>注意：用户自定义配置会覆盖默认配置。<br>另外，Hive也会读入Hadoop的配置，因为Hive是作为Hadoop的客户端启动的，Hive的配置会覆盖Hadoop的配置。配置文件的设定对本机启动的所有Hive进程都有效<h3 id="命令行参数方式"><a href="#命令行参数方式" class="headerlink" title="命令行参数方式"></a>命令行参数方式</h3>启动Hive时，可以在命令行添加-hiveconf param=value来设定参数。<br>例如：<figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>hadoop103 hive]$ bin/hive -hiveconf mapred.reduce.tasks=<span class="hljs-number">10</span>;<br></code></pre></div></td></tr></table></figure>
+注意：仅对本次hive启动有效</li>
+</ul>
+</li>
+<li>查看参数设置：<figure class="highlight swift"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs swift">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">set</span> mapred.<span class="hljs-built_in">reduce</span>.tasks;<br></code></pre></div></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="参数声明方式"><a href="#参数声明方式" class="headerlink" title="参数声明方式"></a>参数声明方式</h3><p>可以在HQL中使用SET关键字设定参数<br>例如：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">hive (default)&gt; <span class="hljs-builtin-name">set</span> mapred.reduce.<span class="hljs-attribute">tasks</span>=100;<br></code></pre></div></td></tr></table></figure>
+<p>注意：仅对本次hive启动有效。</p>
+<ul>
+<li>查看参数设置<figure class="highlight swift"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs swift">hive (<span class="hljs-keyword">default</span>)&gt; <span class="hljs-keyword">set</span> mapred.<span class="hljs-built_in">reduce</span>.tasks;<br></code></pre></div></td></tr></table></figure>
+上述三种设定方式的优先级依次递增。即配置文件&lt;命令行参数&lt;参数声明。注意某些系统级的参数，例如log4j相关的设定，必须用前两种方式设定，因为那些参数的读取在会话建立以前已经完成了。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Hive/">Hive</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%83%A8%E7%BD%B2/">部署</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/06/03/hive3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数仓工具Hive(三)：Hive数据类型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/05/28/hive1/">
+                        <span class="hidden-mobile">数仓工具Hive(一)：起源</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

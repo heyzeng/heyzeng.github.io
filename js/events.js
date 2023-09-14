@@ -9,11 +9,8 @@ HTMLElement.prototype.wrap = function(wrapper) {
 Fluid.events = {
 
   registerNavbarEvent: function() {
-    var navbar = jQuery('#navbar');
-    if (navbar.length === 0) {
-      return;
-    }
-    var submenu = jQuery('#navbar .dropdown-menu');
+    var navbar = $('#navbar');
+    var submenu = $('#navbar .dropdown-menu');
     if (navbar.offset().top > 0) {
       navbar.removeClass('navbar-dark');
       submenu.removeClass('navbar-dark');
@@ -29,35 +26,38 @@ Fluid.events = {
         submenu.removeClass('navbar-dark');
       }
     });
-    jQuery('#navbar-toggler-btn').on('click', function() {
-      jQuery('.animated-icon').toggleClass('open');
-      jQuery('#navbar').toggleClass('navbar-col-show');
+    $('#navbar-toggler-btn').on('click', function() {
+      $('.animated-icon').toggleClass('open');
+      $('#navbar').toggleClass('navbar-col-show');
     });
   },
 
   registerParallaxEvent: function() {
-    var ph = jQuery('#banner[parallax="true"]');
-    if (ph.length === 0) {
+    var bg = $('#banner[parallax="true"]');
+    if (bg.length === 0) {
       return;
     }
-    var board = jQuery('#board');
+    var board = $('#board');
     if (board.length === 0) {
       return;
     }
     var parallax = function() {
-      var pxv = jQuery(window).scrollTop() / 5;
-      var offset = parseInt(board.css('margin-top'), 10);
+      var oVal = $(window).scrollTop() / 5;
+      var offset = parseInt(board.css('margin-top'), 0);
       var max = 96 + offset;
-      if (pxv > max) {
-        pxv = max;
+      if (oVal > max) {
+        oVal = max;
       }
-      ph.css({
-        transform: 'translate3d(0,' + pxv + 'px,0)'
+      bg.css({
+        transform          : 'translate3d(0,' + oVal + 'px,0)',
+        '-webkit-transform': 'translate3d(0,' + oVal + 'px,0)',
+        '-ms-transform'    : 'translate3d(0,' + oVal + 'px,0)',
+        '-o-transform'     : 'translate3d(0,' + oVal + 'px,0)'
       });
-      var sideCol = jQuery('.side-col');
-      if (sideCol) {
-        sideCol.css({
-          'padding-top': pxv + 'px'
+      var toc = $('#toc');
+      if (toc) {
+        $('#toc-ctn').css({
+          'padding-top': oVal + 'px'
         });
       }
     };
@@ -65,21 +65,21 @@ Fluid.events = {
   },
 
   registerScrollDownArrowEvent: function() {
-    var scrollbar = jQuery('.scroll-down-bar');
+    var scrollbar = $('.scroll-down-bar');
     if (scrollbar.length === 0) {
       return;
     }
     scrollbar.on('click', function() {
-      Fluid.utils.scrollToElement('#board', -jQuery('#navbar').height());
+      Fluid.utils.scrollToElement('#board', -$('#navbar').height());
     });
   },
 
   registerScrollTopArrowEvent: function() {
-    var topArrow = jQuery('#scroll-top-button');
+    var topArrow = $('#scroll-top-button');
     if (topArrow.length === 0) {
       return;
     }
-    var board = jQuery('#board');
+    var board = $('#board');
     if (board.length === 0) {
       return;
     }
@@ -97,7 +97,7 @@ Fluid.events = {
       });
     };
     setTopArrowPos();
-    jQuery(window).resize(setTopArrowPos);
+    $(window).resize(setTopArrowPos);
     // Display
     var headerHeight = board.offset().top;
     Fluid.utils.listenScroll(function() {
@@ -109,7 +109,7 @@ Fluid.events = {
     });
     // Click
     topArrow.on('click', function() {
-      jQuery('body,html').animate({
+      $('body,html').animate({
         scrollTop: 0,
         easing   : 'swing'
       });
@@ -131,7 +131,7 @@ Fluid.events = {
       if (img.complete) { img.onload(); }
     }
 
-    var notLazyImages = jQuery('main img:not([lazyload])');
+    var notLazyImages = $('main img:not([lazyload])');
     var total = notLazyImages.length;
     for (const img of notLazyImages) {
       const old = img.onload;
@@ -140,23 +140,6 @@ Fluid.events = {
         window.NProgress && window.NProgress.inc(0.5 / total);
       };
       if (img.complete) { img.onload(); }
-    }
-  },
-
-  registerRefreshCallback: function(callback) {
-    if (!Array.isArray(Fluid.events._refreshCallbacks)) {
-      Fluid.events._refreshCallbacks = [];
-    }
-    Fluid.events._refreshCallbacks.push(callback);
-  },
-
-  refresh: function() {
-    if (Array.isArray(Fluid.events._refreshCallbacks)) {
-      for (var callback of Fluid.events._refreshCallbacks) {
-        if (callback instanceof Function) {
-          callback();
-        }
-      }
     }
   },
 
